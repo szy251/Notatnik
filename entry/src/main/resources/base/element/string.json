@@ -1,0 +1,64 @@
+{
+  "string": [
+    {
+      "name": "entry_MainAbility",
+      "value": "Easy Notes"
+    },
+    {
+      "name": "mainability_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "mainability_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "tresc_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "tresc_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_Tresc",
+      "value": "Easy Notes"
+    },
+    {
+      "name": "add_tytul_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "add_tytul_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_Add_tytul",
+      "value": "Easy Notes"
+    },
+    {
+      "name": "opcje_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "opcje_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_Opcje",
+      "value": "Easy Notes"
+    },
+    {
+      "name": "delete_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "delete_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_Delete",
+      "value": "entry_Delete"
+    }
+  ]
+}

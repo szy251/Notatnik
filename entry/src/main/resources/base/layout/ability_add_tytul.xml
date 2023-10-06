@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PositionLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:id="$+id:ability_add"
+    ohos:height="466px"
+    ohos:background_element="#FF000000"
+    ohos:width="466px"
+    ohos:alignment="center"
+    ohos:orientation="vertical">
+    <ScrollView
+        ohos:height="366px"
+        ohos:width="match_content"
+        ohos:min_height="366px"
+        ohos:id="$+id:scroll"
+        ohos:layout_alignment="horizontal_center">
+        <DirectionalLayout
+            ohos:height="match_content"
+            ohos:background_element="#FF000000"
+            ohos:width="466px"
+            ohos:alignment="center">
+
+            <TextField
+                ohos:height="match_content"
+                ohos:width="350px"
+                ohos:top_margin="150px"
+                ohos:id="$+id:dodaj_tytul"
+                ohos:text_alignment="center"
+                ohos:layout_alignment="center"
+                ohos:text_input_type="pattern_text"
+                ohos:text_color="#FFB5B5B5"
+                ohos:background_element="#FF000000"
+                ohos:text_size="40px"
+                ohos:hint="Add title"
+                />
+        </DirectionalLayout>
+    </ScrollView>
+    <Button
+        ohos:height="100px"
+        ohos:width="466px"
+        ohos:id="$+id:dalej"
+        ohos:background_element="$graphic:przycisk"
+        ohos:layout_alignment="center"
+        ohos:text="Next"
+        ohos:text_size="40px"
+        />
+
+
+</PositionLayout>

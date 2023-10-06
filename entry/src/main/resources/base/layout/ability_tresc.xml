@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<DirectionalLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="466px"
+    ohos:width="466px"
+    ohos:alignment="center"
+    ohos:orientation="vertical"
+    ohos:id="$+id:tresc">
+
+    <ScrollView
+        ohos:height="466px"
+        ohos:width="466px"
+        ohos:layout_alignment="horizontal_center">
+        <DirectionalLayout
+            ohos:height="match_content"
+            ohos:width="466px"
+            ohos:background_element="#FF000000">
+        <Button
+            ohos:height="100px"
+            ohos:width="466px"
+            ohos:id="$+id:to_option"
+            ohos:text="More"
+            ohos:text_size="40px"
+            ohos:background_element="$graphic:przycisk"
+            />
+        <Text
+        ohos:id="$+id:text_tresc"
+        ohos:height="match_content"
+        ohos:width="420px"
+        ohos:background_element="#FF000000"
+        ohos:text_color="#FFB5B5B5"
+        ohos:text_alignment="center"
+        ohos:layout_alignment="center"
+        ohos:top_padding="100px"
+        ohos:bottom_padding="200px"
+        ohos:text="$string:tresc_HelloWorld"
+        ohos:text_size="50px"
+            />
+        </DirectionalLayout>
+    </ScrollView>
+</DirectionalLayout>

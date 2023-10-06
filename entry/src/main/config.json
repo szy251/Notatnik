@@ -1,0 +1,132 @@
+{
+  "app": {
+    "bundleName": "com.example.notatnik",
+    "vendor": "example",
+    "version": {
+      "code": 1000003,
+      "name": "1.0.3"
+    }
+  },
+  "deviceConfig": {},
+  "module": {
+    "package": "com.example.notatnik",
+    "name": ".MyApplication",
+    "mainAbility": "com.example.notatnik.MainAbility",
+    "deviceType": [
+      "wearable"
+    ],
+    "distro": {
+      "deliveryWithInstall": true,
+      "moduleName": "entry",
+      "moduleType": "entry",
+      "installationFree": false
+    },
+    "abilities": [
+      {
+        "skills": [
+          {
+            "entities": [
+              "entity.system.home"
+            ],
+            "actions": [
+              "action.system.home"
+            ]
+          }
+        ],
+        "orientation": "unspecified",
+        "name": "com.example.notatnik.MainAbility",
+        "icon": "$media:Notes",
+        "description": "$string:mainability_description",
+        "label": "$string:entry_MainAbility",
+        "type": "page",
+        "launchType": "standard",
+        "metaData": {
+          "customizeData": [
+            {
+              "extra": "",
+              "name": "hwc-theme",
+              "value": "androidhwext:style/Theme.Emui.Translucent.NoTitleBar.Fullscreen"
+            }
+          ]
+        }
+      },
+      {
+        "orientation": "unspecified",
+        "name": "com.example.notatnik.Tresc",
+        "icon": "$media:Notes",
+        "description": "$string:tresc_description",
+        "label": "$string:entry_Tresc",
+        "type": "page",
+        "launchType": "standard",
+        "metaData": {
+          "customizeData": [
+            {
+              "extra": "",
+              "name": "hwc-theme",
+              "value": "androidhwext:style/Theme.Emui.Translucent.NoTitleBar.Fullscreen"
+            }
+          ]
+        }
+      },
+      {
+        "orientation": "unspecified",
+        "name": "com.example.notatnik.Add_tytul",
+        "icon": "$media:Notes",
+        "description": "$string:add_tytul_description",
+        "label": "$string:entry_Add_tytul",
+        "type": "page",
+        "launchType": "standard",
+        "metaData": {
+          "customizeData": [
+            {
+              "extra": "",
+              "name": "hwc-theme",
+              "value": "androidhwext:style/Theme.Emui.Translucent.NoTitleBar.Fullscreen"
+            }
+          ]
+        }
+      },
+      {
+        "orientation": "unspecified",
+        "name": "com.example.notatnik.Opcje",
+        "icon": "$media:Notes",
+        "description": "$string:opcje_description",
+        "label": "$string:entry_Opcje",
+        "type": "page",
+        "launchType": "standard",
+        "metaData": {
+          "customizeData": [
+            {
+              "extra": "",
+              "name": "hwc-theme",
+              "value": "androidhwext:style/Theme.Emui.Translucent.NoTitleBar.Fullscreen"
+            }
+          ]
+        }
+      },
+      {
+        "orientation": "unspecified",
+        "name": "com.example.notatnik.Delete",
+        "icon": "$media:Notes",
+        "description": "$string:delete_description",
+        "label": "$string:entry_Delete",
+        "type": "page",
+        "launchType": "standard",
+        "metaData": {
+          "customizeData": [
+            {
+              "extra": "",
+              "name": "hwc-theme",
+              "value": "androidhwext:style/Theme.Emui.Translucent.NoTitleBar.Fullscreen"
+            }
+          ]
+        }
+      }
+    ],
+    "reqPermissions": [
+      {
+        "name": "ohos.permission.VIBRATE"
+      }
+    ]
+  }
+}

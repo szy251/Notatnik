@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DirectionalLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="match_content"
+    ohos:width="466px"
+    ohos:id="$+id:tytul_usun"
+    ohos:orientation="horizontal">
+
+    <Text
+        ohos:background_element="#FF000000"
+        ohos:id="$+id:nazwa_usun"
+        ohos:height="match_content"
+        ohos:width="300px"
+        ohos:text_size="50px"
+        ohos:text_color="#FF9F9F9F"
+        ohos:text_alignment="center"
+        ohos:left_margin="50px"
+        />
+    <Checkbox
+        ohos:id="$+id:checkbox"
+        ohos:height="70px"
+        ohos:width="70px"
+        ohos:layout_alignment="vertical_center"
+        ohos:check_element="✔"
+        ohos:text="✔"
+        ohos:text_size="64px"
+        ohos:text_color="#FF000000"
+        />
+
+</DirectionalLayout>

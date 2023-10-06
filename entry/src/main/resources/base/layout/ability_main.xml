@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PositionLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="match_parent"
+    ohos:width="match_parent"
+    ohos:alignment="center"
+    ohos:orientation="vertical"
+    ohos:id="$+id:mainability"
+    ohos:background_element="$graphic:background_ability_main">
+
+    <ListContainer
+        ohos:id="$+id:tytuły"
+        ohos:height="466px"
+        ohos:width="466px"
+        />
+    <Button
+        ohos:id="$+id:dodaj"
+        ohos:height="100px"
+        ohos:width="466px"
+        ohos:background_element="$graphic:przycisk"
+        ohos:text="+"
+        ohos:text_size="90px"
+        />
+</PositionLayout>
