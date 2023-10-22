@@ -1,9 +1,10 @@
 package com.example.notatnik.slice;
 
-import com.example.notatnik.Dane;
-import com.example.notatnik.Data;
-import com.example.notatnik.DeleteListProvider;
+import com.example.notatnik.data.Dane;
+import com.example.notatnik.data.Data;
+import com.example.notatnik.providers.DeleteListProvider;
 import com.example.notatnik.ResourceTable;
+import com.example.notatnik.data.DataHolder;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.Operation;
@@ -15,6 +16,7 @@ import ohos.data.orm.OrmPredicates;
 import ohos.multimodalinput.event.MmiPoint;
 import ohos.multimodalinput.event.TouchEvent;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DeleteSlice extends AbilitySlice {
@@ -31,6 +33,7 @@ public class DeleteSlice extends AbilitySlice {
         listContainer = (ListContainer)findComponentById(ResourceTable.Id_deletelista);
         image.setPosition(0,0);
         listContainer.setPosition(0,0);
+        DataHolder.getInstance().setUsuwane(new ArrayList<>());
 
         PositionLayout positionLayout = (PositionLayout) findComponentById(ResourceTable.Id_delete);
         positionLayout.setTouchEventListener(new Component.TouchEventListener() {
@@ -72,18 +75,7 @@ public class DeleteSlice extends AbilitySlice {
         image.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
-               DeleteListProvider del = (DeleteListProvider) listContainer.getItemProvider();
-               List<Boolean> a = del.getUsun();
-               delete(a);
-               Intent intent = new Intent();
-               Operation operation = new Intent.OperationBuilder()
-                       .withDeviceId("")
-                       .withBundleName("com.example.notatnik")
-                       .withAbilityName("com.example.notatnik.MainAbility")
-                       .build();
-               intent.setOperation(operation);
-               startAbility(intent);
-               terminateAbility();
+                delete();
             }
         });
     }
@@ -110,7 +102,7 @@ public class DeleteSlice extends AbilitySlice {
                     image.setVisibility(Component.HIDE);
 
                 }
-                if(il != -1){
+                /*if(il != -1){
                     if(il>0){
                         Component cpt1 = listContainer.getComponentAt(il-1);
                         Text text1 = (Text) cpt1.findComponentById(ResourceTable.Id_nazwa_usun);
@@ -126,7 +118,7 @@ public class DeleteSlice extends AbilitySlice {
                         Text text2 = (Text) cpt2.findComponentById(ResourceTable.Id_nazwa_usun);
                         text2.setTextColor(new Color(Color.getIntColor("#FF9F9F9F")));
                     }
-                }
+                }*/
 
             }
         });
@@ -143,15 +135,27 @@ public class DeleteSlice extends AbilitySlice {
         OrmPredicates ormPredicates = context.where(Data.class);
         return context.query(ormPredicates);
     }
-    void  delete(List<Boolean> a){
-        helper = new DatabaseHelper(this);
+    void  delete(){
+        /*helper = new DatabaseHelper(this);
         context = helper.getOrmContext("data","Data.db",Dane.class);
         for (int i =0; i <a.size();i++) {
             if(a.get(i)) {
                 context.delete(context.where(Data.class).equalTo("DataId", dane.get(i).getDataId()));
             }
         }
+        context.flush();*/
+        helper = new DatabaseHelper(this);
+        context = helper.getOrmContext("data","Data.db",Dane.class);
+        DataHolder.getInstance().setState((byte) 3);
+        List<Data> usuwane = DataHolder.getInstance().getUsuwane();
+        for(Data usuwany : usuwane){
+            DataHolder.getInstance().removeDane(usuwany);
+            context.delete(context.where(Data.class).equalTo("DataId", usuwany.getDataId()));
+        }
         context.flush();
+        DataHolder.getInstance().setUsuwane(null);
+        terminateAbility();
+
     }
 
 

@@ -70,7 +70,7 @@
       },
       {
         "orientation": "unspecified",
-        "name": "com.example.notatnik.Add_tytul",
+        "name": "com.example.notatnik.AddTytul",
         "icon": "$media:Notes",
         "description": "$string:add_tytul_description",
         "label": "$string:entry_Add_tytul",
@@ -121,6 +121,69 @@
             }
           ]
         }
+      },
+      {
+        "name": "com.example.notatnik.ChoseType",
+        "description": "$string:chosetype_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_ChoseType",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page",
+        "metaData": {
+          "customizeData": [
+            {
+              "extra": "",
+              "name": "hwc-theme",
+              "value": "androidhwext:style/Theme.Emui.Translucent.NoTitleBar.Fullscreen"
+            }
+          ]
+        }
+      },
+      {
+        "name": "com.example.notatnik.AddNormal",
+        "description": "$string:addnormal_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_AddNormal",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page",
+        "metaData": {
+          "customizeData": [
+            {
+              "extra": "",
+              "name": "hwc-theme",
+              "value": "androidhwext:style/Theme.Emui.Translucent.NoTitleBar.Fullscreen"
+            }
+          ]
+        }
+      },
+      {
+        "name": "com.example.notatnik.AddTresc",
+        "description": "$string:addtresc_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_AddTresc",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.AddList",
+        "description": "$string:listnotadd_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_ListNotAdd",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.AddListy",
+        "description": "$string:addlisty_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_AddListy",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
       }
     ],
     "reqPermissions": [

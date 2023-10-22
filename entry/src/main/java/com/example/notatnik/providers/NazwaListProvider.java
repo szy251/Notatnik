@@ -1,13 +1,15 @@
-package com.example.notatnik;
+package com.example.notatnik.providers;
 
+import com.example.notatnik.ResourceTable;
+import com.example.notatnik.data.*;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.Operation;
-import ohos.agp.colors.RgbColor;
 import ohos.agp.components.*;
-import ohos.agp.utils.Color;
+import ohos.data.DatabaseHelper;
+import ohos.data.orm.OrmContext;
+import ohos.data.orm.OrmPredicates;
 
-import java.util.Date;
 import java.util.List;
 
 public class NazwaListProvider extends BaseItemProvider {
@@ -30,6 +32,11 @@ public class NazwaListProvider extends BaseItemProvider {
         return null;
     }
 
+    public void addItem(Data dane){
+        this.dane.add(dane);
+        notifyDataChanged();
+    }
+
     @Override
     public long getItemId(int i) {
         return i;
@@ -49,20 +56,22 @@ public class NazwaListProvider extends BaseItemProvider {
         Text text =  (Text) cpt.findComponentById(ResourceTable.Id_nazwa);
         DirectionalLayout directionalLayout =  (DirectionalLayout) cpt.findComponentById(ResourceTable.Id_tytul);
 
-        int a = d.getNazwa().length();
+
         String jak = d.getNazwa();
         text.setMultipleLine(true);
         text.setText(jak);
         directionalLayout.setMinHeight(100);
         text.setMinHeight(80);
-        if (i == 0){
-            RgbColor al = new RgbColor(255,255,255);
-            text.setTextColor(new Color(Color.getIntColor("#FFFFFFFF")));
-        }
 
         directionalLayout.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
+                SmallDataHolder.getInstance().setData(d);
+                DatabaseHelper databaseHelper = new DatabaseHelper(cpt.getContext());
+                OrmContext ormContext = databaseHelper.getOrmContext("data","Data.db", Dane.class);
+                OrmPredicates ormPredicates = ormContext.where(NormalNot.class).equalTo("dataParentId",d.getDataId());
+                NormalNot normalNot = (NormalNot) ormContext.query(ormPredicates).get(0);
+                SmallDataHolder.getInstance().setNormalNot(normalNot);
                 Intent intent = new Intent();
                 Operation operation = new Intent.OperationBuilder()
                         .withDeviceId("")
@@ -70,13 +79,10 @@ public class NazwaListProvider extends BaseItemProvider {
                         .withAbilityName("com.example.notatnik.Tresc")
                         .build();
                 intent.setOperation(operation);
-                intent.setParam("title",jak);
-                intent.setParam("tresc",d.getTresc());
-                intent.setParam("Id_dane",d.getDataId());
-                Date j = new Date();
-                intent.setParam("data",j);
                 slice.startAbility(intent);
-                slice.terminateAbility();
+               // slice.terminateAbility();
+                /*dane.remove(i);
+                notifyDataChanged();*/
             }
         });
 

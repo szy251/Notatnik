@@ -1,42 +1,78 @@
 package com.example.notatnik.slice;
 
-import com.example.notatnik.Dane;
-import com.example.notatnik.Data;
 import com.example.notatnik.ResourceTable;
+import com.example.notatnik.data.DataHolder;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
-import ohos.aafwk.content.Operation;
-import ohos.agp.components.*;
+import ohos.agp.components.Button;
+import ohos.agp.components.Component;
+import ohos.agp.components.Text;
+import ohos.agp.components.TextField;
 import ohos.agp.window.dialog.ToastDialog;
-import ohos.data.DatabaseHelper;
-import ohos.data.orm.OrmContext;
-import ohos.data.orm.OrmPredicates;
-import ohos.multimodalinput.event.MmiPoint;
-import ohos.multimodalinput.event.TouchEvent;
 
-public class Add_tytulSlice extends AbilitySlice {
-    String tytul = "", tekst ="";
-    Boolean byl =false;
-    DatabaseHelper helper = new DatabaseHelper(this);
-    OrmContext context;
+public class AddTytulSlice extends AbilitySlice {
+    Button but1, but2;
+    TextField textField;
     @Override
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setUIContent(ResourceTable.Layout_ability_add_tytul);
+        but1 = (Button) findComponentById(ResourceTable.Id_akceptuj_tyt);
+        but2 = (Button) findComponentById(ResourceTable.Id_anuluj_tyt);
+        textField = (TextField) findComponentById(ResourceTable.Id_dodaj_tytul);
+        but1.setPosition(120,40);
+        but2.setPosition(246, 40);
+        textField.setPosition(58,150);
+        textField.setText(DataHolder.getInstance().getNazwa());
 
-        tekst = intent.getSerializableParam("tresc");
+        textField.addTextObserver(new Text.TextObserver() {
+            @Override
+            public void onTextUpdated(String s, int i, int i1, int i2) {
+                if(s.length() > 25){
+                    textField.setText(s.substring(0,25));
+                }
+            }
+        });
+
+        but1.setClickedListener(new Component.ClickedListener() {
+            @Override
+            public void onClick(Component component) {
+                if(DataHolder.getInstance().getDane().stream().filter(data -> textField.getText().equals(data.getNazwa())).findFirst().orElse(null)==null) {
+                    DataHolder.getInstance().setNazwa(textField.getText());
+                    DataHolder.getInstance().setState((byte) 4);
+                    terminateAbility();
+                }
+                else{
+                    ToastDialog toastDialog = new ToastDialog(getContext());
+                    toastDialog.setText("Already used");
+                    toastDialog.setDuration(3000);
+                    toastDialog.setOffset(0, 158);
+                    toastDialog.setSize(366,100);
+                    toastDialog.show();
+                }
+
+            }
+        });
+
+        but2.setClickedListener(new Component.ClickedListener() {
+            @Override
+            public void onClick(Component component) {
+                terminateAbility();
+            }
+        });
+
+       /* tekst = intent.getSerializableParam("tresc");
         tytul = intent.getSerializableParam("title");
         Integer id = intent.getIntParam("Id_dane",-1);
 
 
-        TextField textField = (TextField)findComponentById(ResourceTable.Id_dodaj_tytul);
+        TextField textField = (TextField) findComponentById(ResourceTable.Id_dodaj_tytul);
         Button button = (Button)findComponentById(ResourceTable.Id_dalej);
         ScrollView scrollView = (ScrollView)findComponentById(ResourceTable.Id_scroll);
 
         textField.setText(tytul);
         button.setPosition(0,466-100);
         scrollView.setPosition(0,0);
-
         PositionLayout positionLayout = (PositionLayout) findComponentById(ResourceTable.Id_ability_add);
         positionLayout.setTouchEventListener(new Component.TouchEventListener() {
             float startPositionX = 0;
@@ -216,10 +252,10 @@ public class Add_tytulSlice extends AbilitySlice {
                     }
                 }
             }
-        });
+        });*/
     }
 
-    private Boolean jest(String tytul){
+   /* private Boolean jest(String tytul){
             helper = new DatabaseHelper(this);
             context = helper.getOrmContext("data","Data.db", Dane.class);
             OrmPredicates ormPredicates = context.where(Data.class).equalTo("nazwa",tytul);
@@ -232,8 +268,8 @@ public class Add_tytulSlice extends AbilitySlice {
         OrmPredicates ormPredicates = context.where(Data.class).equalTo("nazwa",tytul).notEqualTo("DataId",id);
         return !context.query(ormPredicates).isEmpty();
 
-    }
-    private void add()
+    }*/
+   /* private void add()
     {
         helper = new DatabaseHelper(this);
         context = helper.getOrmContext("data","Data.db", Dane.class);
@@ -253,7 +289,7 @@ public class Add_tytulSlice extends AbilitySlice {
         context.delete(context.where(Data.class).equalTo("DataId",id));
         context.insert(on);
         context.flush();
-    }
+    }*/
     @Override
     public void onActive() {
         super.onActive();

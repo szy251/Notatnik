@@ -9,14 +9,19 @@
     ohos:orientation="vertical">
 
     <Text
-        ohos:background_element="#FF000000"
+        ohos:background_element="$graphic:tytuly"
         ohos:id="$+id:nazwa"
         ohos:height="match_content"
-        ohos:top_margin="20px"
-        ohos:bottom_margin="20px"
+        ohos:top_padding="25px"
+        ohos:bottom_padding="25px"
+        ohos:start_padding="25px"
+        ohos:end_padding="25px"
+        ohos:top_margin="12px"
+        ohos:layout_alignment="center"
+        ohos:bottom_margin="12px"
         ohos:width="366px"
         ohos:text_size="50px"
-        ohos:text_color="#FF9F9F9F"
+        ohos:text_color="#FFFFFFFF"
         ohos:text_alignment="center"
         />
 

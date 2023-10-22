@@ -59,6 +59,66 @@
     {
       "name": "entry_Delete",
       "value": "entry_Delete"
+    },
+    {
+      "name": "chosetype_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "chosetype_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_ChoseType",
+      "value": "entry_ChoseType"
+    },
+    {
+      "name": "addnormal_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "addnormal_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_AddNormal",
+      "value": "entry_AddNormal"
+    },
+    {
+      "name": "addtresc_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "addtresc_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_AddTresc",
+      "value": "entry_AddTresc"
+    },
+    {
+      "name": "listnotadd_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "listnotadd_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_ListNotAdd",
+      "value": "entry_ListNotAdd"
+    },
+    {
+      "name": "addlisty_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "addlisty_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_AddListy",
+      "value": "entry_AddListy"
     }
   ]
 }

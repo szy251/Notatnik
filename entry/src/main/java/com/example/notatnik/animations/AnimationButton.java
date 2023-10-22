@@ -1,4 +1,4 @@
-package com.example.notatnik;
+package com.example.notatnik.animations;
 
 import ohos.agp.animation.Animator;
 import ohos.agp.animation.AnimatorProperty;
@@ -53,7 +53,7 @@ public class AnimationButton extends AnimatorProperty {
 
                 @Override
                 public void onStop(Animator animator) {
-
+                    component.setVisibility(Component.VISIBLE);
                 }
 
                 @Override

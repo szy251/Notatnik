@@ -4,15 +4,24 @@
     ohos:height="match_content"
     ohos:width="466px"
     ohos:id="$+id:tytul_usun"
+    ohos:alignment="center"
     ohos:orientation="horizontal">
-
+    <DirectionalLayout
+        ohos:background_element="$graphic:tytuly"
+        ohos:height="match_content"
+        ohos:width="366px"
+        ohos:orientation="horizontal"
+        ohos:layout_alignment="center"
+        ohos:bottom_margin="12px"
+        ohos:top_margin="12px"
+        >
     <Text
-        ohos:background_element="#FF000000"
+        ohos:background_element="#00FFFFFF"
         ohos:id="$+id:nazwa_usun"
         ohos:height="match_content"
-        ohos:width="300px"
+        ohos:width="200px"
         ohos:text_size="50px"
-        ohos:text_color="#FF9F9F9F"
+        ohos:text_color="#FFFFFFFF"
         ohos:text_alignment="center"
         ohos:left_margin="50px"
         />
@@ -26,5 +35,5 @@
         ohos:text_size="64px"
         ohos:text_color="#FF000000"
         />
-
+    </DirectionalLayout>
 </DirectionalLayout>

@@ -1,4 +1,4 @@
-package com.example.notatnik;
+package com.example.notatnik.data;
 
 import ohos.data.orm.OrmObject;
 import ohos.data.orm.annotation.Entity;
@@ -11,7 +11,9 @@ public class Data extends OrmObject {
 
     /*private Date data;*/
     private String nazwa;
-    private String tresc;
+    private String typ;
+
+    private Boolean alarm;
 
    /* public void setData(Date data) {
         this.data = data;
@@ -25,9 +27,11 @@ public class Data extends OrmObject {
         this.nazwa = nazwa;
     }
 
-    public void setTresc(String tresc) {
-        this.tresc = tresc;
+    public void setTyp(String typ) {
+        this.typ = typ;
     }
+
+    public void setAlarm(Boolean alarm){this.alarm = alarm;}
     public String getNazwa() {
         return nazwa;
     }
@@ -39,7 +43,10 @@ public class Data extends OrmObject {
         return DataId;
     }
 
-    public String getTresc() {
-        return tresc;
+    public String getTyp() {
+        return typ;
     }
+
+    public Boolean getAlarm(){return alarm;}
+
 }

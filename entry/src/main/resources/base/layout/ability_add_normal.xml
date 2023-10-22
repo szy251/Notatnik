@@ -3,29 +3,31 @@
     xmlns:ohos="http://schemas.huawei.com/res/ohos"
     ohos:height="match_parent"
     ohos:width="match_parent"
+    ohos:background_element="#FF000000"
     ohos:alignment="center"
-    ohos:orientation="vertical"
-    ohos:id="$+id:mainability"
-    ohos:background_element="$graphic:background_ability_main">
-
+    ohos:orientation="vertical">
     <ListContainer
-        ohos:id="$+id:tytuły"
         ohos:height="466px"
         ohos:width="466px"
+        ohos:id="$+id:lista_dodawnaie"
+        ohos:layout_alignment="center"
         />
     <Button
-        ohos:id="$+id:dodaj"
+        ohos:id="$+id:accept"
         ohos:height="100px"
         ohos:width="100px"
         ohos:background_element="$graphic:przycisk"
-        ohos:text="+"
+        ohos:text="✓"
         ohos:text_size="90px"
         />
     <Button
         ohos:background_element="$graphic:przycisk"
         ohos:text_size="90px"
-        ohos:id="$+id:main_opcje"
+        ohos:id="$+id:decline"
+        ohos:bottom_padding="10px"
+        ohos:text="✗"
         ohos:height="100px"
         ohos:width="100px"
         />
+
 </PositionLayout>

@@ -1,10 +1,18 @@
 package com.example.notatnik.slice;
 
 import com.example.notatnik.*;
+import com.example.notatnik.animations.AnimationButton;
+import com.example.notatnik.data.Dane;
+import com.example.notatnik.data.Data;
+import com.example.notatnik.data.DataHolder;
+import com.example.notatnik.providers.NazwaListProvider;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.Operation;
-import ohos.agp.components.*;
+import ohos.agp.components.Button;
+import ohos.agp.components.Component;
+import ohos.agp.components.ListContainer;
+import ohos.agp.components.PositionLayout;
 import ohos.agp.utils.Color;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
@@ -23,9 +31,10 @@ public class MainAbilitySlice extends AbilitySlice {
     OrmContext context;
     ListContainer listContainer;
     List<Data> dane;
-    Button but;
+    Button but, but2;
     Boolean juz;
-    AnimationButton animatorProperty, animatorProperty2;
+    NazwaListProvider nazwaListProvider;
+    AnimationButton animatorProperty, animatorProperty2, animatorProperty3, animatorProperty4;
     NotificationSlot notificationSlot;
     NotificationRequest notificationRequest;
     NotificationRequest.NotificationNormalContent notificationNormalContent;
@@ -40,11 +49,15 @@ public class MainAbilitySlice extends AbilitySlice {
         notifId = 1;
         super.setUIContent(ResourceTable.Layout_ability_main);
         but = (Button)findComponentById(ResourceTable.Id_dodaj);
+        but2 = (Button) findComponentById(ResourceTable.Id_main_opcje);
         listContainer = (ListContainer)findComponentById(ResourceTable.Id_tytuły);
-        but.setPosition(0,0);
+        but.setPosition(120,40);
+        but2.setPosition(246, 40);
         listContainer.setPosition(0,0);
-        animatorProperty = new AnimationButton(1.f,0.f,500,but,true);
-        animatorProperty2 = new AnimationButton(0.f,1.f,500,but,false);
+        animatorProperty = new AnimationButton(1.f,0.f,100,but,true);
+        animatorProperty2 = new AnimationButton(0.f,1.f,100,but,false);
+        animatorProperty3 = new AnimationButton(1.f,0.f,100,but2,true);
+        animatorProperty4 =  new AnimationButton(0.f,1.f,100,but2,false);
         notificationSlot = new NotificationSlot("slot1","notes",NotificationSlot.LEVEL_DEFAULT);
         notificationSlot.setEnableVibration(true);
         notificationSlot.setDescription("Nie mam pojecia");
@@ -92,14 +105,13 @@ public class MainAbilitySlice extends AbilitySlice {
                Operation operation = new Intent.OperationBuilder()
                        .withDeviceId("")
                        .withBundleName("com.example.notatnik")
-                       .withAbilityName("com.example.notatnik.Add_tytul")
+                       .withAbilityName("com.example.notatnik.ChoseType")
                        .build();
                intent.setOperation(operation);
-               intent.setParam("title","");
+               /*intent.setParam("title","");
                intent.setParam("tresc","");
-               intent.setParam("Id_dane",-1);
+               intent.setParam("Id_dane",-1);*/
                startAbility(intent);
-               terminateAbility();
                /*notificationNormalContent = new NotificationRequest.NotificationNormalContent();
                notificationNormalContent.setTitle("Notes").setText("Notyfikacja o numerze id " + notifId);
                notificationContent = new NotificationRequest.NotificationContent(notificationNormalContent);
@@ -116,7 +128,14 @@ public class MainAbilitySlice extends AbilitySlice {
     }
     private void inicjalizacja(){
         dane = read();
-        NazwaListProvider nazwaListProvider = new NazwaListProvider(dane,this);
+
+        if(!dane.isEmpty()) DataHolder.getInstance().setLastId(dane.get(dane.size()-1).getDataId()+1);
+        else DataHolder.getInstance().setLastId(0);
+
+        DataHolder.getInstance().setDane(dane);
+        DataHolder.getInstance().setState((byte) 1);
+
+        nazwaListProvider = new NazwaListProvider(DataHolder.getInstance().getDane(),this);
         listContainer.setItemProvider(nazwaListProvider);
         listContainer.enableScrollBar(Component.AXIS_Y,true);
         listContainer.setScrollbarBackgroundColor(Color.GRAY);
@@ -129,31 +148,17 @@ public class MainAbilitySlice extends AbilitySlice {
             @Override
             public void onContentScrolled(Component component, int i, int i1, int i2, int i3) {
                 int il = listContainer.getCenterFocusablePosition();
-                if(il ==0 || il ==-1 ){
-                    if(!juz) animatorProperty2.start();
+                if(il <= 0 ){
+                    if(!juz) {
+                        animatorProperty2.start();
+                        animatorProperty4.start();
+                    }
                     juz = true;
                 }
                 else if(juz){
                     juz = false;
                     animatorProperty.start();
-                }
-
-                if(il != -1){
-                    if(il>0){
-                        Component cpt1 = listContainer.getComponentAt(il-1);
-                        Text text1 = (Text) cpt1.findComponentById(ResourceTable.Id_nazwa);
-                        text1.setTextColor(new Color(Color.getIntColor("#FF9F9F9F")));
-                    }
-
-                    Component cpt = listContainer.getComponentAt(il);
-                    Text text = (Text) cpt.findComponentById(ResourceTable.Id_nazwa);
-                    text.setTextColor(new Color(Color.getIntColor("#FFFFFFFF")));
-
-                    if(il+1<dane.size()){
-                        Component cpt2 = listContainer.getComponentAt(il+1);
-                        Text text2 = (Text) cpt2.findComponentById(ResourceTable.Id_nazwa);
-                        text2.setTextColor(new Color(Color.getIntColor("#FF9F9F9F")));
-                    }
+                    animatorProperty3.start();
                 }
             }
         });
@@ -169,7 +174,7 @@ public class MainAbilitySlice extends AbilitySlice {
                         .build();
                 intent.setOperation(operation);
                 startAbility(intent);
-                terminateAbility();
+               // terminateAbility();
                 return  true;
             }
         });
@@ -177,12 +182,28 @@ public class MainAbilitySlice extends AbilitySlice {
     private List<Data> read(){
         helper = new DatabaseHelper(this);
         context = helper.getOrmContext("data","Data.db", Dane.class);
+        /*Data data = new Data();
+        data.setNazwa("Przyklad");
+        data.setTyp("Normal");
+        data.setAlarm(false);
+        context.insert(data);
+        context.flush();*/
         OrmPredicates ormPredicates = context.where(Data.class);
         return context.query(ormPredicates);
     }
 
     @Override
     public void onActive() {
+        but2.setText("K");
+        if(DataHolder.getInstance().getState() == 2 ){
+            DataHolder.getInstance().setState((byte) 1);
+            nazwaListProvider.notifyDataChanged();
+        }
+        else if(DataHolder.getInstance().getState() == 3){
+            nazwaListProvider.notifyDataChanged();
+            but2.setText("L");
+            DataHolder.getInstance().setState((byte) 1);
+        }
         super.onActive();
     }
 

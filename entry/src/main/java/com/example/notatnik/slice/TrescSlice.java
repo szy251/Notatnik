@@ -1,15 +1,11 @@
 package com.example.notatnik.slice;
 
 import com.example.notatnik.ResourceTable;
+import com.example.notatnik.data.SmallDataHolder;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.Operation;
-import ohos.agp.components.Button;
-import ohos.agp.components.Component;
-import ohos.agp.components.DirectionalLayout;
-import ohos.agp.components.Text;
-import ohos.multimodalinput.event.MmiPoint;
-import ohos.multimodalinput.event.TouchEvent;
+import ohos.agp.components.*;
 
 public class TrescSlice extends AbilitySlice {
     @Override
@@ -18,14 +14,24 @@ public class TrescSlice extends AbilitySlice {
         super.setUIContent(ResourceTable.Layout_ability_tresc);
 
 
-        String tresc = intent.getSerializableParam("tresc");
-        String tytul = intent.getSerializableParam("title");
-        Integer id = intent.getIntParam("Id_dane",0);
+        String tresc = SmallDataHolder.getInstance().getNormalNot().getTresc();
        // Data d = intent.getSerializableParam("calosc");
+        ScrollView scrollView = (ScrollView) findComponentById(ResourceTable.Id_scroll);
+        scrollView.setRotationSensitivity(ScrollView.ROTATION_SENSITIVITY_HIGH);
+        scrollView.setMode(Component.OVAL_MODE);
+        scrollView.setCentralScrollMode(true);
+        scrollView.setFocusable(Component.ACCESSIBILITY_ENABLE);
+        scrollView.setTouchFocusable(true);
+        scrollView.requestFocus();
+        //scrollView.fluentScrollByY(-150);
         Text text = (Text)findComponentById(ResourceTable.Id_text_tresc);
         Button button = (Button)findComponentById(ResourceTable.Id_to_option);
         DirectionalLayout directionalLayout = (DirectionalLayout)findComponentById(ResourceTable.Id_tresc);
-        directionalLayout.setTouchEventListener(new Component.TouchEventListener() {
+        DirectionalLayout directionalLayout1 = (DirectionalLayout)findComponentById(ResourceTable.Id_tresc2);
+        scrollView.enableScrollBar(Component.AXIS_Y,true);
+        scrollView.setVibrationEffectEnabled(true);
+
+        /*directionalLayout.setTouchEventListener(new Component.TouchEventListener() {
             float startPositionX = 0;
             float endPositionX = 0;
             float startPositionY = 0;
@@ -58,7 +64,7 @@ public class TrescSlice extends AbilitySlice {
                 }
                 return true;
             }
-        });
+        });*/
         text.setMultipleLine(true);
         text.setText(tresc);
         button.setClickedListener(new Component.ClickedListener() {
@@ -71,18 +77,18 @@ public class TrescSlice extends AbilitySlice {
                         .withAbilityName("com.example.notatnik.Opcje")
                         .build();
                 intent.setOperation(operation);
-                intent.setParam("title",tytul);
-                intent.setParam("tresc",tresc);
-                intent.setParam("Id_dane",id);
                 startAbility(intent);
                 terminateAbility();
             }
         });
+
+       // directionalLayout1.scrollBy(0,-150);
     }
 
     @Override
     public void onActive() {
         super.onActive();
+
     }
 
     @Override

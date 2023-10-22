@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<DirectionalLayout
-    xmlns:ohos="http://schemas.huawei.com/res/ohos"
-    ohos:height="466px"
-    ohos:width="466px"
-    ohos:background_element="#FF000000"
-    ohos:orientation="vertical">
-
-</DirectionalLayout>

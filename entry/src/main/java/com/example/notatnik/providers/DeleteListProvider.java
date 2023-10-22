@@ -1,5 +1,8 @@
-package com.example.notatnik;
+package com.example.notatnik.providers;
 
+import com.example.notatnik.ResourceTable;
+import com.example.notatnik.data.Data;
+import com.example.notatnik.data.DataHolder;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.agp.colors.RgbColor;
 import ohos.agp.components.*;
@@ -79,10 +82,12 @@ public class DeleteListProvider extends BaseItemProvider {
             if(state){
                 shapeElement.setRgbColor(new RgbColor(0,148,125));
                 shapeElement.setStroke(0, new RgbColor(255,255,255));
+                DataHolder.getInstance().addUsuwane(d);
             }
             else{
                 shapeElement.setRgbColor(new RgbColor(0,0,0));
                 shapeElement.setStroke(1, new RgbColor(255,255,255));
+                DataHolder.getInstance().removeUsuwane(d);
             }
         });
 

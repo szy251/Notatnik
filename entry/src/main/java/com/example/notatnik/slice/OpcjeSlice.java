@@ -1,7 +1,7 @@
 package com.example.notatnik.slice;
 
-import com.example.notatnik.Dane;
-import com.example.notatnik.Data;
+import com.example.notatnik.data.Dane;
+import com.example.notatnik.data.Data;
 import com.example.notatnik.ResourceTable;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
@@ -73,7 +73,6 @@ public class OpcjeSlice extends AbilitySlice {
                 context = helper.getOrmContext("data","Data.db",Dane.class);
                 context.delete(context.where(Data.class).equalTo("DataId",id));
                 context.flush();
-                present(new PotwierdzSlice(), new Intent());
                 Intent intent = new Intent();
                 Operation operation = new Intent.OperationBuilder()
                         .withDeviceId("")
