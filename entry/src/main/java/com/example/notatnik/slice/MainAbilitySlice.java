@@ -194,15 +194,9 @@ public class MainAbilitySlice extends AbilitySlice {
 
     @Override
     public void onActive() {
-        but2.setText("K");
         if(DataHolder.getInstance().getState() == 2 ){
             DataHolder.getInstance().setState((byte) 1);
             nazwaListProvider.notifyDataChanged();
-        }
-        else if(DataHolder.getInstance().getState() == 3){
-            nazwaListProvider.notifyDataChanged();
-            but2.setText("L");
-            DataHolder.getInstance().setState((byte) 1);
         }
         super.onActive();
     }

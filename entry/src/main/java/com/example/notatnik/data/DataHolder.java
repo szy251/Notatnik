@@ -1,25 +1,36 @@
 package com.example.notatnik.data;
 
+import com.example.notatnik.animations.AnimationButton;
 import ohos.aafwk.ability.Ability;
+import ohos.agp.components.ListContainer;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class DataHolder {
     private static DataHolder instance;
     private byte state;
+    // 1 - brak zmian
+    // 2 - zmiany w głównej bazie
+    // 3 - zmiany tytuł
+    // 4 - dodanie do listy/zmiana notatki
+    // 5 - edytowanie w liście
 
     private Integer lastId;
 
-    private String nazwa;
-
-    private String tresc;
+    private String nazwa, tresc;
     private List<Data> dane, usuwane;
 
     private List<ListNot> listy,edytowane;
 
     private Data nowy;
     private Ability ability;
+
+    private ListContainer listContainer;
+
+    private AnimationButton animationButton;
+
+    private ListNot listNot;
 
 
     private DataHolder() {
@@ -101,6 +112,42 @@ public class DataHolder {
     public void setEdytowane(List<ListNot> edytowane) {this.edytowane = edytowane;}
 
     public void kopiaListy(){
-        edytowane = listy.stream().map(ListNot::new).collect(Collectors.toList());
+        edytowane = new ArrayList<>();
+        for(ListNot listNot:listy){
+            ListNot kopia = new ListNot();
+            kopia.setListNotId(listNot.getListNotId());
+            kopia.setNazwa(listNot.getNazwa());
+            kopia.setDataParentId(listNot.getDataParentId());
+            kopia.setZrobione(listNot.getZrobione());
+            edytowane.add(kopia);
+        }
+    }
+
+    public ListContainer getListContainer() {
+        return listContainer;
+    }
+
+    public void setListContainer(ListContainer listContainer) {
+        this.listContainer = listContainer;
+    }
+
+    public AnimationButton getAnimationButton() {
+        return animationButton;
+    }
+
+    public void setAnimationButton(AnimationButton animationButton) {
+        this.animationButton = animationButton;
+    }
+
+    public ListNot getListNot() {
+        return listNot;
+    }
+
+    public void setListNot(ListNot listNot) {
+        this.listNot = listNot;
+    }
+
+    public void addEdytowane(ListNot listNot){
+        edytowane.add(listNot);
     }
 }

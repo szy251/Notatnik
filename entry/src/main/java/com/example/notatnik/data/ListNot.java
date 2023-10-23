@@ -12,11 +12,8 @@ public class ListNot extends OrmObject {
     private Integer dataParentId;
     private String nazwa;
 
-    public ListNot(ListNot listNot) {
-        this.dataParentId = listNot.dataParentId;
-        this.listNotId = listNot.listNotId;
-        this.nazwa = listNot.nazwa;
-    }
+    private Boolean zrobione;
+
 
     public void setListNotId(Integer listNotId) {this.listNotId = listNotId;}
     public void setDataParentId(Integer dataParentId) {this.dataParentId = dataParentId;}
@@ -25,4 +22,12 @@ public class ListNot extends OrmObject {
     public Integer getListNotId(){return this.listNotId;}
     public Integer getDataParentId(){return this.dataParentId;}
     public String getNazwa(){return this.nazwa;}
+
+    public Boolean getZrobione() {
+        return zrobione;
+    }
+
+    public void setZrobione(Boolean zrobione) {
+        this.zrobione = zrobione;
+    }
 }

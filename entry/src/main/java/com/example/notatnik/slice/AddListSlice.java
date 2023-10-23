@@ -2,14 +2,14 @@ package com.example.notatnik.slice;
 
 import com.example.notatnik.ResourceTable;
 import com.example.notatnik.animations.AnimationButton;
-import com.example.notatnik.data.DataHolder;
-import com.example.notatnik.data.Kafelek;
+import com.example.notatnik.data.*;
 import com.example.notatnik.providers.KafelekListProvider;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.ListContainer;
+import ohos.agp.window.dialog.ToastDialog;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
 
@@ -45,13 +45,65 @@ public class AddListSlice extends AbilitySlice {
         inicjalizacja();
         DataHolder.getInstance().setNazwa("");
         DataHolder.getInstance().setListy(new ArrayList<>());
+        but1.setClickedListener(new Component.ClickedListener() {
+            @Override
+            public void onClick(Component component) {
+                if(DataHolder.getInstance().getNazwa().equals("")){
+                    ToastDialog toastDialog = new ToastDialog(getContext());
+                    toastDialog.setText("Empty title");
+                    toastDialog.setDuration(3000);
+                    toastDialog.setOffset(0, 158);
+                    toastDialog.setSize(366,100);
+                    toastDialog.show();
+                }
+                else if(DataHolder.getInstance().getListy().size() == 0)
+                {
+                    ToastDialog toastDialog = new ToastDialog(getContext());
+                    toastDialog.setText("Empty content");
+                    toastDialog.setDuration(3000);
+                    toastDialog.setOffset(0, 158);
+                    toastDialog.setSize(366,100);
+                    toastDialog.show();
+                }
+                else{
+                    helper = new DatabaseHelper(getContext());
+                    ormContext = helper.getOrmContext("data", "Data.db", Dane.class);
+                    Data data = new Data();
+                    data.setAlarm(false);
+                    data.setNazwa(DataHolder.getInstance().getNazwa());
+                    data.setTyp("List");
+                    data.setDataId(DataHolder.getInstance().getLastId());
+
+                    ormContext.insert(data);
+
+                    List<ListNot> listNots = DataHolder.getInstance().getListy();
+                    for(ListNot listy:listNots){
+                        ormContext.insert(listy);
+                    }
+
+                    ormContext.flush();
+
+                    DataHolder.getInstance().incLastId();
+                    DataHolder.getInstance().setState((byte) 2);
+                    DataHolder.getInstance().addDane(data);
+                    DataHolder.getInstance().getAbility().terminateAbility();
+                    terminateAbility();
+                }
+            }
+        });
+        but2.setClickedListener(new Component.ClickedListener() {
+            @Override
+            public void onClick(Component component) {
+                terminateAbility();
+            }
+        });
     }
 
     private void inicjalizacja(){
         kafelekList = new ArrayList<>();
         Kafelek kafelek = new Kafelek("Title","Your title","com.example.notatnik.AddTytul");
         kafelekList.add(kafelek);
-        kafelek = new Kafelek("List","Count: 0","com.example.notatnik.AddListy");
+        kafelek = new Kafelek("List","Count: 0","com.example.notatnik.AddListyTresc");
         kafelekList.add(kafelek);
         kafelekListProvider =  new KafelekListProvider(kafelekList,this);
         listContainer.setItemProvider(kafelekListProvider);
@@ -74,23 +126,17 @@ public class AddListSlice extends AbilitySlice {
                 }
             }
         });
-        but2.setClickedListener(new Component.ClickedListener() {
-            @Override
-            public void onClick(Component component) {
-                terminateAbility();
-            }
-        });
 
     }
     @Override
     public void onActive() {
 
-        if(DataHolder.getInstance().getState() == 4){
+        if(DataHolder.getInstance().getState() == 3){
             kafelekList.get(0).setMniejszy(DataHolder.getInstance().getNazwa());
             kafelekListProvider.notifyDataChanged();
             DataHolder.getInstance().setState((byte) 1);
         }
-        else if(DataHolder.getInstance().getState() == 6){
+        else if(DataHolder.getInstance().getState() == 4){
             kafelekList.get(1).setMniejszy("Count: "+ DataHolder.getInstance().getListy().size());
             kafelekListProvider.notifyDataChanged();
             DataHolder.getInstance().setState((byte) 1);

@@ -1,13 +1,13 @@
 package com.example.notatnik;
 
-import com.example.notatnik.slice.AddListySlice;
+import com.example.notatnik.slice.AddZadanieSlice;
 import ohos.aafwk.ability.Ability;
 import ohos.aafwk.content.Intent;
 
-public class AddListy extends Ability {
+public class AddZadanie extends Ability {
     @Override
     public void onStart(Intent intent) {
         super.onStart(intent);
-        super.setMainRoute(AddListySlice.class.getName());
+        super.setMainRoute(AddZadanieSlice.class.getName());
     }
 }

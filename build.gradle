@@ -4,6 +4,26 @@ apply plugin: 'com.huawei.ohos.app'
 
 //For instructions on signature configuration, see https://developer.harmonyos.com/en/docs/documentation/doc-guides/ide_debug_device-0000001053822404#EN-US_TOPIC_0000001154985555__section1112183053510
 ohos {
+    signingConfigs {
+        debug {
+            storeFile file('C:\\Users\\Admin\\.ohos\\config\\auto_debug_420048000000353785.p12')
+            storePassword '0000001828E4E79D7434F094D3149987AEAC4613608967DC6E69A3B25C84BA46342464E01CED150C'
+            keyAlias = 'debugKey'
+            keyPassword '00000018D409E1D2F05B7F5DCA9D3647EE05309CD0452D5A4E451228525361A945FF859BA2E7A012'
+            signAlg = 'SHA256withECDSA'
+            profile file('C:\\Users\\Admin\\.ohos\\config\\auto_debug_notatnik_420048000000353785.p7b')
+            certpath file('C:\\Users\\Admin\\.ohos\\config\\auto_debug_420048000000353785.cer')
+        }
+        release {
+            storeFile file('D:\\Notatnik2\\NoteKey.p12')
+            storePassword '0000001F9AC591E2D00D224E55DBC8488A575A7020CB290938B920BE350FC78B74C0E39A1D6683A87721C76819E16F'
+            keyAlias = 'easynotes'
+            keyPassword '0000001F3592622AD95BA70A6C8C33C2A71D57C0BC0B0F99BD67EDE875D2068544317E32E6A5C82450B2FB023844D2'
+            signAlg = 'SHA256withECDSA'
+            profile file('D:\\Downloads\\NotesRelease.p7b')
+            certpath file('D:\\Downloads\\Notes (1).cer')
+        }
+    }
     compileSdkVersion 6
     defaultConfig {
         compatibleSdkVersion 6

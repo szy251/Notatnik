@@ -80,6 +80,12 @@ public class AddNormalSlice extends AbilitySlice {
                 }
             }
         });
+        but2.setClickedListener(new Component.ClickedListener() {
+            @Override
+            public void onClick(Component component) {
+                terminateAbility();
+            }
+        });
 
     }
 
@@ -115,12 +121,13 @@ public class AddNormalSlice extends AbilitySlice {
     }
     @Override
     public void onActive() {
-        if(DataHolder.getInstance().getState() == 4){
+        if(DataHolder.getInstance().getState() == 3
+        ){
             kafelekList.get(0).setMniejszy(DataHolder.getInstance().getNazwa());
             kafelekListProvider.notifyDataChanged();
             DataHolder.getInstance().setState((byte) 1);
         }
-        else if(DataHolder.getInstance().getState() == 5){
+        else if(DataHolder.getInstance().getState() == 4){
             kafelekList.get(1).setMniejszy(DataHolder.getInstance().getTresc());
             kafelekListProvider.notifyDataChanged();
             DataHolder.getInstance().setState((byte) 1);

@@ -1,9 +1,13 @@
 package com.example.notatnik.data;
 
+import java.util.List;
+
 public class SmallDataHolder{
     private static SmallDataHolder instance;
     private Data data;
     private NormalNot normalNot;
+
+    private List<ListNot> listNots;
     SmallDataHolder(){
 
     }
@@ -28,5 +32,13 @@ public class SmallDataHolder{
 
     public NormalNot getNormalNot() {
         return normalNot;
+    }
+
+    public List<ListNot> getListNots() {
+        return listNots;
+    }
+
+    public void setListNots(List<ListNot> listNots) {
+        this.listNots = listNots;
     }
 }

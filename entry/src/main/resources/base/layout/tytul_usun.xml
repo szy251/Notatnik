@@ -12,18 +12,19 @@
         ohos:width="366px"
         ohos:orientation="horizontal"
         ohos:layout_alignment="center"
-        ohos:bottom_margin="12px"
-        ohos:top_margin="12px"
+        ohos:top_margin="6px"
+        ohos:bottom_margin="6px"
         >
     <Text
         ohos:background_element="#00FFFFFF"
         ohos:id="$+id:nazwa_usun"
         ohos:height="match_content"
         ohos:width="200px"
-        ohos:text_size="50px"
+        ohos:text_size="40px"
         ohos:text_color="#FFFFFFFF"
         ohos:text_alignment="center"
         ohos:left_margin="50px"
+        ohos:bottom_margin="24px"
         />
     <Checkbox
         ohos:id="$+id:checkbox"

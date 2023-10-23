@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PositionLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="match_parent"
+    ohos:width="match_parent"
+    ohos:background_element="#FF000000"
+    ohos:alignment="center"
+    ohos:orientation="vertical">
+    <ListContainer
+        ohos:height="466px"
+        ohos:width="466px"
+        ohos:id="$+id:lista_dodawnaie"
+        ohos:layout_alignment="center"
+        />
+    <Button
+        ohos:id="$+id:accept_listy"
+        ohos:height="100px"
+        ohos:width="100px"
+        ohos:background_element="$graphic:przycisk"
+        ohos:text="✓"
+        ohos:text_size="90px"
+        />
+    <Button
+        ohos:background_element="$graphic:przycisk"
+        ohos:text_size="90px"
+        ohos:id="$+id:decline_listy"
+        ohos:bottom_padding="10px"
+        ohos:text="✗"
+        ohos:height="100px"
+        ohos:width="100px"
+        />
+    <Button
+        ohos:background_element="$graphic:przycisk"
+        ohos:text_size="90px"
+        ohos:id="$+id:wiecej_zadan"
+        ohos:bottom_padding="10px"
+        ohos:text="+"
+        ohos:height="100px"
+        ohos:width="100px"
+        />
+
+</PositionLayout>

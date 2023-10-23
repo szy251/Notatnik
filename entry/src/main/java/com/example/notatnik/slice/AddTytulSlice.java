@@ -39,7 +39,7 @@ public class AddTytulSlice extends AbilitySlice {
             public void onClick(Component component) {
                 if(DataHolder.getInstance().getDane().stream().filter(data -> textField.getText().equals(data.getNazwa())).findFirst().orElse(null)==null) {
                     DataHolder.getInstance().setNazwa(textField.getText());
-                    DataHolder.getInstance().setState((byte) 4);
+                    DataHolder.getInstance().setState((byte) 3);
                     terminateAbility();
                 }
                 else{

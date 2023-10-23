@@ -7,7 +7,6 @@ import ohos.aafwk.ability.AbilitySlice;
 import ohos.agp.colors.RgbColor;
 import ohos.agp.components.*;
 import ohos.agp.components.element.ShapeElement;
-import ohos.agp.utils.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,9 +72,6 @@ public class DeleteListProvider extends BaseItemProvider {
         shapeElement.setCornerRadius(5);
         checkbox.setBackground(shapeElement);
 
-        if(i == 0){
-            text.setTextColor(new Color(Color.getIntColor("#FFFFFFFF")));
-        }
 
         checkbox.setCheckedStateChangedListener((cos, state)->{
             usun.set(i,state);

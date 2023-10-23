@@ -32,11 +32,6 @@ public class NazwaListProvider extends BaseItemProvider {
         return null;
     }
 
-    public void addItem(Data dane){
-        this.dane.add(dane);
-        notifyDataChanged();
-    }
-
     @Override
     public long getItemId(int i) {
         return i;
@@ -69,6 +64,7 @@ public class NazwaListProvider extends BaseItemProvider {
                 SmallDataHolder.getInstance().setData(d);
                 DatabaseHelper databaseHelper = new DatabaseHelper(cpt.getContext());
                 OrmContext ormContext = databaseHelper.getOrmContext("data","Data.db", Dane.class);
+                if(d.getTyp().equals("Norm")){
                 OrmPredicates ormPredicates = ormContext.where(NormalNot.class).equalTo("dataParentId",d.getDataId());
                 NormalNot normalNot = (NormalNot) ormContext.query(ormPredicates).get(0);
                 SmallDataHolder.getInstance().setNormalNot(normalNot);
@@ -80,6 +76,20 @@ public class NazwaListProvider extends BaseItemProvider {
                         .build();
                 intent.setOperation(operation);
                 slice.startAbility(intent);
+                }
+                else if(d.getTyp().equals("List")){
+                    OrmPredicates ormPredicates = ormContext.where(ListNot.class).equalTo("dataParentId",d.getDataId());
+                    List<ListNot> listNots = ormContext.query(ormPredicates);
+                    SmallDataHolder.getInstance().setListNots(listNots);
+                    Intent intent = new Intent();
+                    Operation operation = new Intent.OperationBuilder()
+                            .withDeviceId("")
+                            .withBundleName("com.example.notatnik")
+                            .withAbilityName("com.example.notatnik.PrzegNotka")
+                            .build();
+                    intent.setOperation(operation);
+                    slice.startAbility(intent);
+                }
                // slice.terminateAbility();
                 /*dane.remove(i);
                 notifyDataChanged();*/

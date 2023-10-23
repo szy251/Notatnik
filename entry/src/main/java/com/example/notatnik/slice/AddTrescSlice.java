@@ -29,7 +29,7 @@ public class AddTrescSlice extends AbilitySlice {
             @Override
             public void onClick(Component component) {
                 DataHolder.getInstance().setTresc(textField.getText());
-                DataHolder.getInstance().setState((byte) 5);
+                DataHolder.getInstance().setState((byte) 4);
                 terminateAbility();
             }
         });

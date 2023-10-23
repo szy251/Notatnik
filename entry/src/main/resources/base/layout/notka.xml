@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<DirectionalLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="match_content"
+    ohos:width="466px"
+    ohos:id="$+id:notka"
+    ohos:alignment="center"
+    ohos:orientation="horizontal">
+    <DirectionalLayout
+        ohos:background_element="$graphic:tytuly"
+        ohos:id="$+id:notka_dodatkowa"
+        ohos:height="match_content"
+        ohos:width="366px"
+        ohos:orientation="horizontal"
+        ohos:layout_alignment="center"
+        ohos:top_margin="6px"
+        ohos:bottom_margin="6px"
+        >
+        <Text
+            ohos:background_element="#00FFFFFF"
+            ohos:id="$+id:notka_text"
+            ohos:height="match_content"
+            ohos:width="200px"
+            ohos:text_size="40px"
+            ohos:text_color="#FFFFFFFF"
+            ohos:text_alignment="center"
+            ohos:left_margin="50px"
+            ohos:bottom_margin="24px"
+            />
+        <Text
+            ohos:background_element="#00FFFFFF"
+            ohos:id="$+id:notka_checkbox"
+            ohos:height="70px"
+            ohos:width="70px"
+            ohos:layout_alignment="vertical_center"
+            ohos:text="✔"
+            ohos:text_size="64px"
+            ohos:text_color="#FF22221D"
+            />
+    </DirectionalLayout>
+</DirectionalLayout>

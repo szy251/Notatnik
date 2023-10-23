@@ -1,6 +1,7 @@
 package com.example.notatnik.providers;
 
 import com.example.notatnik.ResourceTable;
+import com.example.notatnik.data.DataHolder;
 import com.example.notatnik.data.Kafelek;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
@@ -54,6 +55,7 @@ public class KafelekListProvider extends BaseItemProvider{
         directionalLayout.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
+                if(textWiekszy.getText().equals("List")) DataHolder.getInstance().kopiaListy();
                 Intent intent = new Intent();
                 Operation operation = new Intent.OperationBuilder()
                         .withDeviceId("")

@@ -184,6 +184,33 @@
         "launchType": "standard",
         "orientation": "unspecified",
         "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.AddListyTresc",
+        "description": "$string:addlistytresc_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_AddListyTresc",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.AddZadanie",
+        "description": "$string:addzadanie_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_AddZadanie",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.PrzegNotka",
+        "description": "$string:przegnotka_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_PrzegNotka",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
       }
     ],
     "reqPermissions": [

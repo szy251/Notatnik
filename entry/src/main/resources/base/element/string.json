@@ -119,6 +119,42 @@
     {
       "name": "entry_AddListy",
       "value": "entry_AddListy"
+    },
+    {
+      "name": "addlistytresc_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "addlistytresc_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_AddListyTresc",
+      "value": "entry_AddListyTresc"
+    },
+    {
+      "name": "addzadanie_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "addzadanie_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_AddZadanie",
+      "value": "entry_AddZadanie"
+    },
+    {
+      "name": "przegnotka_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "przegnotka_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_PrzegNotka",
+      "value": "entry_PrzegNotka"
     }
   ]
 }
