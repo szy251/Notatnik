@@ -1,10 +1,13 @@
 package com.example.notatnik.providers;
 
 import com.example.notatnik.ResourceTable;
+import com.example.notatnik.data.Dane;
 import com.example.notatnik.data.ListNot;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.agp.components.*;
 import ohos.agp.components.element.ShapeElement;
+import ohos.data.DatabaseHelper;
+import ohos.data.orm.OrmContext;
 
 import java.util.List;
 
@@ -64,6 +67,10 @@ public class NotkaListProvider extends BaseItemProvider {
                     d.setZrobione(true);
                     directionalLayout.setBackground(shapeElement);
                 }
+                DatabaseHelper databaseHelper = new DatabaseHelper(cpt.getContext());
+                OrmContext ormContext = databaseHelper.getOrmContext("data","Data.db", Dane.class);
+                ormContext.update(d);
+                ormContext.flush();
             }
         });
         return cpt;

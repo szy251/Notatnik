@@ -1,9 +1,7 @@
 package com.example.notatnik.slice;
 
 import com.example.notatnik.ResourceTable;
-import com.example.notatnik.data.Dane;
-import com.example.notatnik.data.Data;
-import com.example.notatnik.data.DataHolder;
+import com.example.notatnik.data.*;
 import com.example.notatnik.providers.DeleteListProvider;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
@@ -76,20 +74,19 @@ public class DeleteSlice extends AbilitySlice {
         });
     }
     void  delete(){
-        /*helper = new DatabaseHelper(this);
-        context = helper.getOrmContext("data","Data.db",Dane.class);
-        for (int i =0; i <a.size();i++) {
-            if(a.get(i)) {
-                context.delete(context.where(Data.class).equalTo("DataId", dane.get(i).getDataId()));
-            }
-        }
-        context.flush();*/
         helper = new DatabaseHelper(this);
         context = helper.getOrmContext("data","Data.db",Dane.class);
         DataHolder.getInstance().setState((byte) 2);
         List<Data> usuwane = DataHolder.getInstance().getUsuwane();
         for(Data usuwany : usuwane){
             DataHolder.getInstance().removeDane(usuwany);
+            if(usuwany.getTyp().equals("List"))
+            {
+                context.delete(context.where(ListNot.class).equalTo("dataParentId",usuwany.getDataId()));
+            }
+            else{
+                context.delete(context.where(NormalNot.class).equalTo("dataParentId",usuwany.getDataId()));
+            }
             context.delete(context.where(Data.class).equalTo("DataId", usuwany.getDataId()));
         }
         context.flush();
