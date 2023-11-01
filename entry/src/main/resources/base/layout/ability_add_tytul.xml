@@ -13,7 +13,7 @@
         ohos:id="$+id:dodaj_tytul"
         ohos:text_alignment="center"
         ohos:layout_alignment="center"
-        ohos:text_input_type="pattern_null"
+        ohos:text_input_type="pattern_text"
         ohos:text_color="#FFB5B5B5"
         ohos:background_element="#FF000000"
         ohos:text_size="40px"

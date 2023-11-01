@@ -155,6 +155,46 @@
     {
       "name": "entry_PrzegNotka",
       "value": "entry_PrzegNotka"
+    },
+    {
+      "name": "addnotyfication_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "addnotyfication_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_AddNotyfication",
+      "value": "entry_AddNotyfication"
+    },
+    {
+      "name": "settime_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "settime_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_SetTime",
+      "value": "entry_SetTime"
+    },
+    {
+      "name": "runfromnotification_description",
+      "value": "hap sample empty service"
+    },
+    {
+      "name": "setdni_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "setdni_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_SetDni",
+      "value": "entry_SetDni"
     }
   ]
 }

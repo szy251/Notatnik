@@ -1,46 +1,46 @@
 package com.example.notatnik.providers;
 
 import com.example.notatnik.ResourceTable;
-import com.example.notatnik.data.Data;
 import com.example.notatnik.data.DataHolder;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.agp.colors.RgbColor;
 import ohos.agp.components.*;
 import ohos.agp.components.element.ShapeElement;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class DeleteListProvider extends BaseItemProvider {
-    private List<Data> dane;
+public class DniListProvider extends BaseItemProvider {
+    private List<String> dane;
     private AbilitySlice slice;
-    private List<Boolean> usun;
+    private boolean[] dzien;
 
 
-    public DeleteListProvider(List<Data> dane, AbilitySlice slice) {
-        this.dane =  dane;
+    public DniListProvider(List<String> dane, AbilitySlice slice, boolean[] dzien) {
+        this.dane = dane;
         this.slice = slice;
-        usun = new ArrayList<Boolean>();
-        for (int i = 0; i < dane.size(); i++) {
-            usun.add(false);
-        }
+        this.dzien = new boolean[dzien.length];
+        System.arraycopy(dzien, 0, this.dzien, 0, dzien.length);
 
     }
 
     @Override
     public int getCount() {
-        return dane == null? 0:dane.size();
+        return dane == null ? 0 : dane.size();
     }
 
     @Override
     public Object getItem(int i) {
-        if(dane !=null && i >=0 && i < dane.size()) return dane.get(i);
+        if (dane != null && i >= 0 && i < dane.size()) return dane.get(i);
         return null;
     }
 
     @Override
     public long getItemId(int i) {
         return i;
+    }
+
+    public void zapisz(){
+        DataHolder.getInstance().setWybraneKopia(dzien);
     }
 
     @Override
@@ -51,16 +51,15 @@ public class DeleteListProvider extends BaseItemProvider {
             cpt = LayoutScatter.getInstance(slice).parse(ResourceTable.Layout_tytul_usun,null,false);
         }
         else cpt = component;
-        Data d =  dane.get(i);
-
+        String d =  dane.get(i);
         Text text =  (Text) cpt.findComponentById(ResourceTable.Id_nazwa_usun);
-        DirectionalLayout directionalLayout =  (DirectionalLayout) cpt.findComponentById(ResourceTable.Id_tytul_usun);
+        //DirectionalLayout directionalLayout =  (DirectionalLayout) cpt.findComponentById(ResourceTable.Id_tytul_usun);
         Checkbox checkbox = (Checkbox)cpt.findComponentById(ResourceTable.Id_checkbox);
-        String jak = d.getNazwa();
-        text.setMultipleLine(true);
-        text.setText(jak);
-        directionalLayout.setMinHeight(100);
-        text.setMinHeight(80);
+
+        text.setText(d);
+        if(dzien[i]){
+            checkbox.setChecked(true);
+        }
         ShapeElement shapeElement = new ShapeElement();
         shapeElement.setStroke(1,new RgbColor(255,255,255));
         shapeElement.setRgbColor(new RgbColor(0,0,0));
@@ -69,21 +68,16 @@ public class DeleteListProvider extends BaseItemProvider {
 
 
         checkbox.setCheckedStateChangedListener((cos, state)->{
-            usun.set(i,state);
+            dzien[i] = state;
             if(state){
                 shapeElement.setRgbColor(new RgbColor(0,148,125));
                 shapeElement.setStroke(0, new RgbColor(255,255,255));
-                DataHolder.getInstance().addUsuwane(d);
             }
             else{
                 shapeElement.setRgbColor(new RgbColor(0,0,0));
                 shapeElement.setStroke(1, new RgbColor(255,255,255));
-                DataHolder.getInstance().removeUsuwane(d);
             }
         });
-
-
-
         return cpt;
     }
 }

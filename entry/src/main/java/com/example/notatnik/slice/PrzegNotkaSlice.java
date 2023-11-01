@@ -2,6 +2,7 @@ package com.example.notatnik.slice;
 
 import com.example.notatnik.ResourceTable;
 import com.example.notatnik.animations.AnimationButton;
+import com.example.notatnik.data.DataHolder;
 import com.example.notatnik.data.ListNot;
 import com.example.notatnik.data.SmallDataHolder;
 import com.example.notatnik.providers.NotkaListProvider;
@@ -32,6 +33,7 @@ public class PrzegNotkaSlice extends AbilitySlice {
         but.setPosition(183,20);
         listContainer.setPosition(0,0);
         juz = true;
+        DataHolder.getInstance().addObecne(getAbility());
         inicjalizacja();
     }
 
@@ -71,5 +73,10 @@ public class PrzegNotkaSlice extends AbilitySlice {
     @Override
     public void onForeground(Intent intent) {
         super.onForeground(intent);
+    }
+    @Override
+    protected void onStop() {
+        DataHolder.getInstance().removeformObecne(getAbility());
+        super.onStop();
     }
 }

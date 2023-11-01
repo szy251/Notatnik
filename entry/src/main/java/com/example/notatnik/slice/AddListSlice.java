@@ -4,6 +4,7 @@ import com.example.notatnik.ResourceTable;
 import com.example.notatnik.animations.AnimationButton;
 import com.example.notatnik.data.*;
 import com.example.notatnik.providers.KafelekListProvider;
+import com.example.notatnik.utils.DataPomocnik;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.agp.components.Button;
@@ -45,6 +46,7 @@ public class AddListSlice extends AbilitySlice {
         inicjalizacja();
         DataHolder.getInstance().setNazwa("");
         DataHolder.getInstance().setListy(new ArrayList<>());
+        DataHolder.getInstance().addObecne(getAbility());
         but1.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
@@ -68,11 +70,7 @@ public class AddListSlice extends AbilitySlice {
                 else{
                     helper = new DatabaseHelper(getContext());
                     ormContext = helper.getOrmContext("data", "Data.db", Dane.class);
-                    Data data = new Data();
-                    data.setAlarm(false);
-                    data.setNazwa(DataHolder.getInstance().getNazwa());
-                    data.setTyp("List");
-                    data.setDataId(DataHolder.getInstance().getLastId());
+                    Data data = DataPomocnik.stworz("List");
 
                     ormContext.insert(data);
 
@@ -105,6 +103,8 @@ public class AddListSlice extends AbilitySlice {
         kafelekList.add(kafelek);
         kafelek = new Kafelek("List","Count: 0","com.example.notatnik.AddListyTresc");
         kafelekList.add(kafelek);
+        kafelek = new Kafelek("Time","Off","com.example.notatnik.AddNotyfication");
+        kafelekList.add(kafelek);
         kafelekListProvider =  new KafelekListProvider(kafelekList,this);
         listContainer.setItemProvider(kafelekListProvider);
         listContainer.setCentralScrollMode(true);
@@ -133,12 +133,19 @@ public class AddListSlice extends AbilitySlice {
 
         if(DataHolder.getInstance().getState() == 3){
             kafelekList.get(0).setMniejszy(DataHolder.getInstance().getNazwa());
-            kafelekListProvider.notifyDataChanged();
+            kafelekListProvider.notifyDataSetItemChanged(0);
             DataHolder.getInstance().setState((byte) 1);
         }
         else if(DataHolder.getInstance().getState() == 4){
             kafelekList.get(1).setMniejszy("Count: "+ DataHolder.getInstance().getListy().size());
-            kafelekListProvider.notifyDataChanged();
+            kafelekListProvider.notifyDataSetItemChanged(1);
+            DataHolder.getInstance().setState((byte) 1);
+        }
+        else if(DataHolder.getInstance().getState() == 6){
+            if(!DataHolder.getInstance().isAlarm()) kafelekList.get(2).setMniejszy("Off");
+            else if(DataHolder.getInstance().isPowtorzenia()) kafelekList.get(2).setMniejszy(DataHolder.getInstance().getGodzina() + ":" +DataHolder.getInstance().getMinuty() +", Repeat");
+            else kafelekList.get(2).setMniejszy(DataHolder.getInstance().getGodzina() + ":" + DataHolder.getInstance().getMinuty() +", Once");
+            kafelekListProvider.notifyDataSetItemChanged(2);
             DataHolder.getInstance().setState((byte) 1);
         }
         super.onActive();super.onActive();
@@ -147,5 +154,10 @@ public class AddListSlice extends AbilitySlice {
     @Override
     public void onForeground(Intent intent) {
         super.onForeground(intent);
+    }
+    @Override
+    protected void onStop() {
+        DataHolder.getInstance().removeformObecne(getAbility());
+        super.onStop();
     }
 }

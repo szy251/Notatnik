@@ -43,6 +43,7 @@ public class AddListyTrescSlice extends AbilitySlice {
         animatorProperty6 =  new AnimationButton(0.f,1.f,100,but3,false);
         listNots = DataHolder.getInstance().getEdytowane();
         DataHolder.getInstance().setAnimationButton(animatorProperty6);
+        DataHolder.getInstance().addObecne(getAbility());
         if(listNots.size() > 1){
             juz2 = false;
             but3.setVisibility(Component.HIDE);
@@ -164,5 +165,10 @@ public class AddListyTrescSlice extends AbilitySlice {
     @Override
     public void onForeground(Intent intent) {
         super.onForeground(intent);
+    }
+    @Override
+    protected void onStop() {
+        DataHolder.getInstance().removeformObecne(getAbility());
+        super.onStop();
     }
 }

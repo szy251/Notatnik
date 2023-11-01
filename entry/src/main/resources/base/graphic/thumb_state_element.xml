@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<state-container
+    xmlns:ohos="http://schemas.huawei.com/res/ohos">
+    <item ohos:state="component_state_checked" ohos:element="$graphic:thumb_element_on"/>
+    <item ohos:state="component_state_empty" ohos:element="$graphic:thumb_element_off"/>
+</state-container>

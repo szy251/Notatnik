@@ -6,35 +6,35 @@ import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.agp.components.Button;
 import ohos.agp.components.Component;
-import ohos.agp.components.TextField;
+import ohos.agp.components.TimePicker;
 
-public class AddTrescSlice extends AbilitySlice {
+public class SetTimeSlice extends AbilitySlice {
     Button but1, but2;
-    TextField textField;
+    TimePicker timePicker;
     @Override
     public void onStart(Intent intent) {
         super.onStart(intent);
-        super.setUIContent(ResourceTable.Layout_ability_add_tytul);
-        but1 = (Button) findComponentById(ResourceTable.Id_akceptuj_tyt);
-        but2 = (Button) findComponentById(ResourceTable.Id_anuluj_tyt);
-        textField = (TextField) findComponentById(ResourceTable.Id_dodaj_tytul);
+        super.setUIContent(ResourceTable.Layout_ability_set_time);
+        but1 = (Button) findComponentById(ResourceTable.Id_accept_time);
+        but2 = (Button) findComponentById(ResourceTable.Id_decline_time);
+        timePicker = (TimePicker) findComponentById(ResourceTable.Id_timepicker);
         but1.setPosition(120,40);
         but2.setPosition(246, 40);
-        textField.setPosition(58,150);
-        textField.setHint("Add note content");
-        textField.setHeight(250);
-        textField.setText(DataHolder.getInstance().getTresc());
+        timePicker.setPosition(123,160);
+        timePicker.enableSecond(false);
+        timePicker.showSecond(false);
+        timePicker.setWheelModeEnabled(true);
+        timePicker.setMinute(DataHolder.getInstance().getMinutyKopia());
+        timePicker.setHour(DataHolder.getInstance().getGodzinaKopia());
         DataHolder.getInstance().addObecne(getAbility());
-
         but1.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
-                DataHolder.getInstance().setTresc(textField.getText());
-                DataHolder.getInstance().setState((byte) 4);
+                DataHolder.getInstance().setGodzinaKopia(timePicker.getHour());
+                DataHolder.getInstance().setMinutyKopia(timePicker.getMinute());
                 terminateAbility();
             }
         });
-
         but2.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {

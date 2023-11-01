@@ -3,6 +3,7 @@ package com.example.notatnik.slice;
 import com.example.notatnik.data.Dane;
 import com.example.notatnik.data.Data;
 import com.example.notatnik.ResourceTable;
+import com.example.notatnik.data.DataHolder;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.Operation;
@@ -111,5 +112,10 @@ public class OpcjeSlice extends AbilitySlice {
     @Override
     public void onForeground(Intent intent) {
         super.onForeground(intent);
+    }
+    @Override
+    protected void onStop() {
+        DataHolder.getInstance().removeformObecne(getAbility());
+        super.onStop();
     }
 }

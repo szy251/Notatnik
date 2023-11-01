@@ -1,6 +1,7 @@
 package com.example.notatnik.slice;
 
 import com.example.notatnik.ResourceTable;
+import com.example.notatnik.data.DataHolder;
 import com.example.notatnik.data.SmallDataHolder;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
@@ -30,41 +31,7 @@ public class TrescSlice extends AbilitySlice {
         DirectionalLayout directionalLayout1 = (DirectionalLayout)findComponentById(ResourceTable.Id_tresc2);
         scrollView.enableScrollBar(Component.AXIS_Y,true);
         scrollView.setVibrationEffectEnabled(true);
-
-        /*directionalLayout.setTouchEventListener(new Component.TouchEventListener() {
-            float startPositionX = 0;
-            float endPositionX = 0;
-            float startPositionY = 0;
-            float endPositionY = 0;
-            final float horizontalSwipeThreshold = 100;
-            final float verticalSwipeThreshold = 50;
-            @Override
-            public boolean onTouchEvent(Component component, TouchEvent touchEvent) {
-                if(touchEvent.getAction() == TouchEvent.PRIMARY_POINT_DOWN){
-                    MmiPoint downPoint = touchEvent.getPointerScreenPosition(0);
-                    startPositionX = downPoint.getX();
-                    startPositionY = downPoint.getY();
-                }
-                if(touchEvent.getAction() == TouchEvent.PRIMARY_POINT_UP){
-                    MmiPoint movePoint = touchEvent.getPointerScreenPosition(0);
-                    endPositionX = movePoint.getX();
-                    endPositionY = movePoint.getY();
-                    if((Math.abs(endPositionY - startPositionY) < verticalSwipeThreshold) &&
-                            (endPositionX - startPositionX > horizontalSwipeThreshold)){
-                        Intent intent = new Intent();
-                        Operation operation = new Intent.OperationBuilder()
-                                .withDeviceId("")
-                                .withBundleName("com.example.notatnik")
-                                .withAbilityName("com.example.notatnik.MainAbility")
-                                .build();
-                        intent.setOperation(operation);
-                        startAbility(intent);
-                        terminateAbility();
-                    }
-                }
-                return true;
-            }
-        });*/
+        DataHolder.getInstance().addObecne(getAbility());
         text.setMultipleLine(true);
         text.setText(tresc);
         button.setClickedListener(new Component.ClickedListener() {
@@ -94,5 +61,10 @@ public class TrescSlice extends AbilitySlice {
     @Override
     public void onForeground(Intent intent) {
         super.onForeground(intent);
+    }
+    @Override
+    protected void onStop() {
+        DataHolder.getInstance().removeformObecne(getAbility());
+        super.onStop();
     }
 }

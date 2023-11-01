@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:shape="oval">
+
+    <solid
+        ohos:color="#FF22221D"/>
+    <!-- Size of the rectangular area corresponding to shape -->
+    <bounds
+        ohos:bottom="62px"
+        ohos:left="0"
+        ohos:right="62px"
+        ohos:top="0"/>
+</shape>

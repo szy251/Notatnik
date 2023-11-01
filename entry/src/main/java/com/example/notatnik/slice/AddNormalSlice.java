@@ -4,15 +4,18 @@ import com.example.notatnik.ResourceTable;
 import com.example.notatnik.animations.AnimationButton;
 import com.example.notatnik.data.*;
 import com.example.notatnik.providers.KafelekListProvider;
+import com.example.notatnik.utils.DataPomocnik;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.ListContainer;
 import ohos.agp.window.dialog.ToastDialog;
+import ohos.agp.window.service.WindowManager;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,6 +32,9 @@ public class AddNormalSlice extends AbilitySlice {
     AnimationButton animatorProperty, animatorProperty2, animatorProperty3, animatorProperty4;
     @Override
     public void onStart(Intent intent) {
+        getWindow().addFlags(WindowManager.LayoutConfig.MARK_TRANSLUCENT_NAVIGATION);
+        getWindow().addFlags(WindowManager.LayoutConfig.MARK_TRANSLUCENT_STATUS);
+        getWindow().addFlags(WindowManager.LayoutConfig.MARK_FULL_SCREEN);
         super.onStart(intent);
         super.setUIContent(ResourceTable.Layout_ability_add_normal);
         listContainer = (ListContainer) findComponentById(ResourceTable.Id_lista_dodawnaie);
@@ -44,17 +50,19 @@ public class AddNormalSlice extends AbilitySlice {
         inicjalizacja();
         DataHolder.getInstance().setNazwa("");
         DataHolder.getInstance().setTresc("");
+        DataHolder.getInstance().addObecne(getAbility());
+        DataHolder.getInstance().setWybrane(new boolean[7]);
+        DataHolder.getInstance().setGodzina(LocalDateTime.now().getHour());
+        DataHolder.getInstance().setMinuty(LocalDateTime.now().getMinute());
         but1.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
                 if(DataHolder.getInstance().getNazwa().length() > 0  && DataHolder.getInstance().getTresc().length() > 0) {
                     helper = new DatabaseHelper(getContext());
                     ormContext = helper.getOrmContext("data", "Data.db", Dane.class);
-                    Data data = new Data();
-                    data.setAlarm(false);
-                    data.setNazwa(DataHolder.getInstance().getNazwa());
-                    data.setTyp("Norm");
-                    data.setDataId(DataHolder.getInstance().getLastId());
+
+                    Data data = DataPomocnik.stworz("Norm");
+
 
                     NormalNot normalNot = new NormalNot();
                     normalNot.setDataParentId(DataHolder.getInstance().getLastId());
@@ -63,9 +71,9 @@ public class AddNormalSlice extends AbilitySlice {
                     ormContext.insert(data);
                     ormContext.insert(normalNot);
                     ormContext.flush();
+                    DataHolder.getInstance().setState((byte) 2);
 
                     DataHolder.getInstance().incLastId();
-                    DataHolder.getInstance().setState((byte) 2);
                     DataHolder.getInstance().addDane(data);
                     DataHolder.getInstance().getAbility().terminateAbility();
                     terminateAbility();
@@ -86,7 +94,6 @@ public class AddNormalSlice extends AbilitySlice {
                 terminateAbility();
             }
         });
-
     }
 
 
@@ -95,6 +102,8 @@ public class AddNormalSlice extends AbilitySlice {
         Kafelek kafelek = new Kafelek("Title","Your title","com.example.notatnik.AddTytul");
         kafelekList.add(kafelek);
         kafelek = new Kafelek("Note","Your note","com.example.notatnik.AddTresc");
+        kafelekList.add(kafelek);
+        kafelek = new Kafelek("Time","Off","com.example.notatnik.AddNotyfication");
         kafelekList.add(kafelek);
         kafelekListProvider =  new KafelekListProvider(kafelekList,this);
         listContainer.setItemProvider(kafelekListProvider);
@@ -124,12 +133,19 @@ public class AddNormalSlice extends AbilitySlice {
         if(DataHolder.getInstance().getState() == 3
         ){
             kafelekList.get(0).setMniejszy(DataHolder.getInstance().getNazwa());
-            kafelekListProvider.notifyDataChanged();
+            kafelekListProvider.notifyDataSetItemChanged(0);
             DataHolder.getInstance().setState((byte) 1);
         }
         else if(DataHolder.getInstance().getState() == 4){
             kafelekList.get(1).setMniejszy(DataHolder.getInstance().getTresc());
-            kafelekListProvider.notifyDataChanged();
+            kafelekListProvider.notifyDataSetItemChanged(1);
+            DataHolder.getInstance().setState((byte) 1);
+        }
+        else if(DataHolder.getInstance().getState() == 6){
+            if(!DataHolder.getInstance().isAlarm()) kafelekList.get(2).setMniejszy("Off");
+            else if(DataHolder.getInstance().isPowtorzenia()) kafelekList.get(2).setMniejszy(DataHolder.getInstance().getGodzina() + ":" +DataHolder.getInstance().getMinuty() +", Repeat");
+            else kafelekList.get(2).setMniejszy(DataHolder.getInstance().getGodzina() + ":" + DataHolder.getInstance().getMinuty() +", Once");
+            kafelekListProvider.notifyDataSetItemChanged(2);
             DataHolder.getInstance().setState((byte) 1);
         }
         super.onActive();
@@ -138,5 +154,11 @@ public class AddNormalSlice extends AbilitySlice {
     @Override
     public void onForeground(Intent intent) {
         super.onForeground(intent);
+    }
+
+    @Override
+    protected void onStop() {
+        DataHolder.getInstance().removeformObecne(getAbility());
+        super.onStop();
     }
 }

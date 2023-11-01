@@ -1,29 +1,28 @@
 package com.example.notatnik.slice;
 
-import com.example.notatnik.*;
+import com.example.notatnik.ResourceTable;
 import com.example.notatnik.animations.AnimationButton;
 import com.example.notatnik.data.Dane;
 import com.example.notatnik.data.Data;
 import com.example.notatnik.data.DataHolder;
 import com.example.notatnik.providers.NazwaListProvider;
+import ohos.aafwk.ability.Ability;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.Operation;
 import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.ListContainer;
-import ohos.agp.components.PositionLayout;
 import ohos.agp.utils.Color;
+import ohos.agp.window.dialog.ToastDialog;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
 import ohos.data.orm.OrmPredicates;
-import ohos.event.notification.NotificationHelper;
 import ohos.event.notification.NotificationRequest;
 import ohos.event.notification.NotificationSlot;
-import ohos.multimodalinput.event.MmiPoint;
-import ohos.multimodalinput.event.TouchEvent;
-import ohos.rpc.RemoteException;
+import ohos.miscservices.timeutility.Time;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MainAbilitySlice extends AbilitySlice {
@@ -45,9 +44,8 @@ public class MainAbilitySlice extends AbilitySlice {
     @Override
     public void onStart(Intent intent) {
         super.onStart(intent);
-        juz = true;
-        notifId = 1;
         super.setUIContent(ResourceTable.Layout_ability_main);
+        juz = true;
         but = (Button)findComponentById(ResourceTable.Id_dodaj);
         but2 = (Button) findComponentById(ResourceTable.Id_main_opcje);
         listContainer = (ListContainer)findComponentById(ResourceTable.Id_tytuły);
@@ -58,46 +56,17 @@ public class MainAbilitySlice extends AbilitySlice {
         animatorProperty2 = new AnimationButton(0.f,1.f,100,but,false);
         animatorProperty3 = new AnimationButton(1.f,0.f,100,but2,true);
         animatorProperty4 =  new AnimationButton(0.f,1.f,100,but2,false);
-        notificationSlot = new NotificationSlot("slot1","notes",NotificationSlot.LEVEL_DEFAULT);
-        notificationSlot.setEnableVibration(true);
-        notificationSlot.setDescription("Nie mam pojecia");
-        notificationRequest = new NotificationRequest();
-        notificationRequest.setNotificationId(notifId);
-        notificationRequest.setSlotId(notificationSlot.getId());
-        try {
-            NotificationHelper.addNotificationSlot(notificationSlot);
-        } catch (RemoteException e) {
-            e.printStackTrace();
-        }
-        PositionLayout positionLayout = (PositionLayout) findComponentById(ResourceTable.Id_mainability);
-        positionLayout.setTouchEventListener(new Component.TouchEventListener() {
-            float startPositionX = 0;
-            float endPositionX = 0;
-            float startPositionY = 0;
-            float endPositionY = 0;
-            final float horizontalSwipeThreshold = 100;
-            final float verticalSwipeThreshold = 50;
-            @Override
-            public boolean onTouchEvent(Component component, TouchEvent touchEvent) {
-                if(touchEvent.getAction() == TouchEvent.PRIMARY_POINT_DOWN){
-                    MmiPoint downPoint = touchEvent.getPointerScreenPosition(0);
-                    startPositionX = downPoint.getX();
-                    startPositionY = downPoint.getY();
-                }
-                if(touchEvent.getAction() == TouchEvent.PRIMARY_POINT_UP){
-                    MmiPoint movePoint = touchEvent.getPointerScreenPosition(0);
-                    endPositionX = movePoint.getX();
-                    endPositionY = movePoint.getY();
-                    if((Math.abs(endPositionY - startPositionY) < verticalSwipeThreshold) &&
-                            (endPositionX - startPositionX > horizontalSwipeThreshold)){
-                       System.exit(0);
-                    }
-                }
-                return true;
+        if(DataHolder.getInstance().getObecne() != null){
+            List<Ability> kopia =  new ArrayList<>();
+            kopia.addAll(DataHolder.getInstance().getObecne());
+            for(Ability ability : kopia){
+                ability.terminateAbility();
             }
-        });
+        }
+        DataHolder.getInstance().setObecne(new ArrayList<>());
+        DataHolder.getInstance().addObecne(getAbility());
+        inicjalizacja();
 
-       inicjalizacja();
        but.setClickedListener(new Component.ClickedListener() {
            @Override
            public void onClick(Component component) {
@@ -108,21 +77,32 @@ public class MainAbilitySlice extends AbilitySlice {
                        .withAbilityName("com.example.notatnik.ChoseType")
                        .build();
                intent.setOperation(operation);
-               /*intent.setParam("title","");
-               intent.setParam("tresc","");
-               intent.setParam("Id_dane",-1);*/
                startAbility(intent);
-               /*notificationNormalContent = new NotificationRequest.NotificationNormalContent();
-               notificationNormalContent.setTitle("Notes").setText("Notyfikacja o numerze id " + notifId);
-               notificationContent = new NotificationRequest.NotificationContent(notificationNormalContent);
-               notificationRequest.setContent(notificationContent);
-               try {
-                   NotificationHelper.publishNotification(notificationRequest);
-               } catch (RemoteException e) {
-                   e.printStackTrace();
+           }
+       });
+       but2.setClickedListener(new Component.ClickedListener() {
+           @Override
+           public void onClick(Component component) {
+               long   i = Time.getCurrentTime();
+               for(int j = 0; j < 40000; j++){
+                   Data data = new Data();
+                   data.setNazwa("nie wiem");
+                   data.setAlarm(true);
+                   data.setDataId(1);
+                   for(int h = 0; h < j; h++){
+                       data.setDataId(1);
+                       data.setNazwa("nie wiem");
+                       data.setAlarm(true);
+                   }
                }
-               notifId++;
-               notificationRequest.setNotificationId(notifId);*/
+               long z =  Time.getCurrentTime();
+               i = z -i;
+               ToastDialog toastDialog = new ToastDialog(getContext());
+               toastDialog.setText(String.valueOf(i));
+               toastDialog.setDuration(3000);
+               toastDialog.setOffset(0, 158);
+               toastDialog.setSize(366,100);
+               toastDialog.show();
            }
        });
     }
@@ -182,12 +162,6 @@ public class MainAbilitySlice extends AbilitySlice {
     private List<Data> read(){
         helper = new DatabaseHelper(this);
         context = helper.getOrmContext("data","Data.db", Dane.class);
-        /*Data data = new Data();
-        data.setNazwa("Przyklad");
-        data.setTyp("Normal");
-        data.setAlarm(false);
-        context.insert(data);
-        context.flush();*/
         OrmPredicates ormPredicates = context.where(Data.class);
         return context.query(ormPredicates);
     }
@@ -204,5 +178,11 @@ public class MainAbilitySlice extends AbilitySlice {
     @Override
     public void onForeground(Intent intent) {
         super.onForeground(intent);
+    }
+
+    @Override
+    protected void onStop() {
+        DataHolder.getInstance().removeformObecne(getAbility());
+        super.onStop();
     }
 }

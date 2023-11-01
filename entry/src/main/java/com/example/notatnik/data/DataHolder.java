@@ -15,11 +15,13 @@ public class DataHolder {
     // 3 - zmiany tytuł
     // 4 - dodanie do listy/zmiana notatki
     // 5 - edytowanie w liście
+    // 6 - edycja alarm
 
-    private Integer lastId;
+    private Integer lastId, godzina, minuty,godzinaKopia, minutyKopia;
 
     private String nazwa, tresc;
     private List<Data> dane, usuwane;
+    private List<Ability> obecne;
 
     private List<ListNot> listy,edytowane;
 
@@ -32,6 +34,9 @@ public class DataHolder {
 
     private ListNot listNot;
 
+    private boolean[] wybrane, wybraneKopia;
+
+    private boolean alarm,powtorzenia;
 
     private DataHolder() {
         // Prywatny konstruktor Singletona
@@ -149,5 +154,96 @@ public class DataHolder {
 
     public void addEdytowane(ListNot listNot){
         edytowane.add(listNot);
+    }
+
+    public Integer getGodzina() {
+        return godzina;
+    }
+
+    public void setGodzina(Integer godzina) {
+        this.godzina = godzina;
+    }
+
+    public Integer getMinuty() {
+        return minuty;
+    }
+
+    public void setMinuty(Integer minuty) {
+        this.minuty = minuty;
+    }
+
+    public List<Ability> getObecne() {
+        return obecne;
+    }
+
+    public void setObecne(List<Ability> obecne) {
+        this.obecne = obecne;
+    }
+    public void addObecne(Ability ability){
+        obecne.add(ability);
+    }
+    public void removeformObecne(Ability ability){
+        obecne.remove(ability);
+        if(obecne.size() == 0) obecne = null;
+    }
+
+    public boolean[] getWybrane() {
+        return wybrane;
+    }
+
+    public void setWybrane(boolean[] wybrane) {
+        this.wybrane = wybrane;
+    }
+
+    public boolean isAlarm() {
+        return alarm;
+    }
+
+    public void setAlarm(boolean alarm) {
+        this.alarm = alarm;
+    }
+
+    public Integer getGodzinaKopia() {
+        return godzinaKopia;
+    }
+
+    public void setGodzinaKopia(Integer godzinaKopia) {
+        this.godzinaKopia = godzinaKopia;
+    }
+
+    public Integer getMinutyKopia() {
+        return minutyKopia;
+    }
+
+    public void setMinutyKopia(Integer minutyKopia) {
+        this.minutyKopia = minutyKopia;
+    }
+
+    public boolean[] getWybraneKopia() {
+        return wybraneKopia;
+    }
+
+    public void setWybraneKopia(boolean[] wybraneKopia) {
+        this.wybraneKopia = wybraneKopia;
+    }
+
+    public void kopiaCzas(){
+        godzinaKopia = godzina;
+        minutyKopia = minuty;
+        wybraneKopia = wybrane.clone();
+    }
+
+    public void ustawCzas(){
+        godzina = godzinaKopia;
+        minuty = minutyKopia;
+        wybrane = wybraneKopia;
+    }
+
+    public boolean isPowtorzenia() {
+        return powtorzenia;
+    }
+
+    public void setPowtorzenia(boolean powtorzenia) {
+        this.powtorzenia = powtorzenia;
     }
 }

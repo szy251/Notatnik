@@ -11,6 +11,8 @@ import ohos.agp.components.ListContainer;
 import ohos.agp.utils.Color;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
+import ohos.event.notification.ReminderHelper;
+import ohos.rpc.RemoteException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +34,7 @@ public class DeleteSlice extends AbilitySlice {
         listContainer2.setPosition(0,0);
         DataHolder.getInstance().setUsuwane(new ArrayList<>());
         juz = true;
+        DataHolder.getInstance().addObecne(getAbility());
         inicjalizacja();
         image.setClickedListener(new Component.ClickedListener() {
             @Override
@@ -39,6 +42,7 @@ public class DeleteSlice extends AbilitySlice {
                 delete();
             }
         });
+
     }
     private void inicjalizacja(){
         dane = DataHolder.getInstance().getDane();
@@ -79,6 +83,13 @@ public class DeleteSlice extends AbilitySlice {
         DataHolder.getInstance().setState((byte) 2);
         List<Data> usuwane = DataHolder.getInstance().getUsuwane();
         for(Data usuwany : usuwane){
+            if(usuwany.getAlarm()) {
+                try {
+                    ReminderHelper.cancelReminder(usuwany.getAlarmId());
+                } catch (RemoteException e) {
+                    throw new RuntimeException(e);
+                }
+            }
             DataHolder.getInstance().removeDane(usuwany);
             if(usuwany.getTyp().equals("List"))
             {
@@ -104,5 +115,10 @@ public class DeleteSlice extends AbilitySlice {
     @Override
     public void onForeground(Intent intent) {
         super.onForeground(intent);
+    }
+    @Override
+    protected void onStop() {
+        DataHolder.getInstance().removeformObecne(getAbility());
+        super.onStop();
     }
 }

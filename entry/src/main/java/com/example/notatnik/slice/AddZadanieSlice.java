@@ -25,6 +25,7 @@ public class AddZadanieSlice extends AbilitySlice {
         textField.setPosition(58,150);
         textField.setHint("Add text");
         textField.setText(DataHolder.getInstance().getListNot().getNazwa());
+        DataHolder.getInstance().addObecne(getAbility());
 
         textField.addTextObserver(new Text.TextObserver() {
             @Override
@@ -78,5 +79,10 @@ public class AddZadanieSlice extends AbilitySlice {
     @Override
     public void onForeground(Intent intent) {
         super.onForeground(intent);
+    }
+    @Override
+    protected void onStop() {
+        DataHolder.getInstance().removeformObecne(getAbility());
+        super.onStop();
     }
 }

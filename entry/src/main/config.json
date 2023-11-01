@@ -147,16 +147,7 @@
         "label": "$string:entry_AddNormal",
         "launchType": "standard",
         "orientation": "unspecified",
-        "type": "page",
-        "metaData": {
-          "customizeData": [
-            {
-              "extra": "",
-              "name": "hwc-theme",
-              "value": "androidhwext:style/Theme.Emui.Translucent.NoTitleBar.Fullscreen"
-            }
-          ]
-        }
+        "type": "page"
       },
       {
         "name": "com.example.notatnik.AddTresc",
@@ -172,15 +163,6 @@
         "description": "$string:listnotadd_description",
         "icon": "$media:icon",
         "label": "$string:entry_ListNotAdd",
-        "launchType": "standard",
-        "orientation": "unspecified",
-        "type": "page"
-      },
-      {
-        "name": "com.example.notatnik.AddListy",
-        "description": "$string:addlisty_description",
-        "icon": "$media:icon",
-        "label": "$string:entry_AddListy",
         "launchType": "standard",
         "orientation": "unspecified",
         "type": "page"
@@ -211,11 +193,41 @@
         "launchType": "standard",
         "orientation": "unspecified",
         "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.AddNotyfication",
+        "description": "$string:addnotyfication_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_AddNotyfication",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.SetTime",
+        "description": "$string:settime_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_SetTime",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.SetDni",
+        "description": "$string:setdni_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_SetDni",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
       }
     ],
     "reqPermissions": [
       {
         "name": "ohos.permission.VIBRATE"
+      },
+      {
+        "name": "ohos.permission.PUBLISH_AGENT_REMINDER"
       }
     ]
   }
