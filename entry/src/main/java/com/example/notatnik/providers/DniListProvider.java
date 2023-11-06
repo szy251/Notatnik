@@ -1,7 +1,6 @@
 package com.example.notatnik.providers;
 
 import com.example.notatnik.ResourceTable;
-import com.example.notatnik.data.DataHolder;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.agp.colors.RgbColor;
 import ohos.agp.components.*;
@@ -39,8 +38,8 @@ public class DniListProvider extends BaseItemProvider {
         return i;
     }
 
-    public void zapisz(){
-        DataHolder.getInstance().setWybraneKopia(dzien);
+    public boolean[] dostan(){
+        return dzien;
     }
 
     @Override
@@ -57,9 +56,7 @@ public class DniListProvider extends BaseItemProvider {
         Checkbox checkbox = (Checkbox)cpt.findComponentById(ResourceTable.Id_checkbox);
 
         text.setText(d);
-        if(dzien[i]){
-            checkbox.setChecked(true);
-        }
+
         ShapeElement shapeElement = new ShapeElement();
         shapeElement.setStroke(1,new RgbColor(255,255,255));
         shapeElement.setRgbColor(new RgbColor(0,0,0));
@@ -78,6 +75,9 @@ public class DniListProvider extends BaseItemProvider {
                 shapeElement.setStroke(1, new RgbColor(255,255,255));
             }
         });
+        if(dzien[i]){
+            checkbox.setChecked(true);
+        }
         return cpt;
     }
 }

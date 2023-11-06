@@ -14,6 +14,7 @@ import ohos.agp.window.dialog.ToastDialog;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,6 +48,9 @@ public class AddListSlice extends AbilitySlice {
         DataHolder.getInstance().setNazwa("");
         DataHolder.getInstance().setListy(new ArrayList<>());
         DataHolder.getInstance().addObecne(getAbility());
+        DataHolder.getInstance().setWybrane(new boolean[7]);
+        DataHolder.getInstance().setGodzina(LocalDateTime.now().getHour());
+        DataHolder.getInstance().setMinuty(LocalDateTime.now().getMinute());
         but1.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {

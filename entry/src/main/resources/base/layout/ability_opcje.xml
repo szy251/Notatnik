@@ -8,21 +8,11 @@
     ohos:background_element="#FF000000"
     ohos:orientation="vertical">
 
-    <Button
-        ohos:height="200px"
+    <ListContainer
+        ohos:id="$+id:opcje_kafelki"
+        ohos:height="466px"
         ohos:width="466px"
-        ohos:text="Edit"
-        ohos:background_element="#FF00947D"
-        ohos:text_size="50px"
-        ohos:id="$+id:to_edit"
-        ohos:bottom_margin="40px"/>
-    <Button
-        ohos:height="200px"
-        ohos:width="466px"
-        ohos:id="$+id:delete"
-        ohos:text_size="50px"
-        ohos:background_element="#FF00947D"
-        ohos:text="Delete"/>
+        />
 
 
 </DirectionalLayout>

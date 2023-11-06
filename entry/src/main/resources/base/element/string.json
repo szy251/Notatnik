@@ -195,6 +195,63 @@
     {
       "name": "entry_SetDni",
       "value": "entry_SetDni"
+    },
+    {
+      "name": "changetytul_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "changetytul_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_ChangeTytul",
+      "value": "entry_ChangeTytul"
+    },
+    {
+      "name": "changetresc_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "changetresc_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_ChangeTresc",
+      "value": "entry_ChangeTresc"
+    },
+    {
+      "name": "changenotyfication_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "changenotyfication_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_ChangeNotyfication",
+      "value": "entry_ChangeNotyfication"
+    },
+    {
+      "name": "changetime_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "changetime_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_ChangeTime",
+      "value": "entry_ChangeTime"
     }
-  ]
+  ,{
+      "name": "pageability_description",
+      "value": "Java_Empty Ability"
+    },{
+      "name": "pageability_HelloWorld",
+      "value": "Hello World"
+    },{
+      "name":"entry_PageAbility",
+      "value":"entry_PageAbility"
+    }]
 }

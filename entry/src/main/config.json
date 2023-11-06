@@ -88,7 +88,7 @@
       },
       {
         "orientation": "unspecified",
-        "name": "com.example.notatnik.Opcje",
+        "name": "com.example.notatnik.NormalOpcje",
         "icon": "$media:Notes",
         "description": "$string:opcje_description",
         "label": "$string:entry_Opcje",
@@ -220,8 +220,52 @@
         "launchType": "standard",
         "orientation": "unspecified",
         "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.ChangeTytul",
+        "description": "$string:changetytul_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_ChangeTytul",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.ChangeTresc",
+        "description": "$string:changetresc_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_ChangeTresc",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.ChangeNotyfication",
+        "description": "$string:changenotyfication_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_ChangeNotyfication",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.ChangeTime",
+        "description": "$string:changetime_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_ChangeTime",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
       }
-    ],
+    ,{
+              "name": "com.example.notatnik.ChangeDni",
+        "description":"$string:pageability_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_PageAbility",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      }],
     "reqPermissions": [
       {
         "name": "ohos.permission.VIBRATE"

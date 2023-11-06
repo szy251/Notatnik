@@ -29,6 +29,13 @@ public class DataPomocnik {
                     Dni.naInty(DataHolder.getInstance().getWybrane())));
         return data;
     }
+
+    public static void aktualizujData(Data data, Context context){
+        DatabaseHelper helper = new DatabaseHelper(context);
+        OrmContext ormContext = helper.getOrmContext("data", "Data.db", Dane.class);
+        ormContext.update(data);
+        ormContext.flush();
+    }
     public static void sprawdzAlarm(Data data, Context context){
         if(data.getAlarm() && ! data.getPowtorz()){
             LocalDateTime to = Dni.naDate(data.getDzien());

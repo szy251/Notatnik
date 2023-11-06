@@ -14,13 +14,11 @@ import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.ListContainer;
 import ohos.agp.utils.Color;
-import ohos.agp.window.dialog.ToastDialog;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
 import ohos.data.orm.OrmPredicates;
 import ohos.event.notification.NotificationRequest;
 import ohos.event.notification.NotificationSlot;
-import ohos.miscservices.timeutility.Time;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -80,7 +78,7 @@ public class MainAbilitySlice extends AbilitySlice {
                startAbility(intent);
            }
        });
-       but2.setClickedListener(new Component.ClickedListener() {
+       /*but2.setClickedListener(new Component.ClickedListener() {
            @Override
            public void onClick(Component component) {
                long   i = Time.getCurrentTime();
@@ -104,7 +102,8 @@ public class MainAbilitySlice extends AbilitySlice {
                toastDialog.setSize(366,100);
                toastDialog.show();
            }
-       });
+       });*/
+        but2.setClickedListener(listener->present(new DeleteSlice(),new Intent()));
     }
     private void inicjalizacja(){
         dane = read();

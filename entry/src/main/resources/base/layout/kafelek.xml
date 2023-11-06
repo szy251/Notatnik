@@ -30,7 +30,7 @@
         ohos:id="$+id:mniejsze"
         ohos:height="match_content"
         ohos:layout_alignment="center"
-        ohos:width="150px"
+        ohos:width="220px"
         ohos:truncation_mode="ellipsis_at_end"
         ohos:text_size="25px"
         ohos:text_color="#FF9F9F9F"

@@ -3,6 +3,7 @@ package com.example.notatnik.slice;
 import com.example.notatnik.ResourceTable;
 import com.example.notatnik.animations.AnimationButton;
 import com.example.notatnik.data.DataHolder;
+import com.example.notatnik.data.SmallDataHolder;
 import com.example.notatnik.providers.DniListProvider;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
@@ -14,7 +15,7 @@ import ohos.agp.utils.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SetDniSlice extends AbilitySlice {
+public class ChangeDniSlice extends AbilitySlice {
     ListContainer listContainer;
     List<String> dane;
     Button but, but2;
@@ -41,23 +42,16 @@ public class SetDniSlice extends AbilitySlice {
         but.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
-                DataHolder.getInstance().setWybraneKopia(dniListProvider.dostan());
+                SmallDataHolder.getInstance().setWybrane(dniListProvider.dostan());
                 terminateAbility();
             }
         });
-        but2.setClickedListener(new Component.ClickedListener() {
-            @Override
-            public void onClick(Component component) {
-                terminateAbility();
-            }
-        });
+        but2.setClickedListener(listener->terminateAbility());
     }
 
     private void inicjalizacja() {
         stworz();
-
-
-        dniListProvider = new DniListProvider(dane, this,DataHolder.getInstance().getWybraneKopia());
+        dniListProvider = new DniListProvider(dane, this,SmallDataHolder.getInstance().getWybrane());
         listContainer.setItemProvider(dniListProvider);
         listContainer.enableScrollBar(Component.AXIS_Y, true);
         listContainer.setScrollbarBackgroundColor(Color.GRAY);
@@ -95,6 +89,7 @@ public class SetDniSlice extends AbilitySlice {
         dane.add("Saturday");
         dane.add("Sunday");
     }
+
     @Override
     public void onActive() {
         super.onActive();

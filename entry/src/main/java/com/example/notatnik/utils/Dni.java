@@ -31,6 +31,18 @@ public class Dni{
         data.setNd(dni[6]);
     }
 
+    public static boolean[] dostanDni(Data data){
+        boolean[] dni = new boolean[7];
+        dni[0] = data.getPon();
+        dni[1] = data.getWt();
+        dni[2] = data.getSr();
+        dni[3] = data.getCzw();
+        dni[4] = data.getPt();
+        dni[5] = data.getSob();
+        dni[6] = data.getNd();
+        return dni;
+    }
+
     public static int[] naInty(boolean [] dni){
         ArrayList<Integer> poprawne =  new ArrayList<>();
         for(int i = 0; i < 7; i++){
