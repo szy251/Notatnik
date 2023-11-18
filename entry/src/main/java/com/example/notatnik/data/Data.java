@@ -17,9 +17,6 @@ public class Data extends OrmObject {
     public Data() {
     }
 
-   /* public void setData(Date data) {
-        this.data = data;
-    }*/
 
     public void setDataId(Integer dataId) {
         DataId = dataId;
@@ -37,9 +34,6 @@ public class Data extends OrmObject {
     public String getNazwa() {
         return nazwa;
     }
-    /*public Date getData() {
-        return data;
-    }*/
 
     public Integer getDataId() {
         return DataId;

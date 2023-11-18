@@ -108,6 +108,8 @@ public class AddNormalSlice extends AbilitySlice {
         kafelekListProvider =  new KafelekListProvider(kafelekList,this);
         listContainer.setItemProvider(kafelekListProvider);
         listContainer.setCentralScrollMode(true);
+        listContainer.setFocusable(Component.FOCUS_ADAPTABLE);
+        listContainer.requestFocus();
         listContainer.addScrolledListener(new Component.ScrolledListener() {
             @Override
             public void onContentScrolled(Component component, int i, int i1, int i2, int i3) {

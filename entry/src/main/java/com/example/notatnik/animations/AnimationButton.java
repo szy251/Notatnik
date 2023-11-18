@@ -52,9 +52,7 @@ public class AnimationButton extends AnimatorProperty {
                 }
 
                 @Override
-                public void onStop(Animator animator) {
-                    component.setVisibility(Component.VISIBLE);
-                }
+                public void onStop(Animator animator) {}
 
                 @Override
                 public void onCancel(Animator animator) {
@@ -63,6 +61,7 @@ public class AnimationButton extends AnimatorProperty {
 
                 @Override
                 public void onEnd(Animator animator) {
+                    component.setVisibility(Component.VISIBLE);
                 }
 
                 @Override

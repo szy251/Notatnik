@@ -2,9 +2,11 @@ package com.example.notatnik.slice;
 
 import com.example.notatnik.ResourceTable;
 import com.example.notatnik.animations.AnimationButton;
+import com.example.notatnik.data.Dane;
 import com.example.notatnik.data.DataHolder;
 import com.example.notatnik.data.ListNot;
-import com.example.notatnik.providers.ZadaniaListProvider;
+import com.example.notatnik.data.SmallDataHolder;
+import com.example.notatnik.providers.ChangeZadaniaListProvider;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.Operation;
@@ -12,14 +14,19 @@ import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.ListContainer;
 import ohos.agp.utils.Color;
+import ohos.agp.window.dialog.ToastDialog;
 import ohos.app.dispatcher.TaskDispatcher;
 import ohos.app.dispatcher.task.TaskPriority;
+import ohos.data.DatabaseHelper;
+import ohos.data.orm.OrmContext;
+import ohos.data.rdb.ValuesBucket;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class AddListyTrescSlice extends AbilitySlice {
+public class ChangeListyTrescSlice extends AbilitySlice {
     ListContainer listContainer;
-    ZadaniaListProvider zadaniaListProvider;
+    ChangeZadaniaListProvider changeZadaniaListProvider;
     List<ListNot> listNots;
     Button but1, but2, but3;
     AnimationButton animatorProperty, animatorProperty2, animatorProperty3, animatorProperty4,animatorProperty5,animatorProperty6;
@@ -41,9 +48,13 @@ public class AddListyTrescSlice extends AbilitySlice {
         animatorProperty4 =  new AnimationButton(0.f,1.f,100,but2,false);
         animatorProperty5 = new AnimationButton(1.f,0.f,100,but3,true);
         animatorProperty6 =  new AnimationButton(0.f,1.f,100,but3,false);
-        listNots = DataHolder.getInstance().getEdytowane();
-        DataHolder.getInstance().setAddListyTrescSlice(this);
-        DataHolder.getInstance().setAnimationButton(animatorProperty6);
+        SmallDataHolder.getInstance().setEdytowane(new ArrayList<>());
+        SmallDataHolder.getInstance().setNowe(new ArrayList<>());
+        SmallDataHolder.getInstance().setUsuniete(new ArrayList<>());
+        SmallDataHolder.getInstance().kopiaListy();
+        listNots = SmallDataHolder.getInstance().getKopie();
+        SmallDataHolder.getInstance().setChangeListyTrescSlice(this);
+        SmallDataHolder.getInstance().setAnimationButton(animatorProperty6);
         DataHolder.getInstance().addObecne(getAbility());
         if(listNots.size() > 1){
             juz2 = false;
@@ -56,46 +67,63 @@ public class AddListyTrescSlice extends AbilitySlice {
         juz4 = true;
         juz = true;
         inicjalizacja();
-
         but1.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
-                DataHolder.getInstance().setListy(DataHolder.getInstance().getEdytowane());
-                DataHolder.getInstance().setState((byte) 4);
-                terminateAbility();
+                if (listNots.size() > 0) {
+                    DatabaseHelper helper = new DatabaseHelper(getContext());
+                    OrmContext ormContext = helper.getOrmContext("data", "Data.db", Dane.class);
+                    for (ListNot listNot : SmallDataHolder.getInstance().getEdytowane()) {
+                        ValuesBucket valuesBucket = new ValuesBucket();
+                        valuesBucket.putString("nazwa", listNot.getNazwa());
+                        ormContext.update(ormContext.where(ListNot.class).equalTo("ListNotId", listNot.getListNotId()), valuesBucket);
+                    }
+                    for (ListNot listNot : SmallDataHolder.getInstance().getNowe()) {
+                        ormContext.insert(listNot);
+                    }
+                    for (ListNot listNot : SmallDataHolder.getInstance().getUsuniete()) {
+                        ormContext.delete(ormContext.where(ListNot.class).equalTo("ListNotId", listNot.getListNotId()));
+                    }
+                    ormContext.flush();
+                    SmallDataHolder.getInstance().setListNots(listNots);
+                    SmallDataHolder.getInstance().setState((byte) 3);
+                    SmallDataHolder.getInstance().setState2((byte) 2);
+                    terminateAbility();
+                }
+                else{
+                    ToastDialog toastDialog = new ToastDialog(getContext());
+                    toastDialog.setText("Empty content");
+                    toastDialog.setDuration(3000);
+                    toastDialog.setOffset(0, 158);
+                    toastDialog.setSize(366,100);
+                    toastDialog.show();
+                }
             }
         });
-        but2.setClickedListener(new Component.ClickedListener() {
-            @Override
-            public void onClick(Component component) {
-                terminateAbility();
-            }
-        });
+        but2.setClickedListener(listener->terminateAbility());
         but3.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
-
                 ListNot listNot = new ListNot();
                 listNot.setDataParentId(-1);
                 listNot.setZrobione(false);
-                DataHolder.getInstance().setListNot(listNot);
+                SmallDataHolder.getInstance().setListNot(listNot);
                 Intent intent = new Intent();
                 Operation operation = new Intent.OperationBuilder().
                         withDeviceId("").
                         withBundleName("com.example.notatnik").
-                        withAbilityName("com.example.notatnik.AddZadanie").
+                        withAbilityName("com.example.notatnik.ChangeZadanie").
                         build();
                 intent.setOperation(operation);
                 startAbility(intent);
             }
         });
     }
-
     private void inicjalizacja(){
-        zadaniaListProvider =  new ZadaniaListProvider(listNots,this);
-        listContainer.setItemProvider(zadaniaListProvider);
+        changeZadaniaListProvider =  new ChangeZadaniaListProvider(listNots,this);
+        listContainer.setItemProvider(changeZadaniaListProvider);
         listContainer.setCentralScrollMode(true);
-        DataHolder.getInstance().setListContainer(listContainer);
+        SmallDataHolder.getInstance().setListContainer(listContainer);
         listContainer.enableScrollBar(Component.AXIS_Y,true);
         listContainer.setScrollbarBackgroundColor(Color.GRAY);
         listContainer.setScrollbarColor(Color.WHITE);
@@ -136,6 +164,7 @@ public class AddListyTrescSlice extends AbilitySlice {
 
 
     }
+
     public void prawda(){
         juz3 = true;
     }
@@ -149,10 +178,11 @@ public class AddListyTrescSlice extends AbilitySlice {
     public boolean isJuz2(){return juz2;}
     @Override
     public void onActive() {
-        if(DataHolder.getInstance().getState() == 4){
+
+        if(SmallDataHolder.getInstance().getState() == 4){
             TaskDispatcher taskDispatcher = getGlobalTaskDispatcher(TaskPriority.DEFAULT);
-            DataHolder.getInstance().setState((byte) 1);
-            zadaniaListProvider.notifyDataSetItemInserted(listContainer.getChildCount());
+            SmallDataHolder.getInstance().setState((byte) 1);
+            changeZadaniaListProvider.notifyDataSetItemInserted(listContainer.getChildCount());
             listContainer.scrollTo(listContainer.getChildCount()-1);
             juz2 = true;
             taskDispatcher.delayDispatch(new Runnable() {
@@ -162,9 +192,9 @@ public class AddListyTrescSlice extends AbilitySlice {
                 }
             },1000);
         }
-        else if(DataHolder.getInstance().getState() == 5){
-            DataHolder.getInstance().setState((byte) 1);
-            zadaniaListProvider.notifyDataSetItemChanged(DataHolder.getInstance().getPozycja());
+        else if(SmallDataHolder.getInstance().getState() == 5){
+            SmallDataHolder.getInstance().setState((byte) 1);
+            changeZadaniaListProvider.notifyDataSetItemChanged(SmallDataHolder.getInstance().getPozycja());
         }
         super.onActive();
     }
@@ -173,10 +203,10 @@ public class AddListyTrescSlice extends AbilitySlice {
     public void onForeground(Intent intent) {
         super.onForeground(intent);
     }
+
     @Override
     protected void onStop() {
         DataHolder.getInstance().removeformObecne(getAbility());
         super.onStop();
     }
-
 }

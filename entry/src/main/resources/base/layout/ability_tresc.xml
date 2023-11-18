@@ -1,29 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<DirectionalLayout
+<PositionLayout
     xmlns:ohos="http://schemas.huawei.com/res/ohos"
     ohos:height="match_parent"
     ohos:width="match_parent"
     ohos:orientation="vertical"
     ohos:id="$+id:tresc">
     <ScrollView
-        ohos:height="match_content"
+        ohos:height="466px"
         ohos:width="match_parent"
         ohos:id="$+id:scroll">
         <DirectionalLayout
             ohos:height="match_content"
-            ohos:width="match_content"
+            ohos:min_height="466px"
+            ohos:width="466px"
             ohos:orientation="vertical"
             ohos:background_element="#FF000000"
             ohos:id="$+id:tresc2">
-            <Button
-                ohos:height="100px"
-                ohos:width="466px"
-                ohos:id="$+id:to_option"
-                ohos:text="More"
-                ohos:text_size="40px"
-                ohos:background_element="$graphic:przycisk"
-                />
             <Text
                 ohos:id="$+id:text_tresc"
                 ohos:height="match_content"
@@ -32,11 +25,19 @@
                 ohos:text_color="#FFB5B5B5"
                 ohos:text_alignment="center"
                 ohos:layout_alignment="center"
-                ohos:top_padding="100px"
+                ohos:top_padding="150px"
                 ohos:bottom_padding="200px"
                 ohos:text="$string:tresc_HelloWorld"
                 ohos:text_size="50px"
                 />
         </DirectionalLayout>
     </ScrollView>
-</DirectionalLayout>
+    <Button
+        ohos:id="$+id:to_option"
+        ohos:height="100px"
+        ohos:width="100px"
+        ohos:background_element="$graphic:przycisk"
+        ohos:text="..."
+        ohos:text_size="90px"
+        />
+</PositionLayout>

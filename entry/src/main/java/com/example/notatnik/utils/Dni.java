@@ -1,6 +1,7 @@
 package com.example.notatnik.utils;
 
 import com.example.notatnik.data.Data;
+import com.example.notatnik.data.SmallDataHolder;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -104,5 +105,12 @@ public class Dni{
             default:
                 return "";
         }
+    }
+    public static String czas(){
+        if(!SmallDataHolder.getInstance().getData().getAlarm()) return "Off";
+        if(SmallDataHolder.getInstance().getData().getPowtorz()){
+            return SmallDataHolder.getInstance().getDzien().getHour() + ":" + SmallDataHolder.getInstance().getDzien().getMinute() +", Repeat";
+        }
+        return SmallDataHolder.getInstance().getDzien().getHour() + ":" + SmallDataHolder.getInstance().getDzien().getMinute() +", Once";
     }
 }

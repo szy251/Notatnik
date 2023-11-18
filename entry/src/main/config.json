@@ -256,16 +256,44 @@
         "launchType": "standard",
         "orientation": "unspecified",
         "type": "page"
-      }
-    ,{
-              "name": "com.example.notatnik.ChangeDni",
-        "description":"$string:pageability_description",
+      },
+      {
+        "name": "com.example.notatnik.ChangeDni",
+        "description": "$string:pageability_description",
         "icon": "$media:icon",
         "label": "$string:entry_PageAbility",
         "launchType": "standard",
         "orientation": "unspecified",
         "type": "page"
-      }],
+      },
+      {
+        "name": "com.example.notatnik.ListOpcje",
+        "description": "$string:changelist_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_ChangeList",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.ChangeListyTresc",
+        "description": "$string:changelistytresc_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_ChangeListyTresc",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.ChangeZadanie",
+        "description": "$string:changezadanie_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_ChangeZadanie",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      }
+    ],
     "reqPermissions": [
       {
         "name": "ohos.permission.VIBRATE"

@@ -243,15 +243,54 @@
     {
       "name": "entry_ChangeTime",
       "value": "entry_ChangeTime"
-    }
-  ,{
+    },
+    {
       "name": "pageability_description",
       "value": "Java_Empty Ability"
-    },{
+    },
+    {
       "name": "pageability_HelloWorld",
       "value": "Hello World"
-    },{
-      "name":"entry_PageAbility",
-      "value":"entry_PageAbility"
-    }]
+    },
+    {
+      "name": "entry_PageAbility",
+      "value": "entry_PageAbility"
+    },
+    {
+      "name": "changelist_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "changelist_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_ChangeList",
+      "value": "entry_ChangeList"
+    },
+    {
+      "name": "changelistytresc_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "changelistytresc_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_ChangeListyTresc",
+      "value": "entry_ChangeListyTresc"
+    },
+    {
+      "name": "changezadanie_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "changezadanie_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_ChangeZadanie",
+      "value": "entry_ChangeZadanie"
+    }
+  ]
 }

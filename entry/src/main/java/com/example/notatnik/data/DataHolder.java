@@ -1,6 +1,7 @@
 package com.example.notatnik.data;
 
 import com.example.notatnik.animations.AnimationButton;
+import com.example.notatnik.slice.AddListyTrescSlice;
 import ohos.aafwk.ability.Ability;
 import ohos.agp.components.ListContainer;
 
@@ -17,7 +18,7 @@ public class DataHolder {
     // 5 - edytowanie w liście
     // 6 - edycja alarm
 
-    private Integer lastId, godzina, minuty,godzinaKopia, minutyKopia;
+    private Integer lastId, godzina, minuty,godzinaKopia, minutyKopia, pozycja;
 
     private String nazwa, tresc;
     private List<Data> dane, usuwane;
@@ -37,6 +38,7 @@ public class DataHolder {
     private boolean[] wybrane, wybraneKopia;
 
     private boolean alarm,powtorzenia;
+    private AddListyTrescSlice addListyTrescSlice;
 
     private DataHolder() {
         // Prywatny konstruktor Singletona
@@ -245,5 +247,21 @@ public class DataHolder {
 
     public void setPowtorzenia(boolean powtorzenia) {
         this.powtorzenia = powtorzenia;
+    }
+
+    public Integer getPozycja() {
+        return pozycja;
+    }
+
+    public void setPozycja(Integer pozycja) {
+        this.pozycja = pozycja;
+    }
+
+    public AddListyTrescSlice getAddListyTrescSlice() {
+        return addListyTrescSlice;
+    }
+
+    public void setAddListyTrescSlice(AddListyTrescSlice addListyTrescSlice) {
+        this.addListyTrescSlice = addListyTrescSlice;
     }
 }

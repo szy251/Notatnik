@@ -2,6 +2,7 @@ package com.example.notatnik.slice;
 
 import com.example.notatnik.ResourceTable;
 import com.example.notatnik.data.DataHolder;
+import com.example.notatnik.data.SmallDataHolder;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.agp.components.Button;
@@ -10,7 +11,7 @@ import ohos.agp.components.Text;
 import ohos.agp.components.TextField;
 import ohos.agp.window.dialog.ToastDialog;
 
-public class AddZadanieSlice extends AbilitySlice {
+public class ChangeZadanieSlice extends AbilitySlice {
     Button but1, but2;
     TextField textField;
     @Override
@@ -24,7 +25,7 @@ public class AddZadanieSlice extends AbilitySlice {
         but2.setPosition(246, 40);
         textField.setPosition(58,150);
         textField.setHint("Add text");
-        textField.setText(DataHolder.getInstance().getListNot().getNazwa());
+        textField.setText(SmallDataHolder.getInstance().getListNot().getNazwa());
         DataHolder.getInstance().addObecne(getAbility());
 
         textField.addTextObserver(new Text.TextObserver() {
@@ -35,20 +36,23 @@ public class AddZadanieSlice extends AbilitySlice {
                 }
             }
         });
-
         but1.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
                 if(!textField.getText().equals("")) {
-                    DataHolder.getInstance().getListNot().setNazwa(textField.getText());
-                    if(DataHolder.getInstance().getListNot().getDataParentId() == -1) {
-                        DataHolder.getInstance().getListNot().setDataParentId(DataHolder.getInstance().getLastId());
-                        DataHolder.getInstance().addEdytowane(DataHolder.getInstance().getListNot());
-                        DataHolder.getInstance().setState((byte) 4);
-                        DataHolder.getInstance().getAddListyTrescSlice().falsz2();
+                    SmallDataHolder.getInstance().getListNot().setNazwa(textField.getText());
+                    if(SmallDataHolder.getInstance().getListNot().getDataParentId() == -1) {
+                        SmallDataHolder.getInstance().getListNot().setDataParentId(SmallDataHolder.getInstance().getData().getDataId());
+                        SmallDataHolder.getInstance().addKopie(SmallDataHolder.getInstance().getListNot());
+                        SmallDataHolder.getInstance().addNowe(SmallDataHolder.getInstance().getListNot());
+                        SmallDataHolder.getInstance().setState((byte) 4);
+                        SmallDataHolder.getInstance().getChangeListyTrescSlice().falsz2();
                     }
                     else{
-                        DataHolder.getInstance().setState((byte) 5);
+                        if(SmallDataHolder.getInstance().getListNot().getListNotId()!=null && SmallDataHolder.getInstance().getEdytowane().stream().noneMatch(listNot -> listNot.getListNotId().equals(SmallDataHolder.getInstance().getListNot().getListNotId()))) {
+                            SmallDataHolder.getInstance().addEdytowane(SmallDataHolder.getInstance().getListNot());
+                        }
+                        SmallDataHolder.getInstance().setState((byte) 5);
                     }
                     terminateAbility();
                 }
@@ -57,19 +61,13 @@ public class AddZadanieSlice extends AbilitySlice {
                     toastDialog.setText("Can't be empty");
                     toastDialog.setDuration(3000);
                     toastDialog.setOffset(0, 158);
-                    toastDialog.setSize(366,100);
+                    toastDialog.setSize(366,130);
                     toastDialog.show();
                 }
 
             }
         });
-
-        but2.setClickedListener(new Component.ClickedListener() {
-            @Override
-            public void onClick(Component component) {
-                terminateAbility();
-            }
-        });
+        but2.setClickedListener(listener->terminateAbility());
     }
 
     @Override
@@ -81,6 +79,7 @@ public class AddZadanieSlice extends AbilitySlice {
     public void onForeground(Intent intent) {
         super.onForeground(intent);
     }
+
     @Override
     protected void onStop() {
         DataHolder.getInstance().removeformObecne(getAbility());

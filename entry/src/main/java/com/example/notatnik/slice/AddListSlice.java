@@ -32,8 +32,6 @@ public class AddListSlice extends AbilitySlice {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setUIContent(ResourceTable.Layout_ability_add_normal);
-        super.onStart(intent);
-        super.setUIContent(ResourceTable.Layout_ability_add_normal);
         listContainer = (ListContainer) findComponentById(ResourceTable.Id_lista_dodawnaie);
         but1 = (Button) findComponentById(ResourceTable.Id_accept);
         but2 = (Button) findComponentById(ResourceTable.Id_decline);
@@ -112,6 +110,8 @@ public class AddListSlice extends AbilitySlice {
         kafelekListProvider =  new KafelekListProvider(kafelekList,this);
         listContainer.setItemProvider(kafelekListProvider);
         listContainer.setCentralScrollMode(true);
+        listContainer.setFocusable(Component.FOCUS_ADAPTABLE);
+        listContainer.requestFocus();
         listContainer.addScrolledListener(new Component.ScrolledListener() {
             @Override
             public void onContentScrolled(Component component, int i, int i1, int i2, int i3) {

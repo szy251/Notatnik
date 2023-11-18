@@ -27,6 +27,8 @@ public class ChangeTimeSlice extends AbilitySlice {
         timePicker.setWheelModeEnabled(true);
         timePicker.setHour(SmallDataHolder.getInstance().getGodzina());
         timePicker.setMinute(SmallDataHolder.getInstance().getMinuty());
+        timePicker.setTouchFocusable(true);
+        timePicker.requestFocus();
         DataHolder.getInstance().addObecne(getAbility());
         but1.setClickedListener(new Component.ClickedListener() {
             @Override

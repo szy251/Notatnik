@@ -7,19 +7,32 @@
     ohos:width="466px"
     ohos:alignment="center"
     ohos:orientation="vertical">
-    <TextField
-        ohos:height="200px"
-        ohos:width="350px"
-        ohos:id="$+id:dodaj_tytul"
-        ohos:text_alignment="center"
-        ohos:layout_alignment="center"
-        ohos:text_input_type="pattern_text"
-        ohos:text_color="#FFB5B5B5"
-        ohos:background_element="#FF000000"
-        ohos:text_size="40px"
-        ohos:hint="Add title"
-        />
-
+    <ScrollView
+        ohos:height="466px"
+        ohos:width="466px"
+        ohos:id="$+id:scroll_edycja_tekst">
+        <DirectionalLayout
+            ohos:height="match_content"
+            ohos:min_height="466px"
+            ohos:width="466px"
+            ohos:orientation="vertical"
+            ohos:background_element="#FF000000">
+            <TextField
+                ohos:height="match_content"
+                ohos:top_padding="180px"
+                ohos:bottom_padding="200px"
+                ohos:width="350px"
+                ohos:id="$+id:dodaj_tytul"
+                ohos:text_alignment="center"
+                ohos:layout_alignment="center"
+                ohos:text_input_type="pattern_text"
+                ohos:text_color="#FFB5B5B5"
+                ohos:background_element="#FF000000"
+                ohos:text_size="40px"
+                ohos:hint="Add title"
+                />
+        </DirectionalLayout>
+    </ScrollView>
     <Button
         ohos:height="100px"
         ohos:width="100px"

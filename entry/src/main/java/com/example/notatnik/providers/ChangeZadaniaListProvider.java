@@ -1,9 +1,9 @@
 package com.example.notatnik.providers;
 
 import com.example.notatnik.ResourceTable;
-import com.example.notatnik.data.DataHolder;
 import com.example.notatnik.data.ListNot;
-import com.example.notatnik.slice.AddListyTrescSlice;
+import com.example.notatnik.data.SmallDataHolder;
+import com.example.notatnik.slice.ChangeListyTrescSlice;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.Operation;
@@ -13,11 +13,11 @@ import ohos.app.dispatcher.task.TaskPriority;
 
 import java.util.List;
 
-public class ZadaniaListProvider extends BaseItemProvider {
+public class ChangeZadaniaListProvider extends BaseItemProvider {
     private List<ListNot> dane;
     private AbilitySlice slice;
 
-    public ZadaniaListProvider(List<ListNot> dane, AbilitySlice slice) {
+    public ChangeZadaniaListProvider(List<ListNot> dane, AbilitySlice slice) {
         this.dane =  dane;
         this.slice = slice;
     }
@@ -31,6 +31,10 @@ public class ZadaniaListProvider extends BaseItemProvider {
     public Object getItem(int i) {
         if(dane !=null && i >=0 && i < dane.size()) return dane.get(i);
         return null;
+    }
+    public void addDane(ListNot listNot) {
+        dane.add(listNot);
+        notifyDataChanged();
     }
 
     @Override
@@ -54,28 +58,35 @@ public class ZadaniaListProvider extends BaseItemProvider {
         textField.setText(d.getNazwa());
 
         button.setClickedListener(new Component.ClickedListener() {
-            AddListyTrescSlice addListyTrescSlice = (AddListyTrescSlice) slice;
+            ChangeListyTrescSlice changeListyTrescSlice = (ChangeListyTrescSlice) slice;
 
             @Override
             public void onClick(Component component) {
-                if(dane.size() > 2){
-                   addListyTrescSlice.falsz();
+                if(d.getListNotId() != null){
+                    SmallDataHolder.getInstance().addUsuniete(d);
+                    SmallDataHolder.getInstance().removeEdytowane(d);
                 }
-                addListyTrescSlice.falsz2();
+                else{
+                    SmallDataHolder.getInstance().removeNowe(d);
+                }
+                if(dane.size() > 2){
+                    changeListyTrescSlice.falsz();
+                }
+                changeListyTrescSlice.falsz2();
+
                 dane.remove(i);
-                if(DataHolder.getInstance().getListContainer().getCenterFocusablePosition() == dane.size()-1 && !addListyTrescSlice.isJuz2()){
-                    DataHolder.getInstance().getAnimationButton().start();
-                    addListyTrescSlice.prawda3();
-                    TaskDispatcher taskDispatcher = addListyTrescSlice.getGlobalTaskDispatcher(TaskPriority.DEFAULT);
+                if(SmallDataHolder.getInstance().getListContainer().getCenterFocusablePosition() == dane.size()-1 && !changeListyTrescSlice.isJuz2()) {
+                    SmallDataHolder.getInstance().getAnimationButton().start();
+                    changeListyTrescSlice.prawda3();
                 }
                 notifyDataChanged();
-                DataHolder.getInstance().getListContainer().scrollTo(i);
-                TaskDispatcher taskDispatcher = addListyTrescSlice.getGlobalTaskDispatcher(TaskPriority.DEFAULT);
+                SmallDataHolder.getInstance().getListContainer().scrollTo(i);
+                TaskDispatcher taskDispatcher = changeListyTrescSlice.getGlobalTaskDispatcher(TaskPriority.DEFAULT);
                 taskDispatcher.delayDispatch(new Runnable() {
                     @Override
                     public void run() {
-                        addListyTrescSlice.prawda();
-                        addListyTrescSlice.prawda2();
+                        changeListyTrescSlice.prawda();
+                        changeListyTrescSlice.prawda2();
                     }
                 },200);
             }
@@ -83,15 +94,15 @@ public class ZadaniaListProvider extends BaseItemProvider {
         textField.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
-                DataHolder.getInstance().setListNot(d);
+                SmallDataHolder.getInstance().setListNot(d);
                 Intent intent = new Intent();
                 Operation operation = new Intent.OperationBuilder().
                         withDeviceId("").
                         withBundleName("com.example.notatnik").
-                        withAbilityName("com.example.notatnik.AddZadanie").
+                        withAbilityName("com.example.notatnik.ChangeZadanie").
                         build();
                 intent.setOperation(operation);
-                DataHolder.getInstance().setPozycja(i);
+                SmallDataHolder.getInstance().setPozycja(i);
                 slice.startAbility(intent);
             }
         });

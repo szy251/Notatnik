@@ -24,9 +24,9 @@ public class ChangeTytulSlice extends AbilitySlice {
         textField = (TextField) findComponentById(ResourceTable.Id_dodaj_tytul);
         but1.setPosition(120, 40);
         but2.setPosition(246, 40);
-        textField.setPosition(58, 150);
         textField.setText(SmallDataHolder.getInstance().getData().getNazwa());
         DataHolder.getInstance().addObecne(getAbility());
+
         textField.addTextObserver(new Text.TextObserver() {
             @Override
             public void onTextUpdated(String s, int i, int i1, int i2) {

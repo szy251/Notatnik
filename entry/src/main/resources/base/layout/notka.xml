@@ -21,6 +21,7 @@
             ohos:id="$+id:notka_text"
             ohos:height="match_content"
             ohos:width="200px"
+            ohos:multiple_lines="true"
             ohos:text_size="40px"
             ohos:text_color="#FFFFFFFF"
             ohos:text_alignment="center"

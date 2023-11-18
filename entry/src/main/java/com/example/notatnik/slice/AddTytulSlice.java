@@ -22,7 +22,7 @@ public class AddTytulSlice extends AbilitySlice {
         textField = (TextField) findComponentById(ResourceTable.Id_dodaj_tytul);
         but1.setPosition(120, 40);
         but2.setPosition(246, 40);
-        textField.setPosition(58, 150);
+       // textField.setPosition(58, 150);
         textField.setText(DataHolder.getInstance().getNazwa());
         DataHolder.getInstance().addObecne(getAbility());
 

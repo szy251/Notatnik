@@ -20,6 +20,10 @@ public class NotkaListProvider extends BaseItemProvider {
         this.slice = slice;
     }
 
+    public void setDane(List<ListNot> dane) {
+        this.dane = dane;
+    }
+
     @Override
     public int getCount() {
         return dane == null? 0:dane.size();

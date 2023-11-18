@@ -1,6 +1,7 @@
 package com.example.notatnik.slice;
 
 import com.example.notatnik.ResourceTable;
+import com.example.notatnik.animations.AnimationButton;
 import com.example.notatnik.data.Dane;
 import com.example.notatnik.data.DataHolder;
 import com.example.notatnik.data.SmallDataHolder;
@@ -8,6 +9,7 @@ import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.agp.components.Button;
 import ohos.agp.components.Component;
+import ohos.agp.components.ScrollView;
 import ohos.agp.components.TextField;
 import ohos.agp.window.dialog.ToastDialog;
 import ohos.data.DatabaseHelper;
@@ -16,6 +18,9 @@ import ohos.data.orm.OrmContext;
 public class ChangeTrescSlice extends AbilitySlice {
     Button but1, but2;
     TextField textField;
+    ScrollView scrollView;
+    Boolean juz;
+    AnimationButton animatorProperty, animatorProperty2, animatorProperty3, animatorProperty4;
     @Override
     public void onStart(Intent intent) {
         super.onStart(intent);
@@ -30,6 +35,16 @@ public class ChangeTrescSlice extends AbilitySlice {
         textField.setHeight(250);
         textField.setText(SmallDataHolder.getInstance().getNormalNot().getTresc());
         DataHolder.getInstance().addObecne(getAbility());
+        textField.setFocusable(Component.ACCESSIBILITY_ADAPTABLE);
+        textField.setTouchFocusable(true);
+        scrollView.setTouchFocusable(true);
+        scrollView.setFocusable(Component.ACCESSIBILITY_ENABLE);
+        scrollView.requestFocus();
+        juz = true;
+        animatorProperty = new AnimationButton(1.f,0.f,100,but1,true);
+        animatorProperty2 = new AnimationButton(0.f,1.f,100,but1,false);
+        animatorProperty3 = new AnimationButton(1.f,0.f,100,but2,true);
+        animatorProperty4 =  new AnimationButton(0.f,1.f,100,but2,false);
 
         but1.setClickedListener(new Component.ClickedListener() {
             @Override
@@ -51,6 +66,24 @@ public class ChangeTrescSlice extends AbilitySlice {
                     toastDialog.setOffset(0, 158);
                     toastDialog.setSize(366, 150);
                     toastDialog.show();
+                }
+            }
+        });
+        but2.setClickedListener(listener->terminateAbility());
+        scrollView.addScrolledListener(new Component.ScrolledListener() {
+            @Override
+            public void onContentScrolled(Component component, int i, int i1, int i2, int i3) {
+                if(i1 <= 20 ){
+                    if(!juz) {
+                        animatorProperty2.start();
+                        animatorProperty4.start();
+                    }
+                    juz = true;
+                }
+                else if(juz){
+                    juz = false;
+                    animatorProperty.start();
+                    animatorProperty3.start();
                 }
             }
         });

@@ -8,6 +8,7 @@ import com.example.notatnik.data.SmallDataHolder;
 import com.example.notatnik.providers.NotkaListProvider;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
+import ohos.aafwk.content.Operation;
 import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.ListContainer;
@@ -33,8 +34,24 @@ public class PrzegNotkaSlice extends AbilitySlice {
         but.setPosition(183,20);
         listContainer.setPosition(0,0);
         juz = true;
+        SmallDataHolder.getInstance().setState((byte) 1);
+        SmallDataHolder.getInstance().setState2((byte) 1);
         DataHolder.getInstance().addObecne(getAbility());
         inicjalizacja();
+
+        but.setClickedListener(new Component.ClickedListener() {
+            @Override
+            public void onClick(Component component) {
+                Intent intent = new Intent();
+                Operation operation = new Intent.OperationBuilder()
+                        .withDeviceId("")
+                        .withBundleName("com.example.notatnik")
+                        .withAbilityName("com.example.notatnik.ListOpcje")
+                        .build();
+                intent.setOperation(operation);
+                startAbility(intent);
+            }
+        });
     }
 
     private void inicjalizacja(){
@@ -67,6 +84,11 @@ public class PrzegNotkaSlice extends AbilitySlice {
     }
     @Override
     public void onActive() {
+        if(SmallDataHolder.getInstance().getState2() == 2){
+            notkaListProvider.setDane(SmallDataHolder.getInstance().getListNots());
+            notkaListProvider.notifyDataChanged();
+            SmallDataHolder.getInstance().setState2((byte) 1);
+        }
         super.onActive();
     }
 
