@@ -17,7 +17,7 @@
         ohos:id="$+id:usun"
         ohos:height="100px"
         ohos:width="466px"
-        ohos:background_element="$graphic:przycisk"
+        ohos:background_element="$graphic:przycisk_turquoise"
         ohos:image_src="$media:trash"
         ohos:text_size="90px"
         />

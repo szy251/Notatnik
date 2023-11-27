@@ -4,9 +4,14 @@ import com.example.notatnik.ResourceTable;
 import com.example.notatnik.data.DataHolder;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
+import ohos.agp.colors.RgbColor;
 import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.TimePicker;
+import ohos.agp.components.element.ShapeElement;
+import ohos.agp.utils.Color;
+
+import java.util.Arrays;
 
 public class SetTimeSlice extends AbilitySlice {
     Button but1, but2;
@@ -20,6 +25,11 @@ public class SetTimeSlice extends AbilitySlice {
         timePicker = (TimePicker) findComponentById(ResourceTable.Id_timepicker);
         but1.setPosition(120,40);
         but2.setPosition(246, 40);
+        ShapeElement shapeElement = new ShapeElement(getContext(),DataHolder.getInstance().getOpcjeData().getPrzycTloId());
+        but1.setBackground(shapeElement);
+        but2.setBackground(shapeElement);
+        RgbColor color = Arrays.stream(shapeElement.getRgbColors()).findFirst().get();
+        timePicker.setOperatedTextColor(new Color(color.asArgbInt()));
         timePicker.setPosition(123,160);
         timePicker.enableSecond(false);
         timePicker.showSecond(false);

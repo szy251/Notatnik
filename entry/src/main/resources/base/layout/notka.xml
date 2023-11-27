@@ -7,7 +7,7 @@
     ohos:alignment="center"
     ohos:orientation="horizontal">
     <DirectionalLayout
-        ohos:background_element="$graphic:tytuly"
+        ohos:background_element="$graphic:tytuly_gray"
         ohos:id="$+id:notka_dodatkowa"
         ohos:height="match_content"
         ohos:width="366px"

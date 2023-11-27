@@ -2,6 +2,7 @@ package com.example.notatnik.providers;
 
 import com.example.notatnik.ResourceTable;
 import com.example.notatnik.data.Dane;
+import com.example.notatnik.data.DataHolder;
 import com.example.notatnik.data.ListNot;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.agp.components.*;
@@ -53,12 +54,16 @@ public class NotkaListProvider extends BaseItemProvider {
 
         DirectionalLayout directionalLayout = (DirectionalLayout) cpt.findComponentById(ResourceTable.Id_notka_dodatkowa);
         Text text = (Text) cpt.findComponentById(ResourceTable.Id_notka_text);
+        text.setTextSize((int)(30*DataHolder.getInstance().getOpcjeData().getTextSize()));
 
         text.setText(d.getNazwa());
-        ShapeElement shapeElement = new ShapeElement(cpt.getContext(), ResourceTable.Graphic_zaznaczone);
-        ShapeElement shapeElement2 = new ShapeElement(cpt.getContext(),ResourceTable.Graphic_tytuly);
+        ShapeElement shapeElement = new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getCheckedListId());
+        ShapeElement shapeElement2 = new ShapeElement(cpt.getContext(),ResourceTable.Graphic_tytuly_gray);
         if(d.getZrobione()){
             directionalLayout.setBackground(shapeElement);
+        }
+        else{
+            directionalLayout.setBackground(shapeElement2);
         }
         directionalLayout.setClickedListener(new Component.ClickedListener() {
             @Override

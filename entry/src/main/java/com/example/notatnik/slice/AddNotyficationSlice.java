@@ -3,10 +3,15 @@ package com.example.notatnik.slice;
 import com.example.notatnik.ResourceTable;
 import com.example.notatnik.data.DataHolder;
 import com.example.notatnik.utils.Dni;
+import com.example.notatnik.utils.Kolor;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.Operation;
-import ohos.agp.components.*;
+import ohos.agp.components.Button;
+import ohos.agp.components.Component;
+import ohos.agp.components.Switch;
+import ohos.agp.components.Text;
+import ohos.agp.components.element.ShapeElement;
 
 
 public class AddNotyficationSlice extends AbilitySlice {
@@ -23,7 +28,11 @@ public class AddNotyficationSlice extends AbilitySlice {
         but2 = (Button) findComponentById(ResourceTable.Id_decline_notyfi);
         but3 = (Button) findComponentById(ResourceTable.Id_hour_change);
         but4 = (Button) findComponentById(ResourceTable.Id_repeat_change);
+        ShapeElement shapeElement = new ShapeElement(getContext(), DataHolder.getInstance().getOpcjeData().getPrzycTloId());
+        but1.setBackground(shapeElement);
+        but2.setBackground(shapeElement);
         on_off = (Switch) findComponentById(ResourceTable.Id_on_off);
+        on_off.setTrackElement(Kolor.on_off_background(getContext(),Kolor.kod_przycisk(DataHolder.getInstance().getOpcjeData().getPrzycTloId())));
         text1 = (Text) findComponentById(ResourceTable.Id_hour);
         text2 = (Text) findComponentById(ResourceTable.Id_repeat);
         but1.setPosition(120,40);

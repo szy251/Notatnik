@@ -52,7 +52,7 @@ public class ZadaniaListProvider extends BaseItemProvider {
         Text textField = (Text) cpt.findComponentById(ResourceTable.Id_tresc_zadanie);
         Button button = (Button) cpt.findComponentById(ResourceTable.Id_usun_zadanie);
         textField.setText(d.getNazwa());
-
+        textField.setTextSize((int)(30*DataHolder.getInstance().getOpcjeData().getTextSize()));
         button.setClickedListener(new Component.ClickedListener() {
             AddListyTrescSlice addListyTrescSlice = (AddListyTrescSlice) slice;
 

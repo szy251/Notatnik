@@ -18,7 +18,7 @@ public class DataHolder {
     // 5 - edytowanie w liście
     // 6 - edycja alarm
 
-    private Integer lastId, godzina, minuty,godzinaKopia, minutyKopia, pozycja;
+    private Integer lastId, godzina, minuty,godzinaKopia, minutyKopia, pozycja, kafelekId;
 
     private String nazwa, tresc;
     private List<Data> dane, usuwane;
@@ -37,9 +37,9 @@ public class DataHolder {
 
     private boolean[] wybrane, wybraneKopia;
 
-    private boolean alarm,powtorzenia;
+    private boolean alarm,powtorzenia, przyciski, straznik;
     private AddListyTrescSlice addListyTrescSlice;
-
+    private OpcjeData opcjeData;
     private DataHolder() {
         // Prywatny konstruktor Singletona
     }
@@ -86,7 +86,7 @@ public class DataHolder {
 
     public void setDane(List<Data> dane) {this.dane = dane;}
 
-    public void addDane(Data dane) {this.dane.add(dane);}
+    public void addDane(int index, Data dane) {this.dane.add(index,dane);}
 
     public void removeDane(Data dane){this.dane.remove(dane);}
 
@@ -263,5 +263,37 @@ public class DataHolder {
 
     public void setAddListyTrescSlice(AddListyTrescSlice addListyTrescSlice) {
         this.addListyTrescSlice = addListyTrescSlice;
+    }
+
+    public OpcjeData getOpcjeData() {
+        return opcjeData;
+    }
+
+    public void setOpcjeData(OpcjeData opcjeData) {
+        this.opcjeData = opcjeData;
+    }
+
+    public Integer getKafelekId() {
+        return kafelekId;
+    }
+
+    public void setKafelekId(Integer kafelekId) {
+        this.kafelekId = kafelekId;
+    }
+
+    public boolean isPrzyciski() {
+        return przyciski;
+    }
+
+    public void setPrzyciski(boolean przyciski) {
+        this.przyciski = przyciski;
+    }
+
+    public boolean isStraznik() {
+        return straznik;
+    }
+
+    public void setStraznik(boolean straznik) {
+        this.straznik = straznik;
     }
 }

@@ -10,6 +10,7 @@ import ohos.aafwk.content.Intent;
 import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.ListContainer;
+import ohos.agp.components.element.ShapeElement;
 import ohos.agp.window.dialog.ToastDialog;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
@@ -37,6 +38,9 @@ public class AddListSlice extends AbilitySlice {
         but2 = (Button) findComponentById(ResourceTable.Id_decline);
         but1.setPosition(120,40);
         but2.setPosition(246, 40);
+        ShapeElement shapeElement = new ShapeElement(getContext(),DataHolder.getInstance().getOpcjeData().getPrzycTloId());
+        but1.setBackground(shapeElement);
+        but2.setBackground(shapeElement);
         animatorProperty = new AnimationButton(1.f,0.f,100,but1,true);
         animatorProperty2 = new AnimationButton(0.f,1.f,100,but1,false);
         animatorProperty3 = new AnimationButton(1.f,0.f,100,but2,true);
@@ -85,7 +89,11 @@ public class AddListSlice extends AbilitySlice {
 
                     DataHolder.getInstance().incLastId();
                     DataHolder.getInstance().setState((byte) 2);
-                    DataHolder.getInstance().addDane(data);
+                    int index = DataPomocnik.get_index(3,DataHolder.getInstance().getDane(), data);
+                    if(index <0){
+                        index = -index -1;
+                    }
+                    DataHolder.getInstance().addDane(index,data);
                     DataHolder.getInstance().getAbility().terminateAbility();
                     terminateAbility();
                 }

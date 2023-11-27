@@ -9,6 +9,8 @@ import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.ScrollView;
 import ohos.agp.components.TextField;
+import ohos.agp.components.element.ShapeElement;
+import ohos.agp.window.dialog.ToastDialog;
 
 public class AddTrescSlice extends AbilitySlice {
     Button but1, but2;
@@ -27,8 +29,12 @@ public class AddTrescSlice extends AbilitySlice {
         scrollView.setPosition(0,0);
         but1.setPosition(120,40);
         but2.setPosition(246, 40);
+        ShapeElement shapeElement = new ShapeElement(getContext(),DataHolder.getInstance().getOpcjeData().getPrzycTloId());
+        but1.setBackground(shapeElement);
+        but2.setBackground(shapeElement);
        // textField.setPosition(58,150);
         textField.setHint("Add note content");
+        textField.setTextSize((int)(30*DataHolder.getInstance().getOpcjeData().getTextSize()));
         //textField.setHeight(250);
         textField.setFocusable(Component.ACCESSIBILITY_ADAPTABLE);
         textField.setTouchFocusable(true);
@@ -46,9 +52,19 @@ public class AddTrescSlice extends AbilitySlice {
         but1.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
-                DataHolder.getInstance().setTresc(textField.getText());
-                DataHolder.getInstance().setState((byte) 4);
-                terminateAbility();
+                if(textField.getText().length() > 0) {
+                    DataHolder.getInstance().setTresc(textField.getText());
+                    DataHolder.getInstance().setState((byte) 4);
+                    terminateAbility();
+                }
+                else{
+                    ToastDialog toastDialog = new ToastDialog(getContext());
+                    toastDialog.setText("Can't be empty");
+                    toastDialog.setDuration(3000);
+                    toastDialog.setOffset(0, 158);
+                    toastDialog.setSize(366, 100);
+                    toastDialog.show();
+                }
             }
         });
 

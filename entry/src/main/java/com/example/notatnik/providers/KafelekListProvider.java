@@ -37,6 +37,12 @@ public class KafelekListProvider extends BaseItemProvider{
     }
 
     @Override
+    public void notifyDataChanged() {
+        super.notifyDataChanged();
+        DataHolder.getInstance().setStraznik(true);
+    }
+
+    @Override
     public Component getComponent(int i, Component component, ComponentContainer componentContainer) {
         final Component cpt;
         if(component ==  null)
@@ -50,8 +56,16 @@ public class KafelekListProvider extends BaseItemProvider{
         DirectionalLayout directionalLayout = (DirectionalLayout) cpt.findComponentById(ResourceTable.Id_kafelek);
         Text textWiekszy = (Text) cpt.findComponentById(ResourceTable.Id_wieksze);
         Text textMniejszy = (Text) cpt.findComponentById(ResourceTable.Id_mniejsze);
+        textWiekszy.setTruncationMode(Text.TruncationMode.AUTO_SCROLLING);
         textWiekszy.setText(d.getWiekszy());
         textMniejszy.setText(d.getMniejszy());
+        /*if(DataHolder.getInstance().getListContainer().getCenterFocusablePosition() == i){
+            textWiekszy.startAutoScrolling();
+        }
+        else{
+            textWiekszy.stopAutoScrolling();
+        }*/
+        textWiekszy.startAutoScrolling();
         directionalLayout.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
@@ -63,6 +77,7 @@ public class KafelekListProvider extends BaseItemProvider{
                         .withAbilityName(d.getSlice())
                         .build();
                 intent.setOperation(operation);
+                DataHolder.getInstance().setKafelekId(i);
                 abilitySlice.startAbility(intent);
             }
         });

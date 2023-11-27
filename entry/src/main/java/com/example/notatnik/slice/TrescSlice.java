@@ -8,6 +8,7 @@ import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.Operation;
 import ohos.agp.components.*;
+import ohos.agp.components.element.ShapeElement;
 
 public class TrescSlice extends AbilitySlice {
     Text text;
@@ -27,7 +28,10 @@ public class TrescSlice extends AbilitySlice {
         scrollView.setTouchFocusable(true);
         scrollView.requestFocus();
         text = (Text)findComponentById(ResourceTable.Id_text_tresc);
+        text.setTextSize((int)(30*DataHolder.getInstance().getOpcjeData().getTextSize()));
         button = (Button)findComponentById(ResourceTable.Id_to_option);
+        ShapeElement shapeElement = new ShapeElement(getContext(),DataHolder.getInstance().getOpcjeData().getPrzycTloId());
+        button.setBackground(shapeElement);
         scrollView.enableScrollBar(Component.AXIS_Y,true);
         scrollView.setVibrationEffectEnabled(true);
         DataHolder.getInstance().addObecne(getAbility());

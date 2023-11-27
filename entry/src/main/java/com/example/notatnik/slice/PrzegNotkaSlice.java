@@ -12,6 +12,7 @@ import ohos.aafwk.content.Operation;
 import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.ListContainer;
+import ohos.agp.components.element.ShapeElement;
 import ohos.agp.utils.Color;
 
 import java.util.List;
@@ -32,6 +33,8 @@ public class PrzegNotkaSlice extends AbilitySlice {
         animatorProperty = new AnimationButton(1.f,0.f,100,but,true);
         animatorProperty2 = new AnimationButton(0.f,1.f,100,but,false);
         but.setPosition(183,20);
+        ShapeElement shapeElement = new ShapeElement(getContext(),DataHolder.getInstance().getOpcjeData().getPrzycTloId());
+        but.setBackground(shapeElement);
         listContainer.setPosition(0,0);
         juz = true;
         SmallDataHolder.getInstance().setState((byte) 1);

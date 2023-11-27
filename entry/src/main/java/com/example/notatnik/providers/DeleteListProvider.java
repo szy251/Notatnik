@@ -9,6 +9,7 @@ import ohos.agp.components.*;
 import ohos.agp.components.element.ShapeElement;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DeleteListProvider extends BaseItemProvider {
@@ -52,6 +53,15 @@ public class DeleteListProvider extends BaseItemProvider {
         }
         else cpt = component;
         Data d =  dane.get(i);
+        DirectionalLayout directionalLayout2 = (DirectionalLayout) cpt.findComponentById(ResourceTable.Id_tytul_usun_tlo);
+        ShapeElement shapeElementtlo;
+        if(d.getTyp().equals("Norm")){
+            shapeElementtlo = new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getNormalTytId());
+        }
+        else{
+            shapeElementtlo = new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getListTytId());
+        }
+        directionalLayout2.setBackground(shapeElementtlo);
 
         Text text =  (Text) cpt.findComponentById(ResourceTable.Id_nazwa_usun);
         DirectionalLayout directionalLayout =  (DirectionalLayout) cpt.findComponentById(ResourceTable.Id_tytul_usun);
@@ -59,25 +69,22 @@ public class DeleteListProvider extends BaseItemProvider {
         String jak = d.getNazwa();
         text.setMultipleLine(true);
         text.setText(jak);
-        directionalLayout.setMinHeight(100);
-        text.setMinHeight(80);
+        text.setTextSize((int) (30 * DataHolder.getInstance().getOpcjeData().getTextSize()));
+        directionalLayout.setMinHeight(90);
         ShapeElement shapeElement = new ShapeElement();
-        shapeElement.setStroke(1,new RgbColor(255,255,255));
+        shapeElement.setStroke(4,new RgbColor(255,255,255));
         shapeElement.setRgbColor(new RgbColor(0,0,0));
         shapeElement.setCornerRadius(5);
         checkbox.setBackground(shapeElement);
-
-
+        RgbColor z = Arrays.stream(new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getPrzycTloId()).getRgbColors()).findFirst().get();
         checkbox.setCheckedStateChangedListener((cos, state)->{
             usun.set(i,state);
             if(state){
-                shapeElement.setRgbColor(new RgbColor(0,148,125));
-                shapeElement.setStroke(0, new RgbColor(255,255,255));
+                shapeElement.setRgbColor(z);
                 DataHolder.getInstance().addUsuwane(d);
             }
             else{
                 shapeElement.setRgbColor(new RgbColor(0,0,0));
-                shapeElement.setStroke(1, new RgbColor(255,255,255));
                 DataHolder.getInstance().removeUsuwane(d);
             }
         });

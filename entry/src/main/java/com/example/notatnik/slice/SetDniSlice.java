@@ -9,6 +9,7 @@ import ohos.aafwk.content.Intent;
 import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.ListContainer;
+import ohos.agp.components.element.ShapeElement;
 import ohos.agp.utils.Color;
 
 import java.util.ArrayList;
@@ -24,14 +25,17 @@ public class SetDniSlice extends AbilitySlice {
     @Override
     public void onStart(Intent intent) {
         super.onStart(intent);
-        super.setUIContent(ResourceTable.Layout_ability_main);
+        super.setUIContent(ResourceTable.Layout_ability_set_dni);
         DataHolder.getInstance().addObecne(getAbility());
         juz = true;
-        but = (Button)findComponentById(ResourceTable.Id_dodaj);
-        but2 = (Button) findComponentById(ResourceTable.Id_main_opcje);
-        listContainer = (ListContainer)findComponentById(ResourceTable.Id_tytuły);
+        but = (Button)findComponentById(ResourceTable.Id_accept_dni);
+        but2 = (Button) findComponentById(ResourceTable.Id_decline_dni);
+        listContainer = (ListContainer)findComponentById(ResourceTable.Id_dni);
         but.setPosition(120,40);
         but2.setPosition(246, 40);
+        ShapeElement shapeElement = new ShapeElement(getContext(),DataHolder.getInstance().getOpcjeData().getPrzycTloId());
+        but.setBackground(shapeElement);
+        but2.setBackground(shapeElement);
         listContainer.setPosition(0,0);
         animatorProperty = new AnimationButton(1.f,0.f,100,but,true);
         animatorProperty2 = new AnimationButton(0.f,1.f,100,but,false);

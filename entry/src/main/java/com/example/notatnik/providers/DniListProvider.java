@@ -1,11 +1,13 @@
 package com.example.notatnik.providers;
 
 import com.example.notatnik.ResourceTable;
+import com.example.notatnik.data.DataHolder;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.agp.colors.RgbColor;
 import ohos.agp.components.*;
 import ohos.agp.components.element.ShapeElement;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class DniListProvider extends BaseItemProvider {
@@ -52,27 +54,27 @@ public class DniListProvider extends BaseItemProvider {
         else cpt = component;
         String d =  dane.get(i);
         Text text =  (Text) cpt.findComponentById(ResourceTable.Id_nazwa_usun);
-        //DirectionalLayout directionalLayout =  (DirectionalLayout) cpt.findComponentById(ResourceTable.Id_tytul_usun);
+        DirectionalLayout directionalLayout =  (DirectionalLayout) cpt.findComponentById(ResourceTable.Id_tytul_usun_tlo);
         Checkbox checkbox = (Checkbox)cpt.findComponentById(ResourceTable.Id_checkbox);
 
         text.setText(d);
+        ShapeElement shapeElement1 = new ShapeElement(cpt.getContext(),ResourceTable.Graphic_tytuly_gray);
+        directionalLayout.setBackground(shapeElement1);
 
         ShapeElement shapeElement = new ShapeElement();
-        shapeElement.setStroke(1,new RgbColor(255,255,255));
+        shapeElement.setStroke(4,new RgbColor(255,255,255));
         shapeElement.setRgbColor(new RgbColor(0,0,0));
         shapeElement.setCornerRadius(5);
         checkbox.setBackground(shapeElement);
-
+        RgbColor z = Arrays.stream(new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getPrzycTloId()).getRgbColors()).findFirst().get();
 
         checkbox.setCheckedStateChangedListener((cos, state)->{
             dzien[i] = state;
             if(state){
-                shapeElement.setRgbColor(new RgbColor(0,148,125));
-                shapeElement.setStroke(0, new RgbColor(255,255,255));
+                shapeElement.setRgbColor(z);
             }
             else{
                 shapeElement.setRgbColor(new RgbColor(0,0,0));
-                shapeElement.setStroke(1, new RgbColor(255,255,255));
             }
         });
         if(dzien[i]){

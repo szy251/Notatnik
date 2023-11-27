@@ -8,6 +8,7 @@ import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.Text;
 import ohos.agp.components.TextField;
+import ohos.agp.components.element.ShapeElement;
 import ohos.agp.window.dialog.ToastDialog;
 
 public class AddTytulSlice extends AbilitySlice {
@@ -22,7 +23,11 @@ public class AddTytulSlice extends AbilitySlice {
         textField = (TextField) findComponentById(ResourceTable.Id_dodaj_tytul);
         but1.setPosition(120, 40);
         but2.setPosition(246, 40);
+        ShapeElement shapeElement = new ShapeElement(getContext(),DataHolder.getInstance().getOpcjeData().getPrzycTloId());
+        but1.setBackground(shapeElement);
+        but2.setBackground(shapeElement);
        // textField.setPosition(58, 150);
+        textField.setTextSize((int)(30*DataHolder.getInstance().getOpcjeData().getTextSize()));
         textField.setText(DataHolder.getInstance().getNazwa());
         DataHolder.getInstance().addObecne(getAbility());
 
@@ -38,11 +43,20 @@ public class AddTytulSlice extends AbilitySlice {
         but1.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
-                if (DataHolder.getInstance().getDane().stream().filter(data -> textField.getText().equals(data.getNazwa())).findFirst().orElse(null) == null) {
+                if (DataHolder.getInstance().getDane().stream().filter(data -> textField.getText().equals(data.getNazwa())).findFirst().orElse(null) == null && textField.getText().length() > 0) {
                     DataHolder.getInstance().setNazwa(textField.getText());
                     DataHolder.getInstance().setState((byte) 3);
                     terminateAbility();
-                } else {
+                }
+                else if(textField.getText().length() == 0){
+                    ToastDialog toastDialog = new ToastDialog(getContext());
+                    toastDialog.setText("Can't be empty");
+                    toastDialog.setDuration(3000);
+                    toastDialog.setOffset(0, 158);
+                    toastDialog.setSize(366, 100);
+                    toastDialog.show();
+                }
+                else {
                     ToastDialog toastDialog = new ToastDialog(getContext());
                     toastDialog.setText("Already used");
                     toastDialog.setDuration(3000);

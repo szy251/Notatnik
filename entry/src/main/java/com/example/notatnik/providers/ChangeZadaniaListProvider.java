@@ -1,6 +1,7 @@
 package com.example.notatnik.providers;
 
 import com.example.notatnik.ResourceTable;
+import com.example.notatnik.data.DataHolder;
 import com.example.notatnik.data.ListNot;
 import com.example.notatnik.data.SmallDataHolder;
 import com.example.notatnik.slice.ChangeListyTrescSlice;
@@ -56,6 +57,7 @@ public class ChangeZadaniaListProvider extends BaseItemProvider {
         Text textField = (Text) cpt.findComponentById(ResourceTable.Id_tresc_zadanie);
         Button button = (Button) cpt.findComponentById(ResourceTable.Id_usun_zadanie);
         textField.setText(d.getNazwa());
+        textField.setTextSize((int)(30* DataHolder.getInstance().getOpcjeData().getTextSize()));
 
         button.setClickedListener(new Component.ClickedListener() {
             ChangeListyTrescSlice changeListyTrescSlice = (ChangeListyTrescSlice) slice;

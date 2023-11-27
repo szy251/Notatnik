@@ -6,23 +6,42 @@
     ohos:width="466px"
     ohos:background_element="#FF000000"
     ohos:alignment="center"
-    ohos:orientation="vertical">
+    ohos:orientation="horizontal"
+    ohos:margin="0px"
+    ohos:top_margin="0px"
+    ohos:bottom_margin="0px">
+    <DirectionalLayout
+        ohos:layout_alignment="center"
+        ohos:width="366px"
+        ohos:min_height="70px"
+        ohos:height="match_content"
+        ohos:id="$+id:tytul_tlo"
+        ohos:orientation="horizontal"
+        >
 
     <Text
-        ohos:background_element="$graphic:tytuly"
+        ohos:layout_alignment="center"
+        ohos:left_margin="50px"
+        ohos:background_element="#00A45124"
+        ohos:min_height="70px"
         ohos:id="$+id:nazwa"
         ohos:height="match_content"
-        ohos:top_padding="25px"
-        ohos:bottom_padding="25px"
-        ohos:start_padding="25px"
-        ohos:end_padding="25px"
-        ohos:top_margin="12px"
-        ohos:layout_alignment="center"
-        ohos:bottom_margin="12px"
-        ohos:width="366px"
-        ohos:text_size="50px"
+        ohos:width="250px"
         ohos:text_color="#FFFFFFFF"
         ohos:text_alignment="center"
         />
+    <Text
+        ohos:id="$+id:alarm_info"
+        ohos:background_element="#00000000"
+        ohos:text="♪"
+        ohos:text_size="50px"
+        ohos:text_color="$color:white"
+        ohos:text_alignment="center"
+        ohos:height="50px"
+        ohos:width="50px"
+        ohos:layout_alignment="center"
+        />
+    </DirectionalLayout>
+
 
 </DirectionalLayout>

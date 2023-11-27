@@ -12,7 +12,7 @@
         ohos:width="match_content"
         ohos:orientation="vertical"
         ohos:alignment="center"
-        ohos:background_element="$graphic:tytuly"
+        ohos:background_element="$graphic:tytuly_gray"
         ohos:id="$+id:kafelek"
         >
     <Text
@@ -21,7 +21,13 @@
         ohos:height="match_content"
         ohos:layout_alignment="center"
         ohos:width="366px"
-        ohos:text_size="75px"
+        ohos:text_size="70px"
+        ohos:end_padding="10px"
+        ohos:start_padding="15px"
+        ohos:padding_for_text="true"
+        ohos:truncation_mode="auto_scrolling"
+        ohos:auto_scrolling_duration="10000"
+        ohos:auto_scrolling_count="unlimited"
         ohos:text_color="#FFFFFFFF"
         ohos:text_alignment="center"
         />

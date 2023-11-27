@@ -6,6 +6,7 @@ import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.Operation;
 import ohos.agp.components.*;
+import ohos.agp.components.element.ShapeElement;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
 import ohos.data.orm.OrmPredicates;
@@ -49,14 +50,34 @@ public class NazwaListProvider extends BaseItemProvider {
         Data d =  dane.get(i);
 
         Text text =  (Text) cpt.findComponentById(ResourceTable.Id_nazwa);
+        Text text1 = (Text) cpt.findComponentById(ResourceTable.Id_alarm_info);
         DirectionalLayout directionalLayout =  (DirectionalLayout) cpt.findComponentById(ResourceTable.Id_tytul);
+        DirectionalLayout directionalLayout2 =  (DirectionalLayout) cpt.findComponentById(ResourceTable.Id_tytul_tlo);
+
+
+        ShapeElement shapeElement;
+        if(d.getTyp().equals("Norm")){
+            shapeElement = new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getNormalTytId());
+        }
+        else{
+            shapeElement = new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getListTytId());
+        }
+        directionalLayout2.setBackground(shapeElement);
+
+        if(d.getAlarm()){
+            text1.setVisibility(Component.VISIBLE);
+        }
+        else{
+            text1.setVisibility(Component.HIDE);
+        }
 
 
         String jak = d.getNazwa();
         text.setMultipleLine(true);
         text.setText(jak);
         directionalLayout.setMinHeight(100);
-        text.setMinHeight(80);
+        text.setTextSize((int) (30*DataHolder.getInstance().getOpcjeData().getTextSize()));
+
 
         directionalLayout.setClickedListener(new Component.ClickedListener() {
             @Override
@@ -90,9 +111,6 @@ public class NazwaListProvider extends BaseItemProvider {
                     intent.setOperation(operation);
                     slice.startAbility(intent);
                 }
-               // slice.terminateAbility();
-                /*dane.remove(i);
-                notifyDataChanged();*/
             }
         });
 

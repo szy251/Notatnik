@@ -291,6 +291,66 @@
     {
       "name": "entry_ChangeZadanie",
       "value": "entry_ChangeZadanie"
+    },
+    {
+      "name": "opcjetextsize_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "opcjetextsize_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_OpcjeTextSize",
+      "value": "entry_OpcjeTextSize"
+    },
+    {
+      "name": "globalopcje_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "globalopcje_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_GlobalOpcje",
+      "value": "entry_GlobalOpcje"
+    },
+    {
+      "name": "opcjeprzyciski_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "opcjeprzyciski_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_OpcjePrzyciski",
+      "value": "entry_OpcjePrzyciski"
+    },
+    {
+      "name": "opcje_checked_list_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "opcje_checked_list_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_Opcje_checked_list",
+      "value": "entry_Opcje_checked_list"
+    },
+    {
+      "name": "opcjesorting_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "opcjesorting_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_OpcjeSorting",
+      "value": "entry_OpcjeSorting"
     }
   ]
 }

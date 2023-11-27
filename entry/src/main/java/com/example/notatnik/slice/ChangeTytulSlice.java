@@ -10,6 +10,7 @@ import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.Text;
 import ohos.agp.components.TextField;
+import ohos.agp.components.element.ShapeElement;
 import ohos.agp.window.dialog.ToastDialog;
 
 public class ChangeTytulSlice extends AbilitySlice {
@@ -24,7 +25,11 @@ public class ChangeTytulSlice extends AbilitySlice {
         textField = (TextField) findComponentById(ResourceTable.Id_dodaj_tytul);
         but1.setPosition(120, 40);
         but2.setPosition(246, 40);
+        ShapeElement shapeElement = new ShapeElement(getContext(),DataHolder.getInstance().getOpcjeData().getPrzycTloId());
+        but1.setBackground(shapeElement);
+        but2.setBackground(shapeElement);
         textField.setText(SmallDataHolder.getInstance().getData().getNazwa());
+        textField.setTextSize((int)(30*DataHolder.getInstance().getOpcjeData().getTextSize()));
         DataHolder.getInstance().addObecne(getAbility());
 
         textField.addTextObserver(new Text.TextObserver() {
@@ -39,11 +44,15 @@ public class ChangeTytulSlice extends AbilitySlice {
         but1.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
-                if (DataHolder.getInstance().getDane().stream().filter(data -> textField.getText().equals(data.getNazwa())).findFirst().orElse(null) == null && textField.getText().length() > 0) {
+                 if(SmallDataHolder.getInstance().getData().getNazwa().equals(textField.getText())) terminateAbility();
+                 else if (DataHolder.getInstance().getDane().stream().filter(data -> textField.getText().equals(data.getNazwa())).findFirst().orElse(null) == null && textField.getText().length() > 0) {
                     SmallDataHolder.getInstance().getData().setNazwa(textField.getText());
                     DataHolder.getInstance().setState((byte) 2);
                     SmallDataHolder.getInstance().setState((byte) 2);
                     DataPomocnik.aktualizujData(SmallDataHolder.getInstance().getData(),getContext());
+                    if(DataHolder.getInstance().getOpcjeData().getSortowTyp() == 3 || DataHolder.getInstance().getOpcjeData().getSortowTyp() ==4){
+                        DataPomocnik.sort(DataHolder.getInstance().getOpcjeData().getSortowTyp(),DataHolder.getInstance().getDane());
+                    }
                     terminateAbility();
                 }
                 else if(textField.getText().length()==0) {

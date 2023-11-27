@@ -36,7 +36,7 @@
         ohos:id="$+id:to_option"
         ohos:height="100px"
         ohos:width="100px"
-        ohos:background_element="$graphic:przycisk"
+        ohos:background_element="$graphic:przycisk_turquoise"
         ohos:text="..."
         ohos:text_size="90px"
         />

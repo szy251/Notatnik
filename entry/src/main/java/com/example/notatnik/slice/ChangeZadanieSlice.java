@@ -9,6 +9,7 @@ import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.Text;
 import ohos.agp.components.TextField;
+import ohos.agp.components.element.ShapeElement;
 import ohos.agp.window.dialog.ToastDialog;
 
 public class ChangeZadanieSlice extends AbilitySlice {
@@ -23,9 +24,13 @@ public class ChangeZadanieSlice extends AbilitySlice {
         textField = (TextField) findComponentById(ResourceTable.Id_dodaj_tytul);
         but1.setPosition(120,40);
         but2.setPosition(246, 40);
+        ShapeElement shapeElement = new ShapeElement(getContext(),DataHolder.getInstance().getOpcjeData().getPrzycTloId());
+        but1.setBackground(shapeElement);
+        but2.setBackground(shapeElement);
         textField.setPosition(58,150);
         textField.setHint("Add text");
         textField.setText(SmallDataHolder.getInstance().getListNot().getNazwa());
+        textField.setTextSize((int)(30*DataHolder.getInstance().getOpcjeData().getTextSize()));
         DataHolder.getInstance().addObecne(getAbility());
 
         textField.addTextObserver(new Text.TextObserver() {

@@ -11,6 +11,7 @@ import ohos.aafwk.content.Operation;
 import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.ListContainer;
+import ohos.agp.components.element.ShapeElement;
 import ohos.agp.utils.Color;
 import ohos.app.dispatcher.TaskDispatcher;
 import ohos.app.dispatcher.task.TaskPriority;
@@ -35,6 +36,10 @@ public class AddListyTrescSlice extends AbilitySlice {
         but1.setPosition(120,40);
         but2.setPosition(246, 40);
         but3.setPosition(183,346);
+        ShapeElement shapeElement = new ShapeElement(getContext(),DataHolder.getInstance().getOpcjeData().getPrzycTloId());
+        but1.setBackground(shapeElement);
+        but2.setBackground(shapeElement);
+        but3.setBackground(shapeElement);
         animatorProperty = new AnimationButton(1.f,0.f,100,but1,true);
         animatorProperty2 = new AnimationButton(0.f,1.f,100,but1,false);
         animatorProperty3 = new AnimationButton(1.f,0.f,100,but2,true);

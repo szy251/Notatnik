@@ -292,6 +292,60 @@
         "launchType": "standard",
         "orientation": "unspecified",
         "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.OpcjeTextSize",
+        "description": "$string:opcjetextsize_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_OpcjeTextSize",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.OpcjeTlo",
+        "description": "$string:opcje_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_Opcje",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.GlobalOpcje",
+        "description": "$string:globalopcje_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_GlobalOpcje",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.OpcjePrzyciski",
+        "description": "$string:opcjeprzyciski_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_OpcjePrzyciski",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.OpcjeCheckedList",
+        "description": "$string:opcje_checked_list_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_Opcje_checked_list",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.OpcjeSorting",
+        "description": "$string:opcjesorting_description",
+        "icon": "$media:icon",
+        "label": "$string:entry_OpcjeSorting",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
       }
     ],
     "reqPermissions": [

@@ -7,13 +7,13 @@
     ohos:alignment="center"
     ohos:orientation="horizontal">
     <DirectionalLayout
-        ohos:background_element="$graphic:tytuly"
         ohos:height="match_content"
+        ohos:min_height="80px"
         ohos:width="366px"
+        ohos:id="$+id:tytul_usun_tlo"
         ohos:orientation="horizontal"
         ohos:layout_alignment="center"
-        ohos:top_margin="6px"
-        ohos:bottom_margin="6px"
+        ohos:margin="10px"
         >
     <Text
         ohos:background_element="#00FFFFFF"
@@ -23,14 +23,14 @@
         ohos:text_size="40px"
         ohos:text_color="#FFFFFFFF"
         ohos:text_alignment="center"
+        ohos:layout_alignment="center"
         ohos:left_margin="50px"
-        ohos:bottom_margin="24px"
         />
     <Checkbox
         ohos:id="$+id:checkbox"
         ohos:height="70px"
         ohos:width="70px"
-        ohos:layout_alignment="vertical_center"
+        ohos:layout_alignment="center"
         ohos:check_element="✔"
         ohos:text="✔"
         ohos:text_size="64px"

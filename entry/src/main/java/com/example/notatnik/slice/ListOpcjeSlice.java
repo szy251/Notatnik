@@ -5,6 +5,7 @@ import com.example.notatnik.data.DataHolder;
 import com.example.notatnik.data.Kafelek;
 import com.example.notatnik.data.SmallDataHolder;
 import com.example.notatnik.providers.KafelekListProvider;
+import com.example.notatnik.utils.DataPomocnik;
 import com.example.notatnik.utils.Dni;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
@@ -44,7 +45,7 @@ public class ListOpcjeSlice extends AbilitySlice {
     }
     @Override
     public void onActive() {
-
+        if(DataPomocnik.sprawdzAlarm(SmallDataHolder.getInstance().getData(), getContext())) DataHolder.getInstance().setState((byte) 2);
         if(SmallDataHolder.getInstance().getState() == 2){
             kafelekList.get(0).setMniejszy(SmallDataHolder.getInstance().getData().getNazwa());
             kafelekListProvider.notifyDataSetItemChanged(0);

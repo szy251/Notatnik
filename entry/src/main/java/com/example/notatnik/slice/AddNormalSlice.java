@@ -10,8 +10,8 @@ import ohos.aafwk.content.Intent;
 import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.ListContainer;
+import ohos.agp.components.element.ShapeElement;
 import ohos.agp.window.dialog.ToastDialog;
-import ohos.agp.window.service.WindowManager;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
 
@@ -32,9 +32,6 @@ public class AddNormalSlice extends AbilitySlice {
     AnimationButton animatorProperty, animatorProperty2, animatorProperty3, animatorProperty4;
     @Override
     public void onStart(Intent intent) {
-        getWindow().addFlags(WindowManager.LayoutConfig.MARK_TRANSLUCENT_NAVIGATION);
-        getWindow().addFlags(WindowManager.LayoutConfig.MARK_TRANSLUCENT_STATUS);
-        getWindow().addFlags(WindowManager.LayoutConfig.MARK_FULL_SCREEN);
         super.onStart(intent);
         super.setUIContent(ResourceTable.Layout_ability_add_normal);
         listContainer = (ListContainer) findComponentById(ResourceTable.Id_lista_dodawnaie);
@@ -42,6 +39,9 @@ public class AddNormalSlice extends AbilitySlice {
         but2 = (Button) findComponentById(ResourceTable.Id_decline);
         but1.setPosition(120,40);
         but2.setPosition(246, 40);
+        ShapeElement shapeElement = new ShapeElement(getContext(),DataHolder.getInstance().getOpcjeData().getPrzycTloId());
+        but1.setBackground(shapeElement);
+        but2.setBackground(shapeElement);
         animatorProperty = new AnimationButton(1.f,0.f,100,but1,true);
         animatorProperty2 = new AnimationButton(0.f,1.f,100,but1,false);
         animatorProperty3 = new AnimationButton(1.f,0.f,100,but2,true);
@@ -74,7 +74,11 @@ public class AddNormalSlice extends AbilitySlice {
                     DataHolder.getInstance().setState((byte) 2);
 
                     DataHolder.getInstance().incLastId();
-                    DataHolder.getInstance().addDane(data);
+                    int index = DataPomocnik.get_index(3,DataHolder.getInstance().getDane(), data);
+                    if(index <0){
+                        index = -index -1;
+                    }
+                    DataHolder.getInstance().addDane(index,data);
                     DataHolder.getInstance().getAbility().terminateAbility();
                     terminateAbility();
                 }
@@ -110,6 +114,7 @@ public class AddNormalSlice extends AbilitySlice {
         listContainer.setCentralScrollMode(true);
         listContainer.setFocusable(Component.FOCUS_ADAPTABLE);
         listContainer.requestFocus();
+        DataHolder.getInstance().setListContainer(listContainer);
         listContainer.addScrolledListener(new Component.ScrolledListener() {
             @Override
             public void onContentScrolled(Component component, int i, int i1, int i2, int i3) {

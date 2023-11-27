@@ -8,6 +8,7 @@ import ohos.aafwk.content.Intent;
 import ohos.agp.components.Component;
 import ohos.agp.components.Image;
 import ohos.agp.components.ListContainer;
+import ohos.agp.components.element.ShapeElement;
 import ohos.agp.utils.Color;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
@@ -29,6 +30,8 @@ public class DeleteSlice extends AbilitySlice {
         super.onStart(intent);
         super.setUIContent(ResourceTable.Layout_ability_delete);
         image =(Image)findComponentById(ResourceTable.Id_usun);
+        ShapeElement shapeElement = new ShapeElement(getContext(),DataHolder.getInstance().getOpcjeData().getPrzycTloId());
+        image.setBackground(shapeElement);
         listContainer2 = (ListContainer)findComponentById(ResourceTable.Id_deletelista);
         image.setPosition(0,0);
         listContainer2.setPosition(0,0);
