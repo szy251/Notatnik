@@ -92,7 +92,7 @@ public class AddNotyficationSlice extends AbilitySlice {
 
     @Override
     public void onActive() {
-        text1.setText(DataHolder.getInstance().getGodzinaKopia() + ":" + DataHolder.getInstance().getMinutyKopia());
+        text1.setText(String.format("%02d:%02d",DataHolder.getInstance().getGodzinaKopia(),DataHolder.getInstance().getMinutyKopia()));
         text2.setText(Dni.dniTygodnia(DataHolder.getInstance().getWybraneKopia()));
         super.onActive();
     }

@@ -70,6 +70,7 @@ public class SetDniSlice extends AbilitySlice {
         listContainer.requestFocus();
         listContainer.setMode(Component.OVAL_MODE);
         listContainer.setCentralScrollMode(true);
+        listContainer.setLongClickable(false);
         listContainer.addScrolledListener(new Component.ScrolledListener() {
             @Override
             public void onContentScrolled(Component component, int i, int i1, int i2, int i3) {
@@ -92,8 +93,8 @@ public class SetDniSlice extends AbilitySlice {
     private void stworz(){
         dane = new ArrayList<>();
         dane.add("Monday");
-        dane.add("Tusday");
-        dane.add("Wensday");
+        dane.add("Tuesday");
+        dane.add("Wednesday");
         dane.add("Thursday");
         dane.add("Friday");
         dane.add("Saturday");

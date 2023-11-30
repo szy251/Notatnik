@@ -24,6 +24,8 @@
         ohos:text_color="#FFFFFFFF"
         ohos:text_alignment="center"
         ohos:layout_alignment="center"
+        ohos:bottom_padding="10px"
+        ohos:top_padding="10px"
         ohos:left_margin="50px"
         />
     <Checkbox
@@ -32,6 +34,8 @@
         ohos:width="70px"
         ohos:layout_alignment="center"
         ohos:check_element="✔"
+        ohos:text_alignment="center"
+        ohos:bottom_padding="6px"
         ohos:text="✔"
         ohos:text_size="64px"
         ohos:text_color="#FF000000"

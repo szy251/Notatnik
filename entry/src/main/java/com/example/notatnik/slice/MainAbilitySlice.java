@@ -8,6 +8,7 @@ import com.example.notatnik.data.DataHolder;
 import com.example.notatnik.data.OpcjeData;
 import com.example.notatnik.providers.NazwaListProvider;
 import com.example.notatnik.utils.DataPomocnik;
+import com.example.notatnik.utils.Notyfikacje;
 import ohos.aafwk.ability.Ability;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
@@ -18,6 +19,7 @@ import ohos.agp.components.Image;
 import ohos.agp.components.ListContainer;
 import ohos.agp.components.element.ShapeElement;
 import ohos.agp.utils.Color;
+import ohos.agp.window.dialog.ToastDialog;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
 import ohos.data.orm.OrmPredicates;
@@ -74,14 +76,24 @@ public class MainAbilitySlice extends AbilitySlice {
        but.setClickedListener(new Component.ClickedListener() {
            @Override
            public void onClick(Component component) {
-               Intent intent = new Intent();
-               Operation operation = new Intent.OperationBuilder()
-                       .withDeviceId("")
-                       .withBundleName("com.example.notatnik")
-                       .withAbilityName("com.example.notatnik.ChoseType")
-                       .build();
-               intent.setOperation(operation);
-               startAbility(intent);
+               if(dane.size() < 30) {
+                   Intent intent = new Intent();
+                   Operation operation = new Intent.OperationBuilder()
+                           .withDeviceId("")
+                           .withBundleName("com.example.notatnik")
+                           .withAbilityName("com.example.notatnik.ChoseType")
+                           .build();
+                   intent.setOperation(operation);
+                   startAbility(intent);
+               }
+               else{
+                   ToastDialog toastDialog = new ToastDialog(getContext());
+                   toastDialog.setText("To many notes");
+                   toastDialog.setDuration(3000);
+                   toastDialog.setOffset(0, 158);
+                   toastDialog.setSize(366, 160);
+                   toastDialog.show();
+               }
            }
        });
         but2.setClickedListener(new Component.ClickedListener() {
@@ -97,32 +109,6 @@ public class MainAbilitySlice extends AbilitySlice {
                 startAbility(intent);
             }
         });
-       /*but2.setClickedListener(new Component.ClickedListener() {
-           @Override
-           public void onClick(Component component) {
-               long   i = Time.getCurrentTime();
-               for(int j = 0; j < 40000; j++){
-                   Data data = new Data();
-                   data.setNazwa("nie wiem");
-                   data.setAlarm(true);
-                   data.setDataId(1);
-                   for(int h = 0; h < j; h++){
-                       data.setDataId(1);
-                       data.setNazwa("nie wiem");
-                       data.setAlarm(true);
-                   }
-               }
-               long z =  Time.getCurrentTime();
-               i = z -i;
-               ToastDialog toastDialog = new ToastDialog(getContext());
-               toastDialog.setText(String.valueOf(i));
-               toastDialog.setDuration(3000);
-               toastDialog.setOffset(0, 158);
-               toastDialog.setSize(366,100);
-               toastDialog.show();
-           }
-       });*/
-        //but2.setClickedListener(listener->present(new DeleteSlice(),new Intent()));
     }
     private void inicjalizacja(){
         dane = read();
@@ -172,24 +158,28 @@ public class MainAbilitySlice extends AbilitySlice {
                         .withAbilityName("com.example.notatnik.Delete")
                         .build();
                 intent.setOperation(operation);
-                startAbility(intent);
-               // terminateAbility();
+                startAbility(intent,0);
+                // terminateAbility();
                 return  true;
             }
         });
     }
     private List<Data> read(){
         helper = new DatabaseHelper(this);
-        context = helper.getOrmContext("data","Data.db", Dane.class);
+        context = helper.getOrmContext("data","Notes.db", Dane.class);
         OrmPredicates ormPredicates = context.where(Data.class);
         return context.query(ormPredicates);
     }
     void wczytajOpcje(){
         helper = new DatabaseHelper(this);
-        context = helper.getOrmContext("data","Data.db", Dane.class);
+        context = helper.getOrmContext("data","Notes.db", Dane.class);
+
         OrmPredicates ormPredicates = context.where(OpcjeData.class);
         opcje = context.query(ormPredicates);
         if(opcje.isEmpty()){
+            helper.deleteRdbStore("Data.db");
+            Notyfikacje.dodaj_slot(false,"slot1", "Note vibration");
+            Notyfikacje.dodaj_slot(true,"slot2","Note sound");
             OpcjeData opcjeData = new OpcjeData();
             opcjeData.setTextSize(1.f);
             opcjeData.setNormalTytId(ResourceTable.Graphic_tytuly_gray);
@@ -197,9 +187,11 @@ public class MainAbilitySlice extends AbilitySlice {
             opcjeData.setPrzycTloId(ResourceTable.Graphic_przycisk_turquoise);
             opcjeData.setCheckedListId(ResourceTable.Graphic_tytuly_turquoise);
             opcjeData.setSortowTyp(1);
+            opcjeData.setSlot("slot1");
             DataHolder.getInstance().setOpcjeData(opcjeData);
             context.insert(opcjeData);
             context.flush();
+
         }
         else{
             DataHolder.getInstance().setOpcjeData(opcje.get(0));

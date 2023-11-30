@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PositionLayout
+    xmlns:ohos="http://schemas.huawei.com/res/ohos"
+    ohos:height="match_parent"
+    ohos:width="match_parent"
+    ohos:background_element="$graphic:background_ability_main"
+    ohos:alignment="center"
+    ohos:orientation="vertical">
+
+    <RadioContainer
+        ohos:id="$+id:radio_container_sound"
+        ohos:height="300px"
+        ohos:width="330px"
+        ohos:layout_alignment="center"
+        ohos:orientation="vertical"
+        >
+        <RadioButton
+            ohos:layout_alignment="center"
+            ohos:right_padding="36px"
+            ohos:top_margin="30px"
+            ohos:id="$+id:sound_on"
+            ohos:background_element="$graphic:tytuly_gray"
+            ohos:height="66px"
+            ohos:width="330px"
+            ohos:text="On"
+            ohos:text_size="45px"
+            ohos:text_color="#FFFFFFFF"
+            ohos:text_color_off="$color:white"
+            ohos:text_color_on="$color:white"
+            ohos:check_element="$graphic:kropka_stan"
+            ohos:bottom_margin="40px"
+            />
+        <RadioButton
+            ohos:layout_alignment="center"
+            ohos:right_padding="36px"
+            ohos:id="$+id:sound_off"
+            ohos:background_element="$graphic:tytuly_gray"
+            ohos:height="66px"
+            ohos:width="330px"
+            ohos:text="Off"
+            ohos:text_size="45px"
+            ohos:text_color="#FFFFFFFF"
+            ohos:text_color_off="$color:white"
+            ohos:text_color_on="$color:white"
+            ohos:check_element="$graphic:kropka_stan"
+            ohos:bottom_margin="25px"
+            />
+    </RadioContainer>
+
+    <Button
+        ohos:id="$+id:accept_sound"
+        ohos:height="100px"
+        ohos:width="100px"
+        ohos:text="✓"
+        ohos:text_size="90px"
+        />
+    <Button
+        ohos:text_size="90px"
+        ohos:id="$+id:decline_sound"
+        ohos:bottom_padding="10px"
+        ohos:text="✗"
+        ohos:height="100px"
+        ohos:width="100px"
+        />
+
+</PositionLayout>

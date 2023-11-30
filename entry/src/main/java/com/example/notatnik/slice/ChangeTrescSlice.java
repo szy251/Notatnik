@@ -2,9 +2,9 @@ package com.example.notatnik.slice;
 
 import com.example.notatnik.ResourceTable;
 import com.example.notatnik.animations.AnimationButton;
-import com.example.notatnik.data.Dane;
 import com.example.notatnik.data.DataHolder;
 import com.example.notatnik.data.SmallDataHolder;
+import com.example.notatnik.utils.DataPomocnik;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.agp.components.Button;
@@ -13,8 +13,6 @@ import ohos.agp.components.ScrollView;
 import ohos.agp.components.TextField;
 import ohos.agp.components.element.ShapeElement;
 import ohos.agp.window.dialog.ToastDialog;
-import ohos.data.DatabaseHelper;
-import ohos.data.orm.OrmContext;
 
 public class ChangeTrescSlice extends AbilitySlice {
     Button but1, but2;
@@ -37,7 +35,7 @@ public class ChangeTrescSlice extends AbilitySlice {
         but1.setBackground(shapeElement);
         but2.setBackground(shapeElement);
         textField.setText(SmallDataHolder.getInstance().getNormalNot().getTresc());
-        textField.setTextSize((int)(30*DataHolder.getInstance().getOpcjeData().getTextSize()));
+        textField.setTextSize((int)(40*DataHolder.getInstance().getOpcjeData().getTextSize()));
         DataHolder.getInstance().addObecne(getAbility());
         textField.setFocusable(Component.ACCESSIBILITY_ADAPTABLE);
         textField.setTouchFocusable(true);
@@ -55,10 +53,7 @@ public class ChangeTrescSlice extends AbilitySlice {
             public void onClick(Component component) {
                 if(textField.getText().length() > 0){
                     SmallDataHolder.getInstance().getNormalNot().setTresc(textField.getText());
-                    DatabaseHelper helper = new DatabaseHelper(getContext());
-                    OrmContext context = helper.getOrmContext("data", "Data.db", Dane.class);
-                    context.update(SmallDataHolder.getInstance().getNormalNot());
-                    context.flush();
+                    DataPomocnik.aktualizujData(SmallDataHolder.getInstance().getData(),getContext());
                     SmallDataHolder.getInstance().setState2((byte) 2);
                     SmallDataHolder.getInstance().setState((byte) 3);
                     terminateAbility();
@@ -68,7 +63,7 @@ public class ChangeTrescSlice extends AbilitySlice {
                     toastDialog.setText("Can't be empty");
                     toastDialog.setDuration(3000);
                     toastDialog.setOffset(0, 158);
-                    toastDialog.setSize(366, 150);
+                    toastDialog.setSize(366, 160);
                     toastDialog.show();
                 }
             }

@@ -54,12 +54,14 @@ public class AddNormalSlice extends AbilitySlice {
         DataHolder.getInstance().setWybrane(new boolean[7]);
         DataHolder.getInstance().setGodzina(LocalDateTime.now().getHour());
         DataHolder.getInstance().setMinuty(LocalDateTime.now().getMinute());
+        DataHolder.getInstance().setAlarm(false);
+        DataHolder.getInstance().setPowtorzenia(false);
         but1.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
                 if(DataHolder.getInstance().getNazwa().length() > 0  && DataHolder.getInstance().getTresc().length() > 0) {
                     helper = new DatabaseHelper(getContext());
-                    ormContext = helper.getOrmContext("data", "Data.db", Dane.class);
+                    ormContext = helper.getOrmContext("data", "Notes.db", Dane.class);
 
                     Data data = DataPomocnik.stworz("Norm");
 
@@ -74,7 +76,7 @@ public class AddNormalSlice extends AbilitySlice {
                     DataHolder.getInstance().setState((byte) 2);
 
                     DataHolder.getInstance().incLastId();
-                    int index = DataPomocnik.get_index(3,DataHolder.getInstance().getDane(), data);
+                    int index = DataPomocnik.get_index(DataHolder.getInstance().getOpcjeData().getSortowTyp(),DataHolder.getInstance().getDane(), data);
                     if(index <0){
                         index = -index -1;
                     }
@@ -82,12 +84,20 @@ public class AddNormalSlice extends AbilitySlice {
                     DataHolder.getInstance().getAbility().terminateAbility();
                     terminateAbility();
                 }
-                else{
+                else if(DataHolder.getInstance().getNazwa().equals("")){
                     ToastDialog toastDialog = new ToastDialog(getContext());
-                    toastDialog.setText("Empty data");
+                    toastDialog.setText("  Empty title");
                     toastDialog.setDuration(3000);
                     toastDialog.setOffset(0, 158);
                     toastDialog.setSize(366,100);
+                    toastDialog.show();
+                }
+                else{
+                    ToastDialog toastDialog = new ToastDialog(getContext());
+                    toastDialog.setText("  Empty note");
+                    toastDialog.setDuration(3000);
+                    toastDialog.setOffset(0, 158);
+                    toastDialog.setSize(376,100);
                     toastDialog.show();
                 }
             }
@@ -115,6 +125,7 @@ public class AddNormalSlice extends AbilitySlice {
         listContainer.setFocusable(Component.FOCUS_ADAPTABLE);
         listContainer.requestFocus();
         DataHolder.getInstance().setListContainer(listContainer);
+        listContainer.setLongClickable(false);
         listContainer.addScrolledListener(new Component.ScrolledListener() {
             @Override
             public void onContentScrolled(Component component, int i, int i1, int i2, int i3) {
@@ -150,8 +161,8 @@ public class AddNormalSlice extends AbilitySlice {
         }
         else if(DataHolder.getInstance().getState() == 6){
             if(!DataHolder.getInstance().isAlarm()) kafelekList.get(2).setMniejszy("Off");
-            else if(DataHolder.getInstance().isPowtorzenia()) kafelekList.get(2).setMniejszy(DataHolder.getInstance().getGodzina() + ":" +DataHolder.getInstance().getMinuty() +", Repeat");
-            else kafelekList.get(2).setMniejszy(DataHolder.getInstance().getGodzina() + ":" + DataHolder.getInstance().getMinuty() +", Once");
+            else if(DataHolder.getInstance().isPowtorzenia()) kafelekList.get(2).setMniejszy(String.format("%02d:%02d",DataHolder.getInstance().getGodzina(),DataHolder.getInstance().getMinuty()) +", Repeat");
+            else kafelekList.get(2).setMniejszy(String.format("%02d:%02d",DataHolder.getInstance().getGodzina(),DataHolder.getInstance().getMinuty()) +", One time");
             kafelekListProvider.notifyDataSetItemChanged(2);
             DataHolder.getInstance().setState((byte) 1);
         }

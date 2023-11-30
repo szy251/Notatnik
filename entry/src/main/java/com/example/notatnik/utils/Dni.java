@@ -109,8 +109,8 @@ public class Dni{
     public static String czas(){
         if(!SmallDataHolder.getInstance().getData().getAlarm()) return "Off";
         if(SmallDataHolder.getInstance().getData().getPowtorz()){
-            return SmallDataHolder.getInstance().getDzien().getHour() + ":" + SmallDataHolder.getInstance().getDzien().getMinute() +", Repeat";
+            return String.format("%02d:%02d",SmallDataHolder.getInstance().getDzien().getHour(), SmallDataHolder.getInstance().getDzien().getMinute()) +", Repeat";
         }
-        return SmallDataHolder.getInstance().getDzien().getHour() + ":" + SmallDataHolder.getInstance().getDzien().getMinute() +", Once";
+        return String.format("%02d:%02d",SmallDataHolder.getInstance().getDzien().getHour(), SmallDataHolder.getInstance().getDzien().getMinute()) +", One time";
     }
 }

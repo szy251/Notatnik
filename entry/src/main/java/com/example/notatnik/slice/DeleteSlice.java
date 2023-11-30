@@ -5,6 +5,7 @@ import com.example.notatnik.data.*;
 import com.example.notatnik.providers.DeleteListProvider;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
+import ohos.agp.components.Button;
 import ohos.agp.components.Component;
 import ohos.agp.components.Image;
 import ohos.agp.components.ListContainer;
@@ -24,16 +25,20 @@ public class DeleteSlice extends AbilitySlice {
     ListContainer listContainer2;
     List<Data> dane;
     Image image;
+    Button but;
     Boolean juz;
     @Override
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setUIContent(ResourceTable.Layout_ability_delete);
-        image =(Image)findComponentById(ResourceTable.Id_usun);
+        image =(Image)findComponentById(ResourceTable.Id_usun_accept);
+        but = (Button) findComponentById(ResourceTable.Id_usun_decline);
         ShapeElement shapeElement = new ShapeElement(getContext(),DataHolder.getInstance().getOpcjeData().getPrzycTloId());
         image.setBackground(shapeElement);
+        but.setBackground(shapeElement);
         listContainer2 = (ListContainer)findComponentById(ResourceTable.Id_deletelista);
-        image.setPosition(0,0);
+        image.setPosition(120,40);
+        but.setPosition(246, 40);
         listContainer2.setPosition(0,0);
         DataHolder.getInstance().setUsuwane(new ArrayList<>());
         juz = true;
@@ -43,6 +48,12 @@ public class DeleteSlice extends AbilitySlice {
             @Override
             public void onClick(Component component) {
                 delete();
+            }
+        });
+        but.setClickedListener(new Component.ClickedListener() {
+            @Override
+            public void onClick(Component component) {
+                terminateAbility();
             }
         });
 
@@ -73,16 +84,11 @@ public class DeleteSlice extends AbilitySlice {
                 }
             }
         });
-        listContainer2.setItemLongClickedListener(new ListContainer.ItemLongClickedListener() {
-            @Override
-            public boolean onItemLongClicked(ListContainer listContainer, Component component, int i, long l) {
-                return  true;
-            }
-        });
+        listContainer2.setLongClickable(false);
     }
     void  delete(){
         helper = new DatabaseHelper(this);
-        context = helper.getOrmContext("data","Data.db",Dane.class);
+        context = helper.getOrmContext("data","Notes.db",Dane.class);
         DataHolder.getInstance().setState((byte) 2);
         List<Data> usuwane = DataHolder.getInstance().getUsuwane();
         for(Data usuwany : usuwane){

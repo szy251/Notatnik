@@ -43,6 +43,7 @@ public class NormalOpcjeSlice extends AbilitySlice {
         listContainer.setCentralScrollMode(true);
         listContainer.setFocusable(Component.FOCUS_ADAPTABLE);
         listContainer.requestFocus();
+        listContainer.setLongClickable(false);
     }
 
 

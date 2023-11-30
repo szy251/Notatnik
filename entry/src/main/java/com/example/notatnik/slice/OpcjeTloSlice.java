@@ -19,7 +19,7 @@ public class OpcjeTloSlice extends AbilitySlice {
     AnimationButton animatorProperty, animatorProperty2, animatorProperty3, animatorProperty4;
     ScrollView scrollView;
     Boolean juz;
-    RadioButton radioButton1, radioButton2,radioButton3,radioButton4,radioButton5;
+    RadioButton radioButton1, radioButton2,radioButton3,radioButton4,radioButton5, radioButton6,radioButton7,radioButton8;
     Integer a;
     DatabaseHelper helper;
     OrmContext context;
@@ -34,6 +34,10 @@ public class OpcjeTloSlice extends AbilitySlice {
         radioButton3 = (RadioButton) findComponentById(ResourceTable.Id_red);
         radioButton4 = (RadioButton) findComponentById(ResourceTable.Id_turquoise);
         radioButton5 = (RadioButton) findComponentById(ResourceTable.Id_lime);
+        radioButton6 = (RadioButton) findComponentById(ResourceTable.Id_purple);
+        radioButton7 = (RadioButton) findComponentById(ResourceTable.Id_orange);
+        radioButton8 = (RadioButton) findComponentById(ResourceTable.Id_mint);
+        DataHolder.getInstance().addObecne(getAbility());
         if(DataHolder.getInstance().getKafelekId() == 1) {
             a = DataHolder.getInstance().getOpcjeData().getNormalTytId();
         }
@@ -52,8 +56,8 @@ public class OpcjeTloSlice extends AbilitySlice {
         animatorProperty3 = new AnimationButton(1.f,0.f,100,but2,true);
         animatorProperty4 =  new AnimationButton(0.f,1.f,100,but2,false);
         scrollView = (ScrollView) findComponentById(ResourceTable.Id_scroll_opcje_tlo);
-        scrollView.setTouchFocusable(true);
         scrollView.setFocusable(Component.ACCESSIBILITY_ENABLE);
+        scrollView.setTouchFocusable(true);
         scrollView.requestFocus();
 
         scrollView.addScrolledListener(new Component.ScrolledListener() {
@@ -103,6 +107,24 @@ public class OpcjeTloSlice extends AbilitySlice {
                 a = ResourceTable.Graphic_tytuly_lime;
             }
         });
+        radioButton6.setClickedListener(new Component.ClickedListener() {
+            @Override
+            public void onClick(Component component) {
+                a = ResourceTable.Graphic_tytuly_purple;
+            }
+        });
+        radioButton7.setClickedListener(new Component.ClickedListener() {
+            @Override
+            public void onClick(Component component) {
+                a = ResourceTable.Graphic_tytuly_orange;
+            }
+        });
+        radioButton8.setClickedListener(new Component.ClickedListener() {
+            @Override
+            public void onClick(Component component) {
+                a = ResourceTable.Graphic_tytuly_mint;
+            }
+        });
         but1.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
@@ -113,7 +135,7 @@ public class OpcjeTloSlice extends AbilitySlice {
                     DataHolder.getInstance().getOpcjeData().setListTytId(a);
                 }
                 helper = new DatabaseHelper(getContext());
-                context = helper.getOrmContext("data","Data.db", Dane.class);
+                context = helper.getOrmContext("data","Notes.db", Dane.class);
                 context.update(DataHolder.getInstance().getOpcjeData());
                 context.flush();
                 DataHolder.getInstance().setState((byte) 2);
@@ -140,6 +162,15 @@ public class OpcjeTloSlice extends AbilitySlice {
             case ResourceTable.Graphic_tytuly_lime:
                 radioButton5.setChecked(true);
                 break;
+            case ResourceTable.Graphic_tytuly_purple:
+                radioButton6.setChecked(true);
+                break;
+            case ResourceTable.Graphic_tytuly_orange:
+                radioButton7.setChecked(true);
+                break;
+            case ResourceTable.Graphic_tytuly_mint:
+                radioButton8.setChecked(true);
+                break;
         }
     }
     @Override
@@ -150,5 +181,11 @@ public class OpcjeTloSlice extends AbilitySlice {
     @Override
     public void onForeground(Intent intent) {
         super.onForeground(intent);
+    }
+
+    @Override
+    protected void onStop() {
+        DataHolder.getInstance().removeformObecne(getAbility());
+        super.onStop();
     }
 }

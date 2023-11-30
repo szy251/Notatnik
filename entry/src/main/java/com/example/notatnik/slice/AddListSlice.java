@@ -53,12 +53,14 @@ public class AddListSlice extends AbilitySlice {
         DataHolder.getInstance().setWybrane(new boolean[7]);
         DataHolder.getInstance().setGodzina(LocalDateTime.now().getHour());
         DataHolder.getInstance().setMinuty(LocalDateTime.now().getMinute());
+        DataHolder.getInstance().setAlarm(false);
+        DataHolder.getInstance().setPowtorzenia(false);
         but1.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
                 if(DataHolder.getInstance().getNazwa().equals("")){
                     ToastDialog toastDialog = new ToastDialog(getContext());
-                    toastDialog.setText("Empty title");
+                    toastDialog.setText("  Empty title");
                     toastDialog.setDuration(3000);
                     toastDialog.setOffset(0, 158);
                     toastDialog.setSize(366,100);
@@ -67,7 +69,7 @@ public class AddListSlice extends AbilitySlice {
                 else if(DataHolder.getInstance().getListy().size() == 0)
                 {
                     ToastDialog toastDialog = new ToastDialog(getContext());
-                    toastDialog.setText("Empty content");
+                    toastDialog.setText("   Empty list");
                     toastDialog.setDuration(3000);
                     toastDialog.setOffset(0, 158);
                     toastDialog.setSize(366,100);
@@ -75,7 +77,7 @@ public class AddListSlice extends AbilitySlice {
                 }
                 else{
                     helper = new DatabaseHelper(getContext());
-                    ormContext = helper.getOrmContext("data", "Data.db", Dane.class);
+                    ormContext = helper.getOrmContext("data", "Notes.db", Dane.class);
                     Data data = DataPomocnik.stworz("List");
 
                     ormContext.insert(data);
@@ -89,7 +91,7 @@ public class AddListSlice extends AbilitySlice {
 
                     DataHolder.getInstance().incLastId();
                     DataHolder.getInstance().setState((byte) 2);
-                    int index = DataPomocnik.get_index(3,DataHolder.getInstance().getDane(), data);
+                    int index = DataPomocnik.get_index(DataHolder.getInstance().getOpcjeData().getSortowTyp(),DataHolder.getInstance().getDane(), data);
                     if(index <0){
                         index = -index -1;
                     }
@@ -120,6 +122,7 @@ public class AddListSlice extends AbilitySlice {
         listContainer.setCentralScrollMode(true);
         listContainer.setFocusable(Component.FOCUS_ADAPTABLE);
         listContainer.requestFocus();
+        listContainer.setLongClickable(false);
         listContainer.addScrolledListener(new Component.ScrolledListener() {
             @Override
             public void onContentScrolled(Component component, int i, int i1, int i2, int i3) {
@@ -155,9 +158,8 @@ public class AddListSlice extends AbilitySlice {
         }
         else if(DataHolder.getInstance().getState() == 6){
             if(!DataHolder.getInstance().isAlarm()) kafelekList.get(2).setMniejszy("Off");
-            else if(DataHolder.getInstance().isPowtorzenia()) kafelekList.get(2).setMniejszy(DataHolder.getInstance().getGodzina() + ":" +DataHolder.getInstance().getMinuty() +", Repeat");
-            else kafelekList.get(2).setMniejszy(DataHolder.getInstance().getGodzina() + ":" + DataHolder.getInstance().getMinuty() +", Once");
-            kafelekListProvider.notifyDataSetItemChanged(2);
+            else if(DataHolder.getInstance().isPowtorzenia()) kafelekList.get(2).setMniejszy(String.format("%02d:%02d",DataHolder.getInstance().getGodzina(),DataHolder.getInstance().getMinuty()) +", Repeat");
+            else kafelekList.get(2).setMniejszy(String.format("%02d:%02d",DataHolder.getInstance().getGodzina(),DataHolder.getInstance().getMinuty()) +", One time");            kafelekListProvider.notifyDataSetItemChanged(2);
             DataHolder.getInstance().setState((byte) 1);
         }
         super.onActive();super.onActive();

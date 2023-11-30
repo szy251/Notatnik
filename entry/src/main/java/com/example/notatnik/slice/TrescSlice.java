@@ -12,7 +12,7 @@ import ohos.agp.components.element.ShapeElement;
 
 public class TrescSlice extends AbilitySlice {
     Text text;
-    Button button;
+    Image button;
     AnimationButton animationButton, animationButton2;
     Boolean juz;
     @Override
@@ -28,8 +28,8 @@ public class TrescSlice extends AbilitySlice {
         scrollView.setTouchFocusable(true);
         scrollView.requestFocus();
         text = (Text)findComponentById(ResourceTable.Id_text_tresc);
-        text.setTextSize((int)(30*DataHolder.getInstance().getOpcjeData().getTextSize()));
-        button = (Button)findComponentById(ResourceTable.Id_to_option);
+        text.setTextSize((int)(40*DataHolder.getInstance().getOpcjeData().getTextSize()));
+        button = (Image)findComponentById(ResourceTable.Id_to_option);
         ShapeElement shapeElement = new ShapeElement(getContext(),DataHolder.getInstance().getOpcjeData().getPrzycTloId());
         button.setBackground(shapeElement);
         scrollView.enableScrollBar(Component.AXIS_Y,true);

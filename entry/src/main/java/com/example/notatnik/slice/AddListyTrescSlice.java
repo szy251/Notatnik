@@ -13,6 +13,7 @@ import ohos.agp.components.Component;
 import ohos.agp.components.ListContainer;
 import ohos.agp.components.element.ShapeElement;
 import ohos.agp.utils.Color;
+import ohos.agp.window.dialog.ToastDialog;
 import ohos.app.dispatcher.TaskDispatcher;
 import ohos.app.dispatcher.task.TaskPriority;
 
@@ -65,9 +66,19 @@ public class AddListyTrescSlice extends AbilitySlice {
         but1.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
-                DataHolder.getInstance().setListy(DataHolder.getInstance().getEdytowane());
-                DataHolder.getInstance().setState((byte) 4);
-                terminateAbility();
+                if(DataHolder.getInstance().getEdytowane().size() == 0){
+                    ToastDialog toastDialog = new ToastDialog(getContext());
+                    toastDialog.setText("Can't be empty");
+                    toastDialog.setDuration(3000);
+                    toastDialog.setOffset(0, 158);
+                    toastDialog.setSize(366, 160);
+                    toastDialog.show();
+                }
+                else {
+                    DataHolder.getInstance().setListy(DataHolder.getInstance().getEdytowane());
+                    DataHolder.getInstance().setState((byte) 4);
+                    terminateAbility();
+                }
             }
         });
         but2.setClickedListener(new Component.ClickedListener() {
@@ -79,19 +90,28 @@ public class AddListyTrescSlice extends AbilitySlice {
         but3.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
-
-                ListNot listNot = new ListNot();
-                listNot.setDataParentId(-1);
-                listNot.setZrobione(false);
-                DataHolder.getInstance().setListNot(listNot);
-                Intent intent = new Intent();
-                Operation operation = new Intent.OperationBuilder().
-                        withDeviceId("").
-                        withBundleName("com.example.notatnik").
-                        withAbilityName("com.example.notatnik.AddZadanie").
-                        build();
-                intent.setOperation(operation);
-                startAbility(intent);
+                if(DataHolder.getInstance().getEdytowane().size() <50) {
+                    ListNot listNot = new ListNot();
+                    listNot.setDataParentId(-1);
+                    listNot.setZrobione(false);
+                    DataHolder.getInstance().setListNot(listNot);
+                    Intent intent = new Intent();
+                    Operation operation = new Intent.OperationBuilder().
+                            withDeviceId("").
+                            withBundleName("com.example.notatnik").
+                            withAbilityName("com.example.notatnik.AddZadanie").
+                            build();
+                    intent.setOperation(operation);
+                    startAbility(intent);
+                }
+                else{
+                    ToastDialog toastDialog = new ToastDialog(getContext());
+                    toastDialog.setText("To many in list");
+                    toastDialog.setDuration(3000);
+                    toastDialog.setOffset(0, 158);
+                    toastDialog.setSize(366, 160);
+                    toastDialog.show();
+                }
             }
         });
     }
@@ -108,6 +128,7 @@ public class AddListyTrescSlice extends AbilitySlice {
         listContainer.requestFocus();
         listContainer.setMode(Component.OVAL_MODE);
         listContainer.setCentralScrollMode(true);
+        listContainer.setLongClickable(false);
         listContainer.addScrolledListener(new Component.ScrolledListener() {
             @Override
             public void onContentScrolled(Component component, int i, int i1, int i2, int i3) {
@@ -165,7 +186,7 @@ public class AddListyTrescSlice extends AbilitySlice {
                 public void run() {
                     juz4 = true;
                 }
-            },1000);
+            },700);
         }
         else if(DataHolder.getInstance().getState() == 5){
             DataHolder.getInstance().setState((byte) 1);

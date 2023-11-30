@@ -28,7 +28,7 @@ public class AddZadanieSlice extends AbilitySlice {
         but2.setBackground(shapeElement);
         textField.setPosition(58,150);
         textField.setHint("Add text");
-        textField.setTextSize((int)(30*DataHolder.getInstance().getOpcjeData().getTextSize()));
+        textField.setTextSize((int)(40*DataHolder.getInstance().getOpcjeData().getTextSize()));
         textField.setText(DataHolder.getInstance().getListNot().getNazwa());
         DataHolder.getInstance().addObecne(getAbility());
 
@@ -62,7 +62,7 @@ public class AddZadanieSlice extends AbilitySlice {
                     toastDialog.setText("Can't be empty");
                     toastDialog.setDuration(3000);
                     toastDialog.setOffset(0, 158);
-                    toastDialog.setSize(366,100);
+                    toastDialog.setSize(366,160);
                     toastDialog.show();
                 }
 

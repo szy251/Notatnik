@@ -23,6 +23,8 @@
         ohos:layout_alignment="center"
         ohos:left_margin="50px"
         ohos:background_element="#00A45124"
+        ohos:bottom_padding="10px"
+        ohos:top_padding="10px"
         ohos:min_height="70px"
         ohos:id="$+id:nazwa"
         ohos:height="match_content"

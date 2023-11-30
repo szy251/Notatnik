@@ -42,10 +42,15 @@ public class ListOpcjeSlice extends AbilitySlice {
         listContainer.setCentralScrollMode(true);
         listContainer.setFocusable(Component.FOCUS_ADAPTABLE);
         listContainer.requestFocus();
+        listContainer.setLongClickable(false);
     }
     @Override
     public void onActive() {
-        if(DataPomocnik.sprawdzAlarm(SmallDataHolder.getInstance().getData(), getContext())) DataHolder.getInstance().setState((byte) 2);
+        if(DataPomocnik.sprawdzAlarm(SmallDataHolder.getInstance().getData(), getContext())) {
+            DataHolder.getInstance().setState((byte) 2);
+            kafelekList.get(2).setMniejszy(Dni.czas());
+            kafelekListProvider.notifyDataSetItemChanged(2);
+        }
         if(SmallDataHolder.getInstance().getState() == 2){
             kafelekList.get(0).setMniejszy(SmallDataHolder.getInstance().getData().getNazwa());
             kafelekListProvider.notifyDataSetItemChanged(0);

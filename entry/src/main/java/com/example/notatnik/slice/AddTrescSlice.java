@@ -34,7 +34,7 @@ public class AddTrescSlice extends AbilitySlice {
         but2.setBackground(shapeElement);
        // textField.setPosition(58,150);
         textField.setHint("Add note content");
-        textField.setTextSize((int)(30*DataHolder.getInstance().getOpcjeData().getTextSize()));
+        textField.setTextSize((int)(40*DataHolder.getInstance().getOpcjeData().getTextSize()));
         //textField.setHeight(250);
         textField.setFocusable(Component.ACCESSIBILITY_ADAPTABLE);
         textField.setTouchFocusable(true);
@@ -62,7 +62,7 @@ public class AddTrescSlice extends AbilitySlice {
                     toastDialog.setText("Can't be empty");
                     toastDialog.setDuration(3000);
                     toastDialog.setOffset(0, 158);
-                    toastDialog.setSize(366, 100);
+                    toastDialog.setSize(366, 160);
                     toastDialog.show();
                 }
             }

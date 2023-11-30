@@ -3,7 +3,7 @@
     xmlns:ohos="http://schemas.huawei.com/res/ohos"
     ohos:height="match_parent"
     ohos:width="match_parent"
-    ohos:background_element="#FF000000"
+    ohos:background_element="$graphic:background_ability_main"
     ohos:alignment="center"
     ohos:orientation="vertical">
     <ListContainer

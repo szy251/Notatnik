@@ -37,6 +37,7 @@ public class OpcjeSortingSlice extends AbilitySlice {
         radioButton5 = (RadioButton) findComponentById(ResourceTable.Id_type_sort);
         radioButton6 = (RadioButton) findComponentById(ResourceTable.Id_type_rev_sort);
         a = DataHolder.getInstance().getOpcjeData().getSortowTyp();
+        DataHolder.getInstance().addObecne(getAbility());
         ustaw();
         but1.setPosition(120,40);
         but2.setPosition(246, 40);
@@ -49,8 +50,8 @@ public class OpcjeSortingSlice extends AbilitySlice {
         animatorProperty3 = new AnimationButton(1.f,0.f,100,but2,true);
         animatorProperty4 =  new AnimationButton(0.f,1.f,100,but2,false);
         scrollView = (ScrollView) findComponentById(ResourceTable.Id_scroll_opcje_sorting);
-        scrollView.setTouchFocusable(true);
         scrollView.setFocusable(Component.ACCESSIBILITY_ENABLE);
+        scrollView.setTouchFocusable(true);
         scrollView.requestFocus();
 
         scrollView.addScrolledListener(new Component.ScrolledListener() {
@@ -111,7 +112,7 @@ public class OpcjeSortingSlice extends AbilitySlice {
             public void onClick(Component component) {
                 DataHolder.getInstance().getOpcjeData().setSortowTyp(a);
                 helper = new DatabaseHelper(getContext());
-                context = helper.getOrmContext("data","Data.db", Dane.class);
+                context = helper.getOrmContext("data","Notes.db", Dane.class);
                 context.update(DataHolder.getInstance().getOpcjeData());
                 context.flush();
                 DataHolder.getInstance().setState((byte) 2);
@@ -119,6 +120,7 @@ public class OpcjeSortingSlice extends AbilitySlice {
                 terminateAbility();
             }
         });
+        but2.setClickedListener(listener->terminateAbility());
     }
 
     void ustaw(){
@@ -152,5 +154,10 @@ public class OpcjeSortingSlice extends AbilitySlice {
     @Override
     public void onForeground(Intent intent) {
         super.onForeground(intent);
+    }
+    @Override
+    protected void onStop() {
+        DataHolder.getInstance().removeformObecne(getAbility());
+        super.onStop();
     }
 }

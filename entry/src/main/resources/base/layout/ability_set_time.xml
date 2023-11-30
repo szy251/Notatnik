@@ -5,7 +5,8 @@
     ohos:width="match_parent"
     ohos:alignment="center"
     ohos:background_element="$graphic:background_ability_main"
-    ohos:orientation="vertical">
+    ohos:orientation="vertical"
+    >
 
     <TimePicker
         ohos:width="220px"
@@ -13,8 +14,8 @@
         ohos:id="$+id:timepicker"
         ohos:operated_text_color="#FF00947D"
         ohos:selected_text_color="$color:white"
-        ohos:normal_text_size="25px"
-        ohos:selected_text_size="35px"
+        ohos:normal_text_size="35px"
+        ohos:selected_text_size="50px"
         />
 
     <Button

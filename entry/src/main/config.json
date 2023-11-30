@@ -3,8 +3,8 @@
     "bundleName": "com.example.notatnik",
     "vendor": "example",
     "version": {
-      "code": 1000003,
-      "name": "1.0.3"
+      "code": 2000000,
+      "name": "2.0.0"
     }
   },
   "deviceConfig": {},
@@ -12,6 +12,15 @@
     "package": "com.example.notatnik",
     "name": ".MyApplication",
     "mainAbility": "com.example.notatnik.MainAbility",
+    "metaData": {
+      "customizeData": [
+        {
+          "extra": "",
+          "name": "hwc-theme",
+          "value": "androidhwext:style/Theme.Emui.Translucent.NoTitleBar.Fullscreen"
+        }
+      ]
+    },
     "deviceType": [
       "wearable"
     ],
@@ -125,7 +134,7 @@
       {
         "name": "com.example.notatnik.ChoseType",
         "description": "$string:chosetype_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_ChoseType",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -143,7 +152,7 @@
       {
         "name": "com.example.notatnik.AddNormal",
         "description": "$string:addnormal_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_AddNormal",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -152,7 +161,7 @@
       {
         "name": "com.example.notatnik.AddTresc",
         "description": "$string:addtresc_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_AddTresc",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -161,7 +170,7 @@
       {
         "name": "com.example.notatnik.AddList",
         "description": "$string:listnotadd_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_ListNotAdd",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -170,7 +179,7 @@
       {
         "name": "com.example.notatnik.AddListyTresc",
         "description": "$string:addlistytresc_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_AddListyTresc",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -179,7 +188,7 @@
       {
         "name": "com.example.notatnik.AddZadanie",
         "description": "$string:addzadanie_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_AddZadanie",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -188,7 +197,7 @@
       {
         "name": "com.example.notatnik.PrzegNotka",
         "description": "$string:przegnotka_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_PrzegNotka",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -197,7 +206,7 @@
       {
         "name": "com.example.notatnik.AddNotyfication",
         "description": "$string:addnotyfication_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_AddNotyfication",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -206,7 +215,7 @@
       {
         "name": "com.example.notatnik.SetTime",
         "description": "$string:settime_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_SetTime",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -215,7 +224,7 @@
       {
         "name": "com.example.notatnik.SetDni",
         "description": "$string:setdni_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_SetDni",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -224,7 +233,7 @@
       {
         "name": "com.example.notatnik.ChangeTytul",
         "description": "$string:changetytul_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_ChangeTytul",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -233,7 +242,7 @@
       {
         "name": "com.example.notatnik.ChangeTresc",
         "description": "$string:changetresc_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_ChangeTresc",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -242,7 +251,7 @@
       {
         "name": "com.example.notatnik.ChangeNotyfication",
         "description": "$string:changenotyfication_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_ChangeNotyfication",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -251,7 +260,7 @@
       {
         "name": "com.example.notatnik.ChangeTime",
         "description": "$string:changetime_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_ChangeTime",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -260,7 +269,7 @@
       {
         "name": "com.example.notatnik.ChangeDni",
         "description": "$string:pageability_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_PageAbility",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -269,7 +278,7 @@
       {
         "name": "com.example.notatnik.ListOpcje",
         "description": "$string:changelist_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_ChangeList",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -278,7 +287,7 @@
       {
         "name": "com.example.notatnik.ChangeListyTresc",
         "description": "$string:changelistytresc_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_ChangeListyTresc",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -287,7 +296,7 @@
       {
         "name": "com.example.notatnik.ChangeZadanie",
         "description": "$string:changezadanie_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_ChangeZadanie",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -296,7 +305,7 @@
       {
         "name": "com.example.notatnik.OpcjeTextSize",
         "description": "$string:opcjetextsize_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_OpcjeTextSize",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -305,7 +314,7 @@
       {
         "name": "com.example.notatnik.OpcjeTlo",
         "description": "$string:opcje_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_Opcje",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -314,7 +323,7 @@
       {
         "name": "com.example.notatnik.GlobalOpcje",
         "description": "$string:globalopcje_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_GlobalOpcje",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -323,7 +332,7 @@
       {
         "name": "com.example.notatnik.OpcjePrzyciski",
         "description": "$string:opcjeprzyciski_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_OpcjePrzyciski",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -332,7 +341,7 @@
       {
         "name": "com.example.notatnik.OpcjeCheckedList",
         "description": "$string:opcje_checked_list_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_Opcje_checked_list",
         "launchType": "standard",
         "orientation": "unspecified",
@@ -341,8 +350,17 @@
       {
         "name": "com.example.notatnik.OpcjeSorting",
         "description": "$string:opcjesorting_description",
-        "icon": "$media:icon",
+        "icon": "$media:Notes",
         "label": "$string:entry_OpcjeSorting",
+        "launchType": "standard",
+        "orientation": "unspecified",
+        "type": "page"
+      },
+      {
+        "name": "com.example.notatnik.OpcjeSound",
+        "description": "$string:opcjesound_description",
+        "icon": "$media:Notes",
+        "label": "$string:entry_OpcjeSound",
         "launchType": "standard",
         "orientation": "unspecified",
         "type": "page"

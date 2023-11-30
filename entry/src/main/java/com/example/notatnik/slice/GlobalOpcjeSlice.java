@@ -25,6 +25,7 @@ public class GlobalOpcjeSlice extends AbilitySlice {
         super.setUIContent(ResourceTable.Layout_ability_opcje);
         listContainer = (ListContainer) findComponentById(ResourceTable.Id_opcje_kafelki);
         DataHolder.getInstance().setStraznik(true);
+        DataHolder.getInstance().addObecne(getAbility());
         juz = true;
         inicjalizacja();
     }
@@ -42,12 +43,14 @@ public class GlobalOpcjeSlice extends AbilitySlice {
         kafelekList.add(kafelek);
         kafelek = new Kafelek("Sort",sortowanie(),"com.example.notatnik.OpcjeSorting");
         kafelekList.add(kafelek);
+        kafelek = new Kafelek("Notification sound",dzwiek(),"com.example.notatnik.OpcjeSound");
+        kafelekList.add(kafelek);
         kafelekListProvider =  new KafelekListProvider(kafelekList,this);
         listContainer.setItemProvider(kafelekListProvider);
         listContainer.setCentralScrollMode(true);
         listContainer.setFocusable(Component.FOCUS_ADAPTABLE);
         listContainer.requestFocus();
-        DataHolder.getInstance().setListContainer(listContainer);
+        listContainer.setLongClickable(false);
         DataHolder.getInstance().setKafelekId(-1);
         listContainer.addScrolledListener(new Component.ScrolledListener() {
             @Override
@@ -62,7 +65,7 @@ public class GlobalOpcjeSlice extends AbilitySlice {
                     }
                     Text text1 = (Text) listContainer.getComponentAt(ja).findComponentById(ResourceTable.Id_wieksze);
                     text1.startAutoScrolling();
-                    if(ja<5){
+                    if(ja<6){
                         Text text2 = (Text) listContainer.getComponentAt(ja+1).findComponentById(ResourceTable.Id_wieksze);
                         text2.stopAutoScrolling();
                     }
@@ -95,6 +98,10 @@ public class GlobalOpcjeSlice extends AbilitySlice {
         }
         return "";
     }
+    String dzwiek(){
+        if(DataHolder.getInstance().getOpcjeData().getSlot().equals("slot1")) return "Off";
+        return "On";
+    }
     @Override
     public void onActive() {
         if(DataHolder.getInstance().getKafelekId() == 0){
@@ -121,11 +128,21 @@ public class GlobalOpcjeSlice extends AbilitySlice {
             kafelekList.get(5).setMniejszy(sortowanie());
             kafelekListProvider.notifyDataSetItemChanged(5);
         }
+        if(DataHolder.getInstance().getKafelekId() == 6){
+            kafelekList.get(6).setMniejszy(dzwiek());
+            kafelekListProvider.notifyDataSetItemChanged(6);
+        }
         super.onActive();
     }
 
     @Override
     public void onForeground(Intent intent) {
         super.onForeground(intent);
+    }
+
+    @Override
+    protected void onStop() {
+        DataHolder.getInstance().removeformObecne(getAbility());
+        super.onStop();
     }
 }

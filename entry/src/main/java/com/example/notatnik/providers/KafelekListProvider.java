@@ -59,13 +59,6 @@ public class KafelekListProvider extends BaseItemProvider{
         textWiekszy.setTruncationMode(Text.TruncationMode.AUTO_SCROLLING);
         textWiekszy.setText(d.getWiekszy());
         textMniejszy.setText(d.getMniejszy());
-        /*if(DataHolder.getInstance().getListContainer().getCenterFocusablePosition() == i){
-            textWiekszy.startAutoScrolling();
-        }
-        else{
-            textWiekszy.stopAutoScrolling();
-        }*/
-        textWiekszy.startAutoScrolling();
         directionalLayout.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {

@@ -63,13 +63,11 @@ public class ZadaniaListProvider extends BaseItemProvider {
                 }
                 addListyTrescSlice.falsz2();
                 dane.remove(i);
-                if(DataHolder.getInstance().getListContainer().getCenterFocusablePosition() == dane.size()-1 && !addListyTrescSlice.isJuz2()){
+               if(DataHolder.getInstance().getListContainer().getCenterFocusablePosition() == dane.size()-1 && !addListyTrescSlice.isJuz2() && i < 5){
                     DataHolder.getInstance().getAnimationButton().start();
                     addListyTrescSlice.prawda3();
-                    TaskDispatcher taskDispatcher = addListyTrescSlice.getGlobalTaskDispatcher(TaskPriority.DEFAULT);
                 }
                 notifyDataChanged();
-                DataHolder.getInstance().getListContainer().scrollTo(i);
                 TaskDispatcher taskDispatcher = addListyTrescSlice.getGlobalTaskDispatcher(TaskPriority.DEFAULT);
                 taskDispatcher.delayDispatch(new Runnable() {
                     @Override

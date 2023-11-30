@@ -29,7 +29,7 @@ public class ChangeTytulSlice extends AbilitySlice {
         but1.setBackground(shapeElement);
         but2.setBackground(shapeElement);
         textField.setText(SmallDataHolder.getInstance().getData().getNazwa());
-        textField.setTextSize((int)(30*DataHolder.getInstance().getOpcjeData().getTextSize()));
+        textField.setTextSize((int)(40*DataHolder.getInstance().getOpcjeData().getTextSize()));
         DataHolder.getInstance().addObecne(getAbility());
 
         textField.addTextObserver(new Text.TextObserver() {
@@ -60,15 +60,15 @@ public class ChangeTytulSlice extends AbilitySlice {
                     toastDialog.setText("Can't be empty");
                     toastDialog.setDuration(3000);
                     toastDialog.setOffset(0, 158);
-                    toastDialog.setSize(366, 150);
+                    toastDialog.setSize(366, 160);
                     toastDialog.show();
                 }
                 else {
                     ToastDialog toastDialog = new ToastDialog(getContext());
-                    toastDialog.setText("Already used");
+                    toastDialog.setText(" Already used");
                     toastDialog.setDuration(3000);
                     toastDialog.setOffset(0, 158);
-                    toastDialog.setSize(366, 100);
+                    toastDialog.setSize(386, 100);
                     toastDialog.show();
                 }
             }

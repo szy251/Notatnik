@@ -84,7 +84,7 @@ public class NazwaListProvider extends BaseItemProvider {
             public void onClick(Component component) {
                 SmallDataHolder.getInstance().setData(d);
                 DatabaseHelper databaseHelper = new DatabaseHelper(cpt.getContext());
-                OrmContext ormContext = databaseHelper.getOrmContext("data","Data.db", Dane.class);
+                OrmContext ormContext = databaseHelper.getOrmContext("data","Notes.db", Dane.class);
                 if(d.getTyp().equals("Norm")){
                 OrmPredicates ormPredicates = ormContext.where(NormalNot.class).equalTo("dataParentId",d.getDataId());
                 NormalNot normalNot = (NormalNot) ormContext.query(ormPredicates).get(0);

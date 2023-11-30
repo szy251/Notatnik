@@ -3,24 +3,6 @@ apply plugin: 'com.huawei.ohos.decctest'
 //For instructions on signature configuration, see https://developer.harmonyos.com/en/docs/documentation/doc-guides/ide_debug_device-0000001053822404#EN-US_TOPIC_0000001154985555__section1112183053510
 ohos {
     signingConfigs {
-        release {
-            storeFile file('D:\\Notatnik2\\NoteKey.p12')
-            storePassword '00000020C2BABCCB0426936C89692BA229BD5F44047784CB7569276A09AFE5CB18BD8E36592ACE6A69282224B139C496'
-            keyAlias = 'notes'
-            keyPassword '00000020CCE174AA94FE01B4D4039BD876CD8C478409F5CDB8491AD8B821C3457985194C0D729E108026ED54D0183A7A'
-            signAlg = 'SHA256withECDSA'
-            profile file('D:\\Downloads\\NoteRelease.p7b')
-            certpath file('D:\\Downloads\\Note_realase.cer')
-        }
-        debug {
-            storeFile file('D:\\Notatnik2\\NoteKey.p12')
-            storePassword '00000020B2E4AE9367D8B2C455208EAD0FCA8191265A18182FE5E62D4742C19D052FCA6F7AEC0918B86FD07834139B4A'
-            keyAlias = 'notes'
-            keyPassword '00000020078CCDAC811ACDA413AE9FFF44ECD3B9D923506045CC72AF3EECD8215458A10AB88A521DBC04B1D674B96437'
-            signAlg = 'SHA256withECDSA'
-            profile file('D:\\Downloads\\notes_debugDebug.p7b')
-            certpath file('D:\\Downloads\\Notes (3).cer')
-        }
     }
     compileSdkVersion 6
     defaultConfig {

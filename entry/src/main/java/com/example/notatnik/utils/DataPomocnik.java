@@ -32,13 +32,14 @@ public class DataPomocnik {
                     DataHolder.getInstance().getLastId(),
                     DataHolder.getInstance().getGodzina(),
                     DataHolder.getInstance().getMinuty(),
-                    Dni.naInty(DataHolder.getInstance().getWybrane())));
+                    Dni.naInty(DataHolder.getInstance().getWybrane()),
+                    DataHolder.getInstance().getOpcjeData().getSlot()));
         return data;
     }
 
     public static void aktualizujData(Data data, Context context){
         DatabaseHelper helper = new DatabaseHelper(context);
-        OrmContext ormContext = helper.getOrmContext("data", "Data.db", Dane.class);
+        OrmContext ormContext = helper.getOrmContext("data", "Notes.db", Dane.class);
         ormContext.update(data);
         ormContext.flush();
     }
@@ -53,7 +54,7 @@ public class DataPomocnik {
                 }
                 data.setAlarm(false);
                 DatabaseHelper helper = new DatabaseHelper(context);
-                OrmContext ormContext = helper.getOrmContext("data","Data.db", Dane.class);
+                OrmContext ormContext = helper.getOrmContext("data","Notes.db", Dane.class);
                 ormContext.update(data);
                 ormContext.flush();
                 return true;

@@ -77,7 +77,7 @@ public class NotkaListProvider extends BaseItemProvider {
                     directionalLayout.setBackground(shapeElement);
                 }
                 DatabaseHelper databaseHelper = new DatabaseHelper(cpt.getContext());
-                OrmContext ormContext = databaseHelper.getOrmContext("data","Data.db", Dane.class);
+                OrmContext ormContext = databaseHelper.getOrmContext("data","Notes.db", Dane.class);
                 ormContext.update(d);
                 ormContext.flush();
             }

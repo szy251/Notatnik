@@ -6,22 +6,22 @@ apply plugin: 'com.huawei.ohos.app'
 ohos {
     signingConfigs {
         debug {
-            storeFile file('C:\\Users\\Admin\\.ohos\\config\\auto_debug_420048000000353785.p12')
-            storePassword '0000001828E4E79D7434F094D3149987AEAC4613608967DC6E69A3B25C84BA46342464E01CED150C'
-            keyAlias = 'debugKey'
-            keyPassword '00000018D409E1D2F05B7F5DCA9D3647EE05309CD0452D5A4E451228525361A945FF859BA2E7A012'
+            storeFile file('D:\\Notatnik2\\Klucz.p12')
+            storePassword '000000203DAD332568CB33292A989CF4A2E777FC008FB1E8009590236F12F5736A4930D17505314ED42353818A6C5902'
+            keyAlias = 'notka'
+            keyPassword '00000020B405C8F382D9A5BB72BB7CDB42A7B60D90341241F3F872E952B9C0C88091E68E24D73AD7CA6C7C8A968EE206'
             signAlg = 'SHA256withECDSA'
-            profile file('C:\\Users\\Admin\\.ohos\\config\\auto_debug_notatnik_420048000000353785.p7b')
-            certpath file('C:\\Users\\Admin\\.ohos\\config\\auto_debug_420048000000353785.cer')
+            profile file('D:\\Downloads\\DebugowanieDebug.p7b')
+            certpath file('D:\\Downloads\\Deubugowanie.cer')
         }
         release {
-            storeFile file('D:\\Notatnik2\\NoteKey.p12')
-            storePassword '0000001F9AC591E2D00D224E55DBC8488A575A7020CB290938B920BE350FC78B74C0E39A1D6683A87721C76819E16F'
-            keyAlias = 'easynotes'
-            keyPassword '0000001F3592622AD95BA70A6C8C33C2A71D57C0BC0B0F99BD67EDE875D2068544317E32E6A5C82450B2FB023844D2'
+            storeFile file('D:\\Notatnik2\\Klucz.p12')
+            storePassword '00000020B6685E4AFD1BF17164CEBF9CD2ADB926B6ACF0BCE04E96C565BAF79A6E89E03BE3A4CB01CA0FE8C9B2463639'
+            keyAlias = 'notka'
+            keyPassword '000000202148B0C77463908FF83B3E8F95D5C1FA8216C7F8895760DB1EEB29D859260A2613CACA1EC19E8E8858C3B938'
             signAlg = 'SHA256withECDSA'
-            profile file('D:\\Downloads\\NotesRelease.p7b')
-            certpath file('D:\\Downloads\\Notes (1).cer')
+            profile file('D:\\Downloads\\WydanieRelease.p7b')
+            certpath file('D:\\Downloads\\Wydanie.cer')
         }
     }
     compileSdkVersion 6

@@ -6,19 +6,20 @@
     ohos:alignment="center"
     ohos:orientation="vertical"
     ohos:id="$+id:przeg_notka"
-    ohos:background_element="$graphic:background_ability_main">
+    ohos:background_element="$graphic:background_ability_main"
+    >
 
     <ListContainer
         ohos:id="$+id:notki"
         ohos:height="466px"
         ohos:width="466px"
         />
-    <Button
+    <Image
         ohos:id="$+id:przeg_notka_wiecej"
         ohos:height="100px"
         ohos:width="100px"
         ohos:background_element="$graphic:przycisk_turquoise"
-        ohos:text="..."
+        ohos:image_src="$media:settings"
         ohos:text_size="90px"
         />
 

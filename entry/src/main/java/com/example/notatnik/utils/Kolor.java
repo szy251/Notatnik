@@ -24,6 +24,15 @@ public class Kolor {
             case ResourceTable.Graphic_przycisk_lime:
             case ResourceTable.Graphic_tytuly_lime:
                 return "Lime";
+            case ResourceTable.Graphic_przycisk_purple:
+            case ResourceTable.Graphic_tytuly_purple:
+                return "Purple";
+            case ResourceTable.Graphic_przycisk_orange:
+            case ResourceTable.Graphic_tytuly_orange:
+                return "Orange";
+            case ResourceTable.Graphic_przycisk_mint:
+            case ResourceTable.Graphic_tytuly_mint:
+                return "Mint";
         }
         return "";
     }
@@ -37,6 +46,12 @@ public class Kolor {
                 return ResourceTable.Graphic_track_element_on_turquoise;
             case ResourceTable.Graphic_przycisk_lime:
                 return ResourceTable.Graphic_track_element_on_lime;
+            case ResourceTable.Graphic_przycisk_purple:
+                return ResourceTable.Graphic_track_element_on_purple;
+            case ResourceTable.Graphic_przycisk_orange:
+                return ResourceTable.Graphic_track_element_on_orange;
+            case ResourceTable.Graphic_przycisk_mint:
+                return ResourceTable.Graphic_track_element_on_mint;
         }
         return ResourceTable.Graphic_track_element_on_turquoise;
     }

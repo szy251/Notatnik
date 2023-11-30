@@ -12,7 +12,7 @@ public class OpcjeData extends OrmObject{
     private Float textSize;
 
     private Integer NormalTytId, ListTytId, PrzycTloId, CheckedListId, SortowTyp;
-
+    private String slot;
     public Integer getOpcjeDataId() {
         return OpcjeDataId;
     }
@@ -68,5 +68,13 @@ public class OpcjeData extends OrmObject{
 
     public void setSortowTyp(Integer sortowTyp) {
         SortowTyp = sortowTyp;
+    }
+
+    public String getSlot() {
+        return slot;
+    }
+
+    public void setSlot(String slot) {
+        this.slot = slot;
     }
 }

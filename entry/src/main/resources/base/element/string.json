@@ -351,6 +351,18 @@
     {
       "name": "entry_OpcjeSorting",
       "value": "entry_OpcjeSorting"
+    },
+    {
+      "name": "opcjesound_description",
+      "value": "Java_Empty Ability"
+    },
+    {
+      "name": "opcjesound_HelloWorld",
+      "value": "Hello World"
+    },
+    {
+      "name": "entry_OpcjeSound",
+      "value": "entry_OpcjeSound"
     }
   ]
 }

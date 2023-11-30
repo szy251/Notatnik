@@ -35,6 +35,7 @@ public class ChangeNotyficationSlice extends AbilitySlice {
         text2 = (Text) findComponentById(ResourceTable.Id_repeat);
         but1.setPosition(120,40);
         but2.setPosition(246, 40);
+        if(DataPomocnik.sprawdzAlarm(SmallDataHolder.getInstance().getData(), getContext())) DataHolder.getInstance().setState((byte) 2);
         ShapeElement shapeElement = new ShapeElement(getContext(),DataHolder.getInstance().getOpcjeData().getPrzycTloId());
         but1.setBackground(shapeElement);
         but2.setBackground(shapeElement);
@@ -72,7 +73,8 @@ public class ChangeNotyficationSlice extends AbilitySlice {
                                     SmallDataHolder.getInstance().getData().getDataId(),
                                     SmallDataHolder.getInstance().getGodzina(),
                                     SmallDataHolder.getInstance().getMinuty(),
-                                    Dni.naInty(SmallDataHolder.getInstance().getWybrane())));
+                                    Dni.naInty(SmallDataHolder.getInstance().getWybrane()),
+                                    DataHolder.getInstance().getOpcjeData().getSlot()));
                 }
                 DataPomocnik.aktualizujData(SmallDataHolder.getInstance().getData(), getContext());
                 DataHolder.getInstance().setState((byte) 2);
@@ -111,7 +113,7 @@ public class ChangeNotyficationSlice extends AbilitySlice {
 
     @Override
     public void onActive() {
-        text1.setText(SmallDataHolder.getInstance().getGodzina() + ":" + SmallDataHolder.getInstance().getMinuty());
+        text1.setText(String.format("%02d:%02d",SmallDataHolder.getInstance().getGodzina(),SmallDataHolder.getInstance().getMinuty()));
         text2.setText(Dni.dniTygodnia(SmallDataHolder.getInstance().getWybrane()));
         super.onActive();
     }

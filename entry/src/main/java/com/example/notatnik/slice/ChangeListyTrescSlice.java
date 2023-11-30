@@ -77,7 +77,7 @@ public class ChangeListyTrescSlice extends AbilitySlice {
             public void onClick(Component component) {
                 if (listNots.size() > 0) {
                     DatabaseHelper helper = new DatabaseHelper(getContext());
-                    OrmContext ormContext = helper.getOrmContext("data", "Data.db", Dane.class);
+                    OrmContext ormContext = helper.getOrmContext("data", "Notes.db", Dane.class);
                     for (ListNot listNot : SmallDataHolder.getInstance().getEdytowane()) {
                         ValuesBucket valuesBucket = new ValuesBucket();
                         valuesBucket.putString("nazwa", listNot.getNazwa());
@@ -97,10 +97,10 @@ public class ChangeListyTrescSlice extends AbilitySlice {
                 }
                 else{
                     ToastDialog toastDialog = new ToastDialog(getContext());
-                    toastDialog.setText("Empty content");
+                    toastDialog.setText("Can't be empty");
                     toastDialog.setDuration(3000);
                     toastDialog.setOffset(0, 158);
-                    toastDialog.setSize(366,100);
+                    toastDialog.setSize(366, 160);
                     toastDialog.show();
                 }
             }
@@ -109,18 +109,28 @@ public class ChangeListyTrescSlice extends AbilitySlice {
         but3.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
-                ListNot listNot = new ListNot();
-                listNot.setDataParentId(-1);
-                listNot.setZrobione(false);
-                SmallDataHolder.getInstance().setListNot(listNot);
-                Intent intent = new Intent();
-                Operation operation = new Intent.OperationBuilder().
-                        withDeviceId("").
-                        withBundleName("com.example.notatnik").
-                        withAbilityName("com.example.notatnik.ChangeZadanie").
-                        build();
-                intent.setOperation(operation);
-                startAbility(intent);
+                if (listNots.size() < 50) {
+                    ListNot listNot = new ListNot();
+                    listNot.setDataParentId(-1);
+                    listNot.setZrobione(false);
+                    SmallDataHolder.getInstance().setListNot(listNot);
+                    Intent intent = new Intent();
+                    Operation operation = new Intent.OperationBuilder().
+                            withDeviceId("").
+                            withBundleName("com.example.notatnik").
+                            withAbilityName("com.example.notatnik.ChangeZadanie").
+                            build();
+                    intent.setOperation(operation);
+                    startAbility(intent);
+                }
+                else {
+                    ToastDialog toastDialog = new ToastDialog(getContext());
+                    toastDialog.setText("To many in list");
+                    toastDialog.setDuration(3000);
+                    toastDialog.setOffset(0, 158);
+                    toastDialog.setSize(366, 160);
+                    toastDialog.show();
+                }
             }
         });
     }

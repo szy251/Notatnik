@@ -9,8 +9,8 @@ import com.example.notatnik.providers.NotkaListProvider;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.aafwk.content.Operation;
-import ohos.agp.components.Button;
 import ohos.agp.components.Component;
+import ohos.agp.components.Image;
 import ohos.agp.components.ListContainer;
 import ohos.agp.components.element.ShapeElement;
 import ohos.agp.utils.Color;
@@ -20,7 +20,7 @@ import java.util.List;
 public class PrzegNotkaSlice extends AbilitySlice {
     ListContainer listContainer;
     List<ListNot> dane;
-    Button but;
+    Image but;
     Boolean juz;
     NotkaListProvider notkaListProvider;
     AnimationButton animatorProperty, animatorProperty2;
@@ -28,7 +28,7 @@ public class PrzegNotkaSlice extends AbilitySlice {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setUIContent(ResourceTable.Layout_ability_przeg_notka);
-        but = (Button) findComponentById(ResourceTable.Id_przeg_notka_wiecej);
+        but = (Image) findComponentById(ResourceTable.Id_przeg_notka_wiecej);
         listContainer = (ListContainer) findComponentById(ResourceTable.Id_notki);
         animatorProperty = new AnimationButton(1.f,0.f,100,but,true);
         animatorProperty2 = new AnimationButton(0.f,1.f,100,but,false);
@@ -68,6 +68,7 @@ public class PrzegNotkaSlice extends AbilitySlice {
         listContainer.requestFocus();
         listContainer.setMode(Component.OVAL_MODE);
         listContainer.setCentralScrollMode(true);
+        listContainer.setLongClickable(false);
         listContainer.addScrolledListener(new Component.ScrolledListener() {
             @Override
             public void onContentScrolled(Component component, int i, int i1, int i2, int i3) {
