@@ -77,12 +77,11 @@ public class ChangeZadaniaListProvider extends BaseItemProvider {
                 changeListyTrescSlice.falsz2();
 
                 dane.remove(i);
-                if(SmallDataHolder.getInstance().getListContainer().getCenterFocusablePosition() == dane.size()-1 && !changeListyTrescSlice.isJuz2()) {
+                if(SmallDataHolder.getInstance().getListContainer().getCenterFocusablePosition() == dane.size()-1 && !changeListyTrescSlice.isJuz2() && i < 5) {
                     SmallDataHolder.getInstance().getAnimationButton().start();
                     changeListyTrescSlice.prawda3();
                 }
                 notifyDataChanged();
-                SmallDataHolder.getInstance().getListContainer().scrollTo(i);
                 TaskDispatcher taskDispatcher = changeListyTrescSlice.getGlobalTaskDispatcher(TaskPriority.DEFAULT);
                 taskDispatcher.delayDispatch(new Runnable() {
                     @Override

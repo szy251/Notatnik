@@ -86,6 +86,7 @@ public class OpcjeSoundSlice extends AbilitySlice {
                 terminateAbility();
             }
         });
+        but2.setClickedListener(listener->terminateAbility());
     }
 
     void ustaw(){
