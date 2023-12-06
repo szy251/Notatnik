@@ -158,7 +158,7 @@ public class MainAbilitySlice extends AbilitySlice {
                         .withAbilityName("com.example.notatnik.Delete")
                         .build();
                 intent.setOperation(operation);
-                startAbility(intent,0);
+                startAbility(intent);
                 // terminateAbility();
                 return  true;
             }

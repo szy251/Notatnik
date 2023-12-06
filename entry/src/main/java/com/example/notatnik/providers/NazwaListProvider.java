@@ -22,6 +22,19 @@ public class NazwaListProvider extends BaseItemProvider {
         this.slice = slice;
     }
 
+    public class NazwaHolder{
+        Text text, text1;
+        DirectionalLayout directionalLayout, directionalLayout2;
+        NazwaHolder(Component component){
+            text =  (Text) component.findComponentById(ResourceTable.Id_nazwa);
+            text1 = (Text) component.findComponentById(ResourceTable.Id_alarm_info);
+            directionalLayout =  (DirectionalLayout) component.findComponentById(ResourceTable.Id_tytul);
+            directionalLayout2 =  (DirectionalLayout) component.findComponentById(ResourceTable.Id_tytul_tlo);
+            directionalLayout.setMinHeight(100);
+            text.setTextSize((int) (30*DataHolder.getInstance().getOpcjeData().getTextSize()));
+            text.setMultipleLine(true);
+        }
+    }
     @Override
     public int getCount() {
         return dane == null? 0:dane.size();
@@ -41,20 +54,18 @@ public class NazwaListProvider extends BaseItemProvider {
     @Override
     public Component getComponent(int i, Component component, ComponentContainer componentContainer) {
         final Component cpt;
+        Data d =  dane.get(i);
+        NazwaHolder holder;
         if(component ==  null)
         {
             cpt = LayoutScatter.getInstance(slice).parse(ResourceTable.Layout_tytul,null,false);
+            holder = new NazwaHolder(cpt);
+            cpt.setTag(holder);
         }
-        else cpt = component;
-
-        Data d =  dane.get(i);
-
-        Text text =  (Text) cpt.findComponentById(ResourceTable.Id_nazwa);
-        Text text1 = (Text) cpt.findComponentById(ResourceTable.Id_alarm_info);
-        DirectionalLayout directionalLayout =  (DirectionalLayout) cpt.findComponentById(ResourceTable.Id_tytul);
-        DirectionalLayout directionalLayout2 =  (DirectionalLayout) cpt.findComponentById(ResourceTable.Id_tytul_tlo);
-
-
+        else {
+            cpt = component;
+            holder = (NazwaHolder) cpt.getTag();
+        }
         ShapeElement shapeElement;
         if(d.getTyp().equals("Norm")){
             shapeElement = new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getNormalTytId());
@@ -62,41 +73,31 @@ public class NazwaListProvider extends BaseItemProvider {
         else{
             shapeElement = new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getListTytId());
         }
-        directionalLayout2.setBackground(shapeElement);
-
+        holder.directionalLayout2.setBackground(shapeElement);
         if(d.getAlarm()){
-            text1.setVisibility(Component.VISIBLE);
+            holder.text1.setVisibility(Component.VISIBLE);
         }
         else{
-            text1.setVisibility(Component.HIDE);
+            holder.text1.setVisibility(Component.HIDE);
         }
-
-
-        String jak = d.getNazwa();
-        text.setMultipleLine(true);
-        text.setText(jak);
-        directionalLayout.setMinHeight(100);
-        text.setTextSize((int) (30*DataHolder.getInstance().getOpcjeData().getTextSize()));
-
-
-        directionalLayout.setClickedListener(new Component.ClickedListener() {
+        holder.directionalLayout.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
                 SmallDataHolder.getInstance().setData(d);
                 DatabaseHelper databaseHelper = new DatabaseHelper(cpt.getContext());
                 OrmContext ormContext = databaseHelper.getOrmContext("data","Notes.db", Dane.class);
                 if(d.getTyp().equals("Norm")){
-                OrmPredicates ormPredicates = ormContext.where(NormalNot.class).equalTo("dataParentId",d.getDataId());
-                NormalNot normalNot = (NormalNot) ormContext.query(ormPredicates).get(0);
-                SmallDataHolder.getInstance().setNormalNot(normalNot);
-                Intent intent = new Intent();
-                Operation operation = new Intent.OperationBuilder()
-                        .withDeviceId("")
-                        .withBundleName("com.example.notatnik")
-                        .withAbilityName("com.example.notatnik.Tresc")
-                        .build();
-                intent.setOperation(operation);
-                slice.startAbility(intent);
+                    OrmPredicates ormPredicates = ormContext.where(NormalNot.class).equalTo("dataParentId",d.getDataId());
+                    NormalNot normalNot = (NormalNot) ormContext.query(ormPredicates).get(0);
+                    SmallDataHolder.getInstance().setNormalNot(normalNot);
+                    Intent intent = new Intent();
+                    Operation operation = new Intent.OperationBuilder()
+                            .withDeviceId("")
+                            .withBundleName("com.example.notatnik")
+                            .withAbilityName("com.example.notatnik.Tresc")
+                            .build();
+                    intent.setOperation(operation);
+                    slice.startAbility(intent);
                 }
                 else if(d.getTyp().equals("List")){
                     OrmPredicates ormPredicates = ormContext.where(ListNot.class).equalTo("dataParentId",d.getDataId());
@@ -113,7 +114,7 @@ public class NazwaListProvider extends BaseItemProvider {
                 }
             }
         });
-
+        holder.text.setText(d.getNazwa());
         return cpt;
     }
 }

@@ -48,7 +48,7 @@ public class ChangeTimeSlice extends AbilitySlice {
                 terminateAbility();
             }
         });
-        but2.setClickedListener(litener->terminateAbility());
+        but2.setClickedListener(listener->terminateAbility());
     }
 
     @Override

@@ -9,5 +9,6 @@ public class AddZadanie extends Ability {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setMainRoute(AddZadanieSlice.class.getName());
+        setSwipeToDismiss(true);
     }
 }

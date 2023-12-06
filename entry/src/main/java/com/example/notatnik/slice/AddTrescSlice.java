@@ -33,7 +33,7 @@ public class AddTrescSlice extends AbilitySlice {
         but1.setBackground(shapeElement);
         but2.setBackground(shapeElement);
        // textField.setPosition(58,150);
-        textField.setHint("Add note content");
+        textField.setHint("Add content");
         textField.setTextSize((int)(40*DataHolder.getInstance().getOpcjeData().getTextSize()));
         //textField.setHeight(250);
         textField.setFocusable(Component.ACCESSIBILITY_ADAPTABLE);
@@ -68,12 +68,7 @@ public class AddTrescSlice extends AbilitySlice {
             }
         });
 
-        but2.setClickedListener(new Component.ClickedListener() {
-            @Override
-            public void onClick(Component component) {
-                terminateAbility();
-            }
-        });
+        but2.setClickedListener(listener-> terminateAbility());
         scrollView.addScrolledListener(new Component.ScrolledListener() {
             @Override
             public void onContentScrolled(Component component, int i, int i1, int i2, int i3) {

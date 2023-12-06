@@ -9,5 +9,6 @@ public class ChangeTime extends Ability {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setMainRoute(ChangeTimeSlice.class.getName());
+        setSwipeToDismiss(true);
     }
 }

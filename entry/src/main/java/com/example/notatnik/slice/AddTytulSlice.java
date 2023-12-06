@@ -68,12 +68,7 @@ public class AddTytulSlice extends AbilitySlice {
             }
         });
 
-        but2.setClickedListener(new Component.ClickedListener() {
-            @Override
-            public void onClick(Component component) {
-                terminateAbility();
-            }
-        });
+        but2.setClickedListener(listener-> terminateAbility());
 
     }
 

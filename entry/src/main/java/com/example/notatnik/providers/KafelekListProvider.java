@@ -30,6 +30,17 @@ public class KafelekListProvider extends BaseItemProvider{
         return null;
     }
 
+    public class KafelekHolder{
+        DirectionalLayout directionalLayout;
+        public Text textWiekszy;
+        Text textMniejszy;
+        KafelekHolder(Component component){
+             directionalLayout = (DirectionalLayout) component.findComponentById(ResourceTable.Id_kafelek);
+             textWiekszy = (Text) component.findComponentById(ResourceTable.Id_wieksze);
+             textMniejszy = (Text) component.findComponentById(ResourceTable.Id_mniejsze);
+             textWiekszy.setTruncationMode(Text.TruncationMode.AUTO_SCROLLING);
+        }
+    }
 
     @Override
     public long getItemId(int i) {
@@ -45,35 +56,36 @@ public class KafelekListProvider extends BaseItemProvider{
     @Override
     public Component getComponent(int i, Component component, ComponentContainer componentContainer) {
         final Component cpt;
+        Kafelek d =  dane.get(i);
+        KafelekHolder holder;
         if(component ==  null)
         {
             cpt = LayoutScatter.getInstance(abilitySlice).parse(ResourceTable.Layout_kafelek,null,false);
+            holder = new KafelekHolder(cpt);
+            holder.textWiekszy.setText(d.getWiekszy());
+            holder.directionalLayout.setClickedListener(new Component.ClickedListener() {
+                @Override
+                public void onClick(Component component) {
+                    Intent intent = new Intent();
+                    Operation operation = new Intent.OperationBuilder()
+                            .withDeviceId("")
+                            .withBundleName("com.example.notatnik")
+                            .withAbilityName(d.getSlice())
+                            .build();
+                    intent.setOperation(operation);
+                    DataHolder.getInstance().setKafelekId(i);
+                    abilitySlice.startAbility(intent);
+                }
+            });
+            cpt.setTag(holder);
         }
-        else cpt = component;
+        else {
+            cpt = component;
+            holder =(KafelekHolder) cpt.getTag();
+        }
 
-        Kafelek d =  dane.get(i);
+        holder.textMniejszy.setText(d.getMniejszy());
 
-        DirectionalLayout directionalLayout = (DirectionalLayout) cpt.findComponentById(ResourceTable.Id_kafelek);
-        Text textWiekszy = (Text) cpt.findComponentById(ResourceTable.Id_wieksze);
-        Text textMniejszy = (Text) cpt.findComponentById(ResourceTable.Id_mniejsze);
-        textWiekszy.setTruncationMode(Text.TruncationMode.AUTO_SCROLLING);
-        textWiekszy.setText(d.getWiekszy());
-        textMniejszy.setText(d.getMniejszy());
-        directionalLayout.setClickedListener(new Component.ClickedListener() {
-            @Override
-            public void onClick(Component component) {
-                if(textWiekszy.getText().equals("List")) DataHolder.getInstance().kopiaListy();
-                Intent intent = new Intent();
-                Operation operation = new Intent.OperationBuilder()
-                        .withDeviceId("")
-                        .withBundleName("com.example.notatnik")
-                        .withAbilityName(d.getSlice())
-                        .build();
-                intent.setOperation(operation);
-                DataHolder.getInstance().setKafelekId(i);
-                abilitySlice.startAbility(intent);
-            }
-        });
         return cpt;
     }
 }

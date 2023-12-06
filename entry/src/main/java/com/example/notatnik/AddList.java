@@ -9,5 +9,6 @@ public class AddList extends Ability {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setMainRoute(AddListSlice.class.getName());
+        setSwipeToDismiss(true);
     }
 }

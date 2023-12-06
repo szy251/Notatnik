@@ -10,7 +10,6 @@
         ohos:id="$+id:on_off"
         ohos:height="60px"
         ohos:width="150px"
-        ohos:track_element="$graphic:track_state_element_turquoise"
         ohos:thumb_element="$graphic:thumb_state_element"
         />
     <Button
@@ -56,19 +55,16 @@
         ohos:text_color="#FF9F9F9F"
         ohos:text_alignment="center"
         ohos:layout_alignment="horizontal_center"
-        ohos:text="Mo., Tu., We., Th., Fr., Sa., Su."
         ohos:text_size="20px"
         />
     <Button
         ohos:id="$+id:accept_notyfiy"
         ohos:height="100px"
         ohos:width="100px"
-        ohos:background_element="$graphic:przycisk_turquoise"
         ohos:text="✓"
         ohos:text_size="90px"
         />
     <Button
-        ohos:background_element="$graphic:przycisk_turquoise"
         ohos:text_size="90px"
         ohos:id="$+id:decline_notyfi"
         ohos:bottom_padding="10px"

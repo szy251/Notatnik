@@ -205,7 +205,7 @@ public class ChangeListyTrescSlice extends AbilitySlice {
                 public void run() {
                     juz4 = true;
                 }
-            },1000);
+            },700);
         }
         else if(SmallDataHolder.getInstance().getState() == 5){
             SmallDataHolder.getInstance().setState((byte) 1);

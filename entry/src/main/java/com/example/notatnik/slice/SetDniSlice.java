@@ -49,12 +49,7 @@ public class SetDniSlice extends AbilitySlice {
                 terminateAbility();
             }
         });
-        but2.setClickedListener(new Component.ClickedListener() {
-            @Override
-            public void onClick(Component component) {
-                terminateAbility();
-            }
-        });
+        but2.setClickedListener(listener-> terminateAbility());
     }
 
     private void inicjalizacja() {

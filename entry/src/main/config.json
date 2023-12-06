@@ -48,16 +48,7 @@
         "description": "$string:mainability_description",
         "label": "$string:entry_MainAbility",
         "type": "page",
-        "launchType": "standard",
-        "metaData": {
-          "customizeData": [
-            {
-              "extra": "",
-              "name": "hwc-theme",
-              "value": "androidhwext:style/Theme.Emui.Translucent.NoTitleBar.Fullscreen"
-            }
-          ]
-        }
+        "launchType": "standard"
       },
       {
         "orientation": "unspecified",
@@ -66,16 +57,7 @@
         "description": "$string:tresc_description",
         "label": "$string:entry_Tresc",
         "type": "page",
-        "launchType": "standard",
-        "metaData": {
-          "customizeData": [
-            {
-              "extra": "",
-              "name": "hwc-theme",
-              "value": "androidhwext:style/Theme.Emui.Translucent.NoTitleBar.Fullscreen"
-            }
-          ]
-        }
+        "launchType": "standard"
       },
       {
         "orientation": "unspecified",
@@ -84,16 +66,7 @@
         "description": "$string:add_tytul_description",
         "label": "$string:entry_Add_tytul",
         "type": "page",
-        "launchType": "standard",
-        "metaData": {
-          "customizeData": [
-            {
-              "extra": "",
-              "name": "hwc-theme",
-              "value": "androidhwext:style/Theme.Emui.Translucent.NoTitleBar.Fullscreen"
-            }
-          ]
-        }
+        "launchType": "standard"
       },
       {
         "orientation": "unspecified",
@@ -102,16 +75,7 @@
         "description": "$string:opcje_description",
         "label": "$string:entry_Opcje",
         "type": "page",
-        "launchType": "standard",
-        "metaData": {
-          "customizeData": [
-            {
-              "extra": "",
-              "name": "hwc-theme",
-              "value": "androidhwext:style/Theme.Emui.Translucent.NoTitleBar.Fullscreen"
-            }
-          ]
-        }
+        "launchType": "standard"
       },
       {
         "orientation": "unspecified",
@@ -120,16 +84,7 @@
         "description": "$string:delete_description",
         "label": "$string:entry_Delete",
         "type": "page",
-        "launchType": "standard",
-        "metaData": {
-          "customizeData": [
-            {
-              "extra": "",
-              "name": "hwc-theme",
-              "value": "androidhwext:style/Theme.Emui.Translucent.NoTitleBar.Fullscreen"
-            }
-          ]
-        }
+        "launchType": "standard"
       },
       {
         "name": "com.example.notatnik.ChoseType",
@@ -138,16 +93,7 @@
         "label": "$string:entry_ChoseType",
         "launchType": "standard",
         "orientation": "unspecified",
-        "type": "page",
-        "metaData": {
-          "customizeData": [
-            {
-              "extra": "",
-              "name": "hwc-theme",
-              "value": "androidhwext:style/Theme.Emui.Translucent.NoTitleBar.Fullscreen"
-            }
-          ]
-        }
+        "type": "page"
       },
       {
         "name": "com.example.notatnik.AddNormal",

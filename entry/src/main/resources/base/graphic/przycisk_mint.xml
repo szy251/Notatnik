@@ -2,5 +2,5 @@
 <shape
     xmlns:ohos="http://schemas.huawei.com/res/ohos"
     ohos:shape="oval">
-    <solid ohos:color="#FF00C870"/>
+    <solid ohos:color="$color:mint"/>
 </shape>

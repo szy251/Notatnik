@@ -9,5 +9,6 @@ public class OpcjeCheckedList extends Ability {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setMainRoute(OpcjeCheckedListSlice.class.getName());
+        setSwipeToDismiss(true);
     }
 }

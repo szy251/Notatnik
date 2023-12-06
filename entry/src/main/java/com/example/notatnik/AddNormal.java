@@ -9,5 +9,6 @@ public class AddNormal extends Ability {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setMainRoute(AddNormalSlice.class.getName());
+        setSwipeToDismiss(true);
     }
 }

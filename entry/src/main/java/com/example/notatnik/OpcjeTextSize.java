@@ -9,5 +9,6 @@ public class OpcjeTextSize extends Ability {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setMainRoute(OpcjeTextSizeSlice.class.getName());
+        setSwipeToDismiss(true);
     }
 }

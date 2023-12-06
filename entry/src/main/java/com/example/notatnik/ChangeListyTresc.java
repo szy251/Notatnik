@@ -9,5 +9,6 @@ public class ChangeListyTresc extends Ability {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setMainRoute(ChangeListyTrescSlice.class.getName());
+        setSwipeToDismiss(true);
     }
 }

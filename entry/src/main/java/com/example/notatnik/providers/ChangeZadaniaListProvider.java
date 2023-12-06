@@ -37,7 +37,15 @@ public class ChangeZadaniaListProvider extends BaseItemProvider {
         dane.add(listNot);
         notifyDataChanged();
     }
-
+    public class ChangeZadaniaHolder{
+        Text textField;
+        Button button;
+        ChangeZadaniaHolder(Component component){
+            textField = (Text) component.findComponentById(ResourceTable.Id_tresc_zadanie);
+            button = (Button) component.findComponentById(ResourceTable.Id_usun_zadanie);
+            textField.setTextSize((int)(30*DataHolder.getInstance().getOpcjeData().getTextSize()));
+        }
+    }
     @Override
     public long getItemId(int i) {
         return i;
@@ -46,20 +54,24 @@ public class ChangeZadaniaListProvider extends BaseItemProvider {
     @Override
     public Component getComponent(int i, Component component, ComponentContainer componentContainer) {
         final Component cpt;
+        ListNot d =  dane.get(i);
+        ChangeZadaniaHolder holder;
         if(component ==  null)
         {
             cpt = LayoutScatter.getInstance(slice).parse(ResourceTable.Layout_zadanie,null,false);
+            holder = new ChangeZadaniaHolder(cpt);
+            cpt.setTag(holder);
         }
-        else cpt = component;
+        else {
+            cpt = component;
+            holder = (ChangeZadaniaHolder) cpt.getTag();
+        }
 
-        ListNot d =  dane.get(i);
 
-        Text textField = (Text) cpt.findComponentById(ResourceTable.Id_tresc_zadanie);
-        Button button = (Button) cpt.findComponentById(ResourceTable.Id_usun_zadanie);
-        textField.setText(d.getNazwa());
-        textField.setTextSize((int)(30* DataHolder.getInstance().getOpcjeData().getTextSize()));
 
-        button.setClickedListener(new Component.ClickedListener() {
+        holder.textField.setText(d.getNazwa());
+
+        holder.button.setClickedListener(new Component.ClickedListener() {
             ChangeListyTrescSlice changeListyTrescSlice = (ChangeListyTrescSlice) slice;
 
             @Override
@@ -92,7 +104,7 @@ public class ChangeZadaniaListProvider extends BaseItemProvider {
                 },200);
             }
         });
-        textField.setClickedListener(new Component.ClickedListener() {
+        holder.textField.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
                 SmallDataHolder.getInstance().setListNot(d);

@@ -16,12 +16,10 @@
         ohos:id="$+id:accept_listy"
         ohos:height="100px"
         ohos:width="100px"
-        ohos:background_element="$graphic:przycisk_turquoise"
         ohos:text="✓"
         ohos:text_size="90px"
         />
     <Button
-        ohos:background_element="$graphic:przycisk_turquoise"
         ohos:text_size="90px"
         ohos:id="$+id:decline_listy"
         ohos:bottom_padding="10px"
@@ -30,7 +28,6 @@
         ohos:width="100px"
         />
     <Button
-        ohos:background_element="$graphic:przycisk_turquoise"
         ohos:text_size="90px"
         ohos:id="$+id:wiecej_zadan"
         ohos:bottom_padding="10px"

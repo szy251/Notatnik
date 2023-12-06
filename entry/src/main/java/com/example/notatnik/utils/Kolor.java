@@ -1,6 +1,7 @@
 package com.example.notatnik.utils;
 
 import com.example.notatnik.ResourceTable;
+import ohos.agp.colors.RgbColor;
 import ohos.agp.components.ComponentState;
 import ohos.agp.components.element.ShapeElement;
 import ohos.agp.components.element.StateElement;
@@ -62,6 +63,20 @@ public class Kolor {
         ShapeElement off = new ShapeElement(context, ResourceTable.Graphic_track_element_off);
         stateElement.addState(new int[]{ComponentState.COMPONENT_STATE_CHECKED}, on);
         stateElement.addState(new int[]{ComponentState.COMPONENT_STATE_EMPTY}, off);
+        return  stateElement;
+    }
+    public static StateElement check_background(RgbColor color){
+        StateElement stateElement = new StateElement();
+        ShapeElement zaznaczony = new ShapeElement();
+        ShapeElement niezaznaczony = new ShapeElement();
+        zaznaczony.setRgbColor(color);
+        zaznaczony.setStroke(4,new RgbColor(255,255,255));
+        zaznaczony.setCornerRadius(5);
+        niezaznaczony.setStroke(4,new RgbColor(255,255,255));
+        niezaznaczony.setRgbColor(new RgbColor(0,0,0));
+        niezaznaczony.setCornerRadius(5);
+        stateElement.addState(new int[]{ComponentState.COMPONENT_STATE_CHECKED}, zaznaczony);
+        stateElement.addState(new int[]{ComponentState.COMPONENT_STATE_EMPTY}, niezaznaczony);
         return  stateElement;
     }
 }

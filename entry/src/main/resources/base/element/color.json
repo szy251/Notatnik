@@ -3,6 +3,38 @@
     {
       "name": "white",
       "value": "#FFFFFFFF"
+    },
+    {
+      "name": "orange",
+      "value": "#FFFF8F00"
+    },
+    {
+      "name": "red",
+      "value": "#FFE20000"
+    },
+    {
+      "name": "blue",
+      "value": "#FF00338A"
+    },
+    {
+      "name": "mint",
+      "value": "#FF00C870"
+    },
+    {
+      "name": "gray",
+      "value": "#FF22221D"
+    },
+    {
+      "name": "turquoise",
+      "value": "#FF00947D"
+    },
+    {
+      "name": "lime",
+      "value": "#FF7EC102"
+    },
+    {
+      "name": "purple",
+      "value": "#FF6C00CB"
     }
   ]
 }

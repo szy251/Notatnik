@@ -12,7 +12,6 @@
         ohos:width="220px"
         ohos:height="290px"
         ohos:id="$+id:timepicker"
-        ohos:operated_text_color="#FF00947D"
         ohos:selected_text_color="$color:white"
         ohos:normal_text_size="35px"
         ohos:selected_text_size="50px"
@@ -22,12 +21,10 @@
         ohos:id="$+id:accept_time"
         ohos:height="100px"
         ohos:width="100px"
-        ohos:background_element="$graphic:przycisk_turquoise"
         ohos:text="✓"
         ohos:text_size="90px"
         />
     <Button
-        ohos:background_element="$graphic:przycisk_turquoise"
         ohos:text_size="90px"
         ohos:id="$+id:decline_time"
         ohos:bottom_padding="10px"

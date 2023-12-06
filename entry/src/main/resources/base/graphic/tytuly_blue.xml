@@ -4,5 +4,5 @@
     ohos:shape="rectangle">
     <corners
         ohos:radius="90px"/>
-    <solid ohos:color="#FF00338A"/>
+    <solid ohos:color="$color:blue"/>
 </shape>

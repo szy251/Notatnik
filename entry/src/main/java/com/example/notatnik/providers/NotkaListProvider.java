@@ -9,6 +9,7 @@ import ohos.agp.components.*;
 import ohos.agp.components.element.ShapeElement;
 import ohos.data.DatabaseHelper;
 import ohos.data.orm.OrmContext;
+import ohos.data.rdb.ValuesBucket;
 
 import java.util.List;
 
@@ -20,7 +21,19 @@ public class NotkaListProvider extends BaseItemProvider {
         this.dane =  dane;
         this.slice = slice;
     }
+    public class NotkaHolder{
+        DirectionalLayout directionalLayout;
+        Text text;
+        ShapeElement shapeElement,shapeElement2;
+        NotkaHolder(Component component){
+             directionalLayout = (DirectionalLayout) component.findComponentById(ResourceTable.Id_notka_dodatkowa);
+             text = (Text) component.findComponentById(ResourceTable.Id_notka_text);
+             text.setTextSize((int)(30*DataHolder.getInstance().getOpcjeData().getTextSize()));
 
+             shapeElement = new ShapeElement(component.getContext(), DataHolder.getInstance().getOpcjeData().getCheckedListId());
+             shapeElement2 = new ShapeElement(component.getContext(),ResourceTable.Graphic_tytuly_gray);
+        }
+    }
     public void setDane(List<ListNot> dane) {
         this.dane = dane;
     }
@@ -44,44 +57,46 @@ public class NotkaListProvider extends BaseItemProvider {
     @Override
     public Component getComponent(int i, Component component, ComponentContainer componentContainer) {
         final Component cpt;
+        ListNot d =  dane.get(i);
+        NotkaHolder holder;
         if(component ==  null)
         {
             cpt = LayoutScatter.getInstance(slice).parse(ResourceTable.Layout_notka,null,false);
-        }
-        else cpt = component;
-
-        ListNot d =  dane.get(i);
-
-        DirectionalLayout directionalLayout = (DirectionalLayout) cpt.findComponentById(ResourceTable.Id_notka_dodatkowa);
-        Text text = (Text) cpt.findComponentById(ResourceTable.Id_notka_text);
-        text.setTextSize((int)(30*DataHolder.getInstance().getOpcjeData().getTextSize()));
-
-        text.setText(d.getNazwa());
-        ShapeElement shapeElement = new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getCheckedListId());
-        ShapeElement shapeElement2 = new ShapeElement(cpt.getContext(),ResourceTable.Graphic_tytuly_gray);
-        if(d.getZrobione()){
-            directionalLayout.setBackground(shapeElement);
+            holder = new NotkaHolder(cpt);
+            cpt.setTag(holder);
         }
         else{
-            directionalLayout.setBackground(shapeElement2);
+            cpt = component;
+            holder = (NotkaHolder) cpt.getTag();
         }
-        directionalLayout.setClickedListener(new Component.ClickedListener() {
+
+        holder.text.setText(d.getNazwa());
+        holder.directionalLayout.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
                 if(d.getZrobione()){
                     d.setZrobione(false);
-                    directionalLayout.setBackground(shapeElement2);
+                    holder.directionalLayout.setBackground(holder.shapeElement2);
                 }
                 else{
                     d.setZrobione(true);
-                    directionalLayout.setBackground(shapeElement);
+                    holder.directionalLayout.setBackground(holder.shapeElement);
                 }
                 DatabaseHelper databaseHelper = new DatabaseHelper(cpt.getContext());
                 OrmContext ormContext = databaseHelper.getOrmContext("data","Notes.db", Dane.class);
-                ormContext.update(d);
+                ValuesBucket valuesBucket = new ValuesBucket();
+                valuesBucket.putBoolean("zrobione", d.getZrobione());
+                ormContext.update(ormContext.where(ListNot.class).equalTo("ListNotId", d.getListNotId()), valuesBucket);
                 ormContext.flush();
             }
         });
+
+        if(d.getZrobione()){
+            holder.directionalLayout.setBackground(holder.shapeElement);
+        }
+        else{
+           holder.directionalLayout.setBackground(holder.shapeElement2);
+        }
         return cpt;
     }
 }

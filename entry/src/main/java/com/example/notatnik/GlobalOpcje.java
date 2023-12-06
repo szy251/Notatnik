@@ -9,5 +9,6 @@ public class GlobalOpcje extends Ability {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setMainRoute(GlobalOpcjeSlice.class.getName());
+        setSwipeToDismiss(true);
     }
 }

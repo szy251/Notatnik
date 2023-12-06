@@ -9,5 +9,6 @@ public class Delete extends Ability {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setMainRoute(DeleteSlice.class.getName());
+        setSwipeToDismiss(true);
     }
 }

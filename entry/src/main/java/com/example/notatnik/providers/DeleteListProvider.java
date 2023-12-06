@@ -3,6 +3,7 @@ package com.example.notatnik.providers;
 import com.example.notatnik.ResourceTable;
 import com.example.notatnik.data.Data;
 import com.example.notatnik.data.DataHolder;
+import com.example.notatnik.utils.Kolor;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.agp.colors.RgbColor;
 import ohos.agp.components.*;
@@ -16,6 +17,7 @@ public class DeleteListProvider extends BaseItemProvider {
     private List<Data> dane;
     private AbilitySlice slice;
     private List<Boolean> usun;
+    private RgbColor dochecka;
 
 
     public DeleteListProvider(List<Data> dane, AbilitySlice slice) {
@@ -25,7 +27,25 @@ public class DeleteListProvider extends BaseItemProvider {
         for (int i = 0; i < dane.size(); i++) {
             usun.add(false);
         }
+        dochecka = Arrays.stream(new ShapeElement(slice.getContext(), DataHolder.getInstance().getOpcjeData().getPrzycTloId()).getRgbColors()).findFirst().get();
 
+    }
+    public class DeleteHolder{
+        DirectionalLayout directionalLayout, directionalLayout2;
+        Text text;
+        Checkbox checkbox;
+        DeleteHolder(Component component){
+            directionalLayout =  (DirectionalLayout) component.findComponentById(ResourceTable.Id_tytul_usun);
+            directionalLayout2 = (DirectionalLayout) component.findComponentById(ResourceTable.Id_tytul_usun_tlo);
+            text =  (Text) component.findComponentById(ResourceTable.Id_nazwa_usun);
+            checkbox = (Checkbox)component.findComponentById(ResourceTable.Id_checkbox);
+            text.setTextSize((int) (30 * DataHolder.getInstance().getOpcjeData().getTextSize()));
+            text.setMultipleLine(true);
+            directionalLayout.setMinHeight(90);
+            checkbox.setBackground(Kolor.check_background(dochecka));
+
+
+        }
     }
 
     @Override
@@ -47,50 +67,38 @@ public class DeleteListProvider extends BaseItemProvider {
     @Override
     public Component getComponent(int i, Component component, ComponentContainer componentContainer) {
         final Component cpt;
+        Data d =  dane.get(i);
+        DeleteHolder holder;
         if(component ==  null)
         {
             cpt = LayoutScatter.getInstance(slice).parse(ResourceTable.Layout_tytul_usun,null,false);
-        }
-        else cpt = component;
-        Data d =  dane.get(i);
-        DirectionalLayout directionalLayout2 = (DirectionalLayout) cpt.findComponentById(ResourceTable.Id_tytul_usun_tlo);
-        ShapeElement shapeElementtlo;
-        if(d.getTyp().equals("Norm")){
-            shapeElementtlo = new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getNormalTytId());
-        }
-        else{
-            shapeElementtlo = new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getListTytId());
-        }
-        directionalLayout2.setBackground(shapeElementtlo);
-
-        Text text =  (Text) cpt.findComponentById(ResourceTable.Id_nazwa_usun);
-        DirectionalLayout directionalLayout =  (DirectionalLayout) cpt.findComponentById(ResourceTable.Id_tytul_usun);
-        Checkbox checkbox = (Checkbox)cpt.findComponentById(ResourceTable.Id_checkbox);
-        String jak = d.getNazwa();
-        text.setMultipleLine(true);
-        text.setText(jak);
-        text.setTextSize((int) (30 * DataHolder.getInstance().getOpcjeData().getTextSize()));
-        directionalLayout.setMinHeight(90);
-        ShapeElement shapeElement = new ShapeElement();
-        shapeElement.setStroke(4,new RgbColor(255,255,255));
-        shapeElement.setRgbColor(new RgbColor(0,0,0));
-        shapeElement.setCornerRadius(5);
-        checkbox.setBackground(shapeElement);
-        RgbColor z = Arrays.stream(new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getPrzycTloId()).getRgbColors()).findFirst().get();
-        checkbox.setCheckedStateChangedListener((cos, state)->{
-            usun.set(i,state);
-            if(state){
-                shapeElement.setRgbColor(z);
-                DataHolder.getInstance().addUsuwane(d);
+            holder = new DeleteHolder(cpt);
+            ShapeElement shapeElementtlo;
+            if(d.getTyp().equals("Norm")){
+                shapeElementtlo = new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getNormalTytId());
             }
             else{
-                shapeElement.setRgbColor(new RgbColor(0,0,0));
-                DataHolder.getInstance().removeUsuwane(d);
+                shapeElementtlo = new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getListTytId());
             }
-        });
+            holder.directionalLayout2.setBackground(shapeElementtlo);
+            holder.checkbox.setCheckedStateChangedListener((cos, state)->{
+                usun.set(i,state);
+                if(state){
+                    DataHolder.getInstance().addUsuwane(d);
+                }
+                else{
+                    DataHolder.getInstance().removeUsuwane(d);
+                }
+            });
+            cpt.setTag(holder);
+        }
+        else {
+            cpt = component;
+            holder = (DeleteHolder) cpt.getTag();
+        }
 
-
-
+        holder.checkbox.setChecked(usun.get(i));
+        holder.text.setText(d.getNazwa());
         return cpt;
     }
 }

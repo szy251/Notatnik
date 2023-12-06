@@ -10,7 +10,6 @@ public class Data extends OrmObject {
     private Integer DataId;
 
     private Integer alarmId;
-    /*private Date data;*/
     private String nazwa, typ, dzien;
     private Boolean pon, wt,sr, czw, pt,sob, nd, alarm, powtorz;
 

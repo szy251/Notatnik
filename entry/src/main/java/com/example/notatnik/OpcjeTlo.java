@@ -9,5 +9,6 @@ public class OpcjeTlo extends Ability {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setMainRoute(OpcjeTloSlice.class.getName());
+        setSwipeToDismiss(true);
     }
 }

@@ -9,5 +9,6 @@ public class ChangeDni extends Ability {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setMainRoute(ChangeDniSlice.class.getName());
+        setSwipeToDismiss(true);
     }
 }

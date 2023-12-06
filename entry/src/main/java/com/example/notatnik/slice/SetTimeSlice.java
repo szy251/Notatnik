@@ -47,12 +47,7 @@ public class SetTimeSlice extends AbilitySlice {
                 terminateAbility();
             }
         });
-        but2.setClickedListener(new Component.ClickedListener() {
-            @Override
-            public void onClick(Component component) {
-                terminateAbility();
-            }
-        });
+        but2.setClickedListener(listener-> terminateAbility());
     }
 
     @Override

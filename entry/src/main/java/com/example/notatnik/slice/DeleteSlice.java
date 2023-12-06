@@ -1,6 +1,7 @@
 package com.example.notatnik.slice;
 
 import com.example.notatnik.ResourceTable;
+import com.example.notatnik.animations.AnimationButton;
 import com.example.notatnik.data.*;
 import com.example.notatnik.providers.DeleteListProvider;
 import ohos.aafwk.ability.AbilitySlice;
@@ -22,9 +23,10 @@ import java.util.List;
 public class DeleteSlice extends AbilitySlice {
     DatabaseHelper helper;
     OrmContext context;
-    ListContainer listContainer2;
+    ListContainer listContainer;
     List<Data> dane;
     Image image;
+    AnimationButton animatorProperty, animatorProperty2, animatorProperty3, animatorProperty4;
     Button but;
     Boolean juz;
     @Override
@@ -36,10 +38,14 @@ public class DeleteSlice extends AbilitySlice {
         ShapeElement shapeElement = new ShapeElement(getContext(),DataHolder.getInstance().getOpcjeData().getPrzycTloId());
         image.setBackground(shapeElement);
         but.setBackground(shapeElement);
-        listContainer2 = (ListContainer)findComponentById(ResourceTable.Id_deletelista);
+        listContainer = (ListContainer)findComponentById(ResourceTable.Id_deletelista);
         image.setPosition(120,40);
         but.setPosition(246, 40);
-        listContainer2.setPosition(0,0);
+        listContainer.setPosition(0,0);
+        animatorProperty = new AnimationButton(1.f,0.f,100,image,true);
+        animatorProperty2 = new AnimationButton(0.f,1.f,100,image,false);
+        animatorProperty3 = new AnimationButton(1.f,0.f,100,but,true);
+        animatorProperty4 =  new AnimationButton(0.f,1.f,100,but,false);
         DataHolder.getInstance().setUsuwane(new ArrayList<>());
         juz = true;
         DataHolder.getInstance().addObecne(getAbility());
@@ -50,41 +56,39 @@ public class DeleteSlice extends AbilitySlice {
                 delete();
             }
         });
-        but.setClickedListener(new Component.ClickedListener() {
-            @Override
-            public void onClick(Component component) {
-                terminateAbility();
-            }
-        });
+        but.setClickedListener(listener-> terminateAbility());
 
     }
     private void inicjalizacja(){
         dane = DataHolder.getInstance().getDane();
         DeleteListProvider deleteListProvider = new DeleteListProvider(dane,this);
-        listContainer2.setItemProvider(deleteListProvider);
-        listContainer2.enableScrollBar(Component.AXIS_Y,true);
-        listContainer2.setScrollbarBackgroundColor(Color.GRAY);
-        listContainer2.setScrollbarColor(Color.WHITE);
-        listContainer2.setFocusable(Component.FOCUS_ADAPTABLE);
-        listContainer2.requestFocus();
-        listContainer2.setMode(Component.OVAL_MODE);
-        listContainer2.setCentralScrollMode(true);
-        listContainer2.addScrolledListener(new Component.ScrolledListener() {
+        listContainer.setItemProvider(deleteListProvider);
+        listContainer.enableScrollBar(Component.AXIS_Y,true);
+        listContainer.setScrollbarBackgroundColor(Color.GRAY);
+        listContainer.setScrollbarColor(Color.WHITE);
+        listContainer.setFocusable(Component.FOCUS_ADAPTABLE);
+        listContainer.requestFocus();
+        listContainer.setMode(Component.OVAL_MODE);
+        listContainer.setCentralScrollMode(true);
+        listContainer.addScrolledListener(new Component.ScrolledListener() {
             @Override
             public void onContentScrolled(Component component, int i, int i1, int i2, int i3) {
-                int il = listContainer2.getCenterFocusablePosition();
-                if(il <= 0){
-                    if (!juz) image.setVisibility(Component.VISIBLE);
+                int il = listContainer.getCenterFocusablePosition();
+                if(il <= 0 ){
+                    if(!juz) {
+                        animatorProperty2.start();
+                        animatorProperty4.start();
+                    }
                     juz = true;
                 }
                 else if(juz){
                     juz = false;
-                    image.setVisibility(Component.HIDE);
-
+                    animatorProperty.start();
+                    animatorProperty3.start();
                 }
             }
         });
-        listContainer2.setLongClickable(false);
+        listContainer.setLongClickable(false);
     }
     void  delete(){
         helper = new DatabaseHelper(this);

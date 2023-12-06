@@ -14,6 +14,7 @@ public class DniListProvider extends BaseItemProvider {
     private List<String> dane;
     private AbilitySlice slice;
     private boolean[] dzien;
+    private RgbColor dochecka;
 
 
     public DniListProvider(List<String> dane, AbilitySlice slice, boolean[] dzien) {
@@ -21,7 +22,22 @@ public class DniListProvider extends BaseItemProvider {
         this.slice = slice;
         this.dzien = new boolean[dzien.length];
         System.arraycopy(dzien, 0, this.dzien, 0, dzien.length);
+        dochecka = Arrays.stream(new ShapeElement(slice.getContext(), DataHolder.getInstance().getOpcjeData().getPrzycTloId()).getRgbColors()).findFirst().get();
 
+    }
+
+    public class DniHolder{
+        Text text;
+        DirectionalLayout directionalLayout;
+        Checkbox checkbox;
+        DniHolder(Component component){
+            text =  (Text) component.findComponentById(ResourceTable.Id_nazwa_usun);
+            directionalLayout =  (DirectionalLayout) component.findComponentById(ResourceTable.Id_tytul_usun_tlo);
+            checkbox = (Checkbox)component.findComponentById(ResourceTable.Id_checkbox);
+
+            ShapeElement shapeElement1 = new ShapeElement(component.getContext(),ResourceTable.Graphic_tytuly_gray);
+            directionalLayout.setBackground(shapeElement1);
+        }
     }
 
     @Override
@@ -47,39 +63,28 @@ public class DniListProvider extends BaseItemProvider {
     @Override
     public Component getComponent(int i, Component component, ComponentContainer componentContainer) {
         final Component cpt;
+        String d =  dane.get(i);
+        DniHolder holder;
         if(component ==  null)
         {
             cpt = LayoutScatter.getInstance(slice).parse(ResourceTable.Layout_tytul_usun,null,false);
-        }
-        else cpt = component;
-        String d =  dane.get(i);
-        Text text =  (Text) cpt.findComponentById(ResourceTable.Id_nazwa_usun);
-        DirectionalLayout directionalLayout =  (DirectionalLayout) cpt.findComponentById(ResourceTable.Id_tytul_usun_tlo);
-        Checkbox checkbox = (Checkbox)cpt.findComponentById(ResourceTable.Id_checkbox);
-
-        text.setText(d);
-        ShapeElement shapeElement1 = new ShapeElement(cpt.getContext(),ResourceTable.Graphic_tytuly_gray);
-        directionalLayout.setBackground(shapeElement1);
-
-        ShapeElement shapeElement = new ShapeElement();
-        shapeElement.setStroke(4,new RgbColor(255,255,255));
-        shapeElement.setRgbColor(new RgbColor(0,0,0));
-        shapeElement.setCornerRadius(5);
-        checkbox.setBackground(shapeElement);
-        RgbColor z = Arrays.stream(new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getPrzycTloId()).getRgbColors()).findFirst().get();
-
-        checkbox.setCheckedStateChangedListener((cos, state)->{
-            dzien[i] = state;
-            if(state){
-                shapeElement.setRgbColor(z);
+            holder = new DniHolder(cpt);
+            holder.text.setText(d);
+            cpt.setTag(holder);
+            holder.checkbox.setCheckedStateChangedListener((cos, state)->{
+                dzien[i] = state;
+            });
+            if(dzien[i]){
+                holder.checkbox.setChecked(true);
             }
-            else{
-                shapeElement.setRgbColor(new RgbColor(0,0,0));
-            }
-        });
-        if(dzien[i]){
-            checkbox.setChecked(true);
+
         }
+        else
+        {
+            cpt = component;
+            holder = (DniHolder) cpt.getTag();
+        }
+
         return cpt;
     }
 }

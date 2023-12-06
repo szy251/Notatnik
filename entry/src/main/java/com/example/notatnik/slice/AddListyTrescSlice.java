@@ -30,6 +30,7 @@ public class AddListyTrescSlice extends AbilitySlice {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setUIContent(ResourceTable.Layout_ability_add_listy_tresc);
+        DataHolder.getInstance().kopiaListy();
         but1 = (Button) findComponentById(ResourceTable.Id_accept_listy);
         but2 = (Button) findComponentById(ResourceTable.Id_decline_listy);
         but3 = (Button) findComponentById(ResourceTable.Id_wiecej_zadan);
@@ -81,12 +82,7 @@ public class AddListyTrescSlice extends AbilitySlice {
                 }
             }
         });
-        but2.setClickedListener(new Component.ClickedListener() {
-            @Override
-            public void onClick(Component component) {
-                terminateAbility();
-            }
-        });
+        but2.setClickedListener(listener-> terminateAbility());
         but3.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {

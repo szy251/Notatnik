@@ -9,7 +9,6 @@ import ohos.aafwk.ability.AbilitySlice;
 import ohos.aafwk.content.Intent;
 import ohos.agp.components.Component;
 import ohos.agp.components.ListContainer;
-import ohos.agp.components.Text;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,14 +59,24 @@ public class GlobalOpcjeSlice extends AbilitySlice {
                     DataHolder.getInstance().setKafelekId(ja);
 
                     if(ja > 0) {
-                        Text text = (Text) listContainer.getComponentAt(ja-1).findComponentById(ResourceTable.Id_wieksze);
-                        text.stopAutoScrolling();
+                        Component cpt = listContainer.getComponentAt(ja-1);
+                        if(cpt != null){
+                            KafelekListProvider.KafelekHolder holder = (KafelekListProvider.KafelekHolder) cpt.getTag();
+                            holder.textWiekszy.stopAutoScrolling();
+                        }
+
                     }
-                    Text text1 = (Text) listContainer.getComponentAt(ja).findComponentById(ResourceTable.Id_wieksze);
-                    text1.startAutoScrolling();
+                    Component cpt1 = listContainer.getComponentAt(ja);
+                    if(cpt1 != null){
+                        KafelekListProvider.KafelekHolder holder = (KafelekListProvider.KafelekHolder) cpt1.getTag();
+                        holder.textWiekszy.startAutoScrolling();
+                    }
                     if(ja<6){
-                        Text text2 = (Text) listContainer.getComponentAt(ja+1).findComponentById(ResourceTable.Id_wieksze);
-                        text2.stopAutoScrolling();
+                        Component cpt2 = listContainer.getComponentAt(ja+1);
+                        if(cpt2 != null){
+                            KafelekListProvider.KafelekHolder holder = (KafelekListProvider.KafelekHolder) cpt2.getTag();
+                            holder.textWiekszy.stopAutoScrolling();
+                        }
                     }
 
 

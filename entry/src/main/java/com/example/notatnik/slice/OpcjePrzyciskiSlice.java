@@ -125,6 +125,7 @@ public class OpcjePrzyciskiSlice extends AbilitySlice {
                 terminateAbility();
             }
         });
+        but2.setClickedListener(listener-> terminateAbility());
     }
 
     void ustaw(){

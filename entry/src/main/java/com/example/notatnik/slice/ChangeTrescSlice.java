@@ -34,6 +34,7 @@ public class ChangeTrescSlice extends AbilitySlice {
         ShapeElement shapeElement = new ShapeElement(getContext(),DataHolder.getInstance().getOpcjeData().getPrzycTloId());
         but1.setBackground(shapeElement);
         but2.setBackground(shapeElement);
+        textField.setHint("Add content");
         textField.setText(SmallDataHolder.getInstance().getNormalNot().getTresc());
         textField.setTextSize((int)(40*DataHolder.getInstance().getOpcjeData().getTextSize()));
         DataHolder.getInstance().addObecne(getAbility());

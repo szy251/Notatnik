@@ -18,14 +18,12 @@
         ohos:id="$+id:usun_accept"
         ohos:height="100px"
         ohos:width="100px"
-        ohos:background_element="$graphic:przycisk_turquoise"
         ohos:image_src="$media:trash"
         />
     <Button
         ohos:id="$+id:usun_decline"
         ohos:height="100px"
         ohos:width="100px"
-        ohos:background_element="$graphic:przycisk_turquoise"
         ohos:text="✗"
         ohos:bottom_padding="10px"
         ohos:text_size="90px"

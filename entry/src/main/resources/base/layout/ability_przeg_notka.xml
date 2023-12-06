@@ -18,7 +18,6 @@
         ohos:id="$+id:przeg_notka_wiecej"
         ohos:height="100px"
         ohos:width="100px"
-        ohos:background_element="$graphic:przycisk_turquoise"
         ohos:image_src="$media:settings"
         ohos:text_size="90px"
         />

@@ -9,5 +9,6 @@ public class AddTytul extends Ability {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setMainRoute(AddTytulSlice.class.getName());
+        setSwipeToDismiss(true);
     }
 }

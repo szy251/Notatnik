@@ -17,6 +17,7 @@
             ohos:width="466px"
             ohos:orientation="vertical"
             ohos:top_padding="150px"
+            ohos:layout_alignment="center"
             ohos:background_element="#FF000000">
             <TextField
                 ohos:height="match_content"
@@ -27,6 +28,7 @@
                 ohos:text_alignment="center"
                 ohos:layout_alignment="center"
                 ohos:text_input_type="pattern_text"
+                ohos:text_cursor_visible="false"
                 ohos:input_enter_key_type="enter_key_type_go"
                 ohos:text_color="#FFB5B5B5"
                 ohos:background_element="#FF000000"
@@ -39,7 +41,6 @@
         ohos:height="100px"
         ohos:width="100px"
         ohos:id="$+id:akceptuj_tyt"
-        ohos:background_element="$graphic:przycisk_turquoise"
         ohos:layout_alignment="center"
         ohos:text="✓"
         ohos:text_size="90px"
@@ -48,7 +49,6 @@
         ohos:height="100px"
         ohos:width="100px"
         ohos:id="$+id:anuluj_tyt"
-        ohos:background_element="$graphic:przycisk_turquoise"
         ohos:layout_alignment="center"
         ohos:text="✗"
         ohos:text_size="90px"

@@ -9,5 +9,6 @@ public class ListOpcje extends Ability {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setMainRoute(ListOpcjeSlice.class.getName());
+        setSwipeToDismiss(true);
     }
 }

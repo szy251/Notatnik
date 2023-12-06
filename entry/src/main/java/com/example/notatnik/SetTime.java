@@ -9,5 +9,6 @@ public class SetTime extends Ability {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setMainRoute(SetTimeSlice.class.getName());
+        setSwipeToDismiss(true);
     }
 }

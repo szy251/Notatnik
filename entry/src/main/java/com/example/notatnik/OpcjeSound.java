@@ -9,5 +9,6 @@ public class OpcjeSound extends Ability {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setMainRoute(OpcjeSoundSlice.class.getName());
+        setSwipeToDismiss(true);
     }
 }

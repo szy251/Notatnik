@@ -9,5 +9,6 @@ public class ChangeNotyfication extends Ability {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setMainRoute(ChangeNotyficationSlice.class.getName());
+        setSwipeToDismiss(true);
     }
 }

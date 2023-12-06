@@ -141,12 +141,10 @@
         ohos:id="$+id:accept_tlo_checked"
         ohos:height="100px"
         ohos:width="100px"
-        ohos:background_element="$graphic:przycisk_turquoise"
         ohos:text="✓"
         ohos:text_size="90px"
         />
     <Button
-        ohos:background_element="$graphic:przycisk_turquoise"
         ohos:text_size="90px"
         ohos:id="$+id:decline_tlo_checked"
         ohos:bottom_padding="10px"

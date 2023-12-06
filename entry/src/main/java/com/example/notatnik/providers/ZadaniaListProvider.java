@@ -21,7 +21,15 @@ public class ZadaniaListProvider extends BaseItemProvider {
         this.dane =  dane;
         this.slice = slice;
     }
-
+    public class ZadaniaHolder{
+        Text textField;
+        Button button;
+        ZadaniaHolder(Component component){
+            textField = (Text) component.findComponentById(ResourceTable.Id_tresc_zadanie);
+            button = (Button) component.findComponentById(ResourceTable.Id_usun_zadanie);
+            textField.setTextSize((int)(30*DataHolder.getInstance().getOpcjeData().getTextSize()));
+        }
+    }
     @Override
     public int getCount() {
         return dane == null? 0:dane.size();
@@ -41,29 +49,30 @@ public class ZadaniaListProvider extends BaseItemProvider {
     @Override
     public Component getComponent(int i, Component component, ComponentContainer componentContainer) {
         final Component cpt;
+        ListNot d =  dane.get(i);
+        ZadaniaHolder holder;
         if(component ==  null)
         {
             cpt = LayoutScatter.getInstance(slice).parse(ResourceTable.Layout_zadanie,null,false);
+            holder = new ZadaniaHolder(cpt);
+            cpt.setTag(holder);
         }
-        else cpt = component;
+        else {
+            cpt = component;
+            holder = (ZadaniaHolder) cpt.getTag();
+        }
 
-        ListNot d =  dane.get(i);
-
-        Text textField = (Text) cpt.findComponentById(ResourceTable.Id_tresc_zadanie);
-        Button button = (Button) cpt.findComponentById(ResourceTable.Id_usun_zadanie);
-        textField.setText(d.getNazwa());
-        textField.setTextSize((int)(30*DataHolder.getInstance().getOpcjeData().getTextSize()));
-        button.setClickedListener(new Component.ClickedListener() {
+        holder.button.setClickedListener(new Component.ClickedListener() {
             AddListyTrescSlice addListyTrescSlice = (AddListyTrescSlice) slice;
 
             @Override
             public void onClick(Component component) {
                 if(dane.size() > 2){
-                   addListyTrescSlice.falsz();
+                    addListyTrescSlice.falsz();
                 }
                 addListyTrescSlice.falsz2();
                 dane.remove(i);
-               if(DataHolder.getInstance().getListContainer().getCenterFocusablePosition() == dane.size()-1 && !addListyTrescSlice.isJuz2() && i < 5){
+                if(DataHolder.getInstance().getListContainer().getCenterFocusablePosition() == dane.size()-1 && !addListyTrescSlice.isJuz2() && i < 5){
                     DataHolder.getInstance().getAnimationButton().start();
                     addListyTrescSlice.prawda3();
                 }
@@ -78,7 +87,7 @@ public class ZadaniaListProvider extends BaseItemProvider {
                 },200);
             }
         });
-        textField.setClickedListener(new Component.ClickedListener() {
+        holder.textField.setClickedListener(new Component.ClickedListener() {
             @Override
             public void onClick(Component component) {
                 DataHolder.getInstance().setListNot(d);
@@ -93,6 +102,8 @@ public class ZadaniaListProvider extends BaseItemProvider {
                 slice.startAbility(intent);
             }
         });
+        holder.textField.setText(d.getNazwa());
+
         return cpt;
     }
 }

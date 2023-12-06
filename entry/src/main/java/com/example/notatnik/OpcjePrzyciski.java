@@ -9,5 +9,6 @@ public class OpcjePrzyciski extends Ability {
     public void onStart(Intent intent) {
         super.onStart(intent);
         super.setMainRoute(OpcjePrzyciskiSlice.class.getName());
+        setSwipeToDismiss(true);
     }
 }
