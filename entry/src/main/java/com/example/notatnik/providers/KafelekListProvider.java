@@ -62,29 +62,28 @@ public class KafelekListProvider extends BaseItemProvider{
         {
             cpt = LayoutScatter.getInstance(abilitySlice).parse(ResourceTable.Layout_kafelek,null,false);
             holder = new KafelekHolder(cpt);
-            holder.textWiekszy.setText(d.getWiekszy());
-            holder.directionalLayout.setClickedListener(new Component.ClickedListener() {
-                @Override
-                public void onClick(Component component) {
-                    Intent intent = new Intent();
-                    Operation operation = new Intent.OperationBuilder()
-                            .withDeviceId("")
-                            .withBundleName("com.example.notatnik")
-                            .withAbilityName(d.getSlice())
-                            .build();
-                    intent.setOperation(operation);
-                    DataHolder.getInstance().setKafelekId(i);
-                    abilitySlice.startAbility(intent);
-                }
-            });
             cpt.setTag(holder);
         }
         else {
             cpt = component;
             holder =(KafelekHolder) cpt.getTag();
         }
-
+        holder.textWiekszy.setText(d.getWiekszy());
         holder.textMniejszy.setText(d.getMniejszy());
+        holder.directionalLayout.setClickedListener(new Component.ClickedListener() {
+            @Override
+            public void onClick(Component component) {
+                Intent intent = new Intent();
+                Operation operation = new Intent.OperationBuilder()
+                        .withDeviceId("")
+                        .withBundleName("com.example.notatnik")
+                        .withAbilityName(d.getSlice())
+                        .build();
+                intent.setOperation(operation);
+                DataHolder.getInstance().setKafelekId(i);
+                abilitySlice.startAbility(intent);
+            }
+        });
 
         return cpt;
     }

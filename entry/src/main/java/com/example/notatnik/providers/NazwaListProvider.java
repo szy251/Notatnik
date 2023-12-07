@@ -16,10 +16,13 @@ import java.util.List;
 public class NazwaListProvider extends BaseItemProvider {
     private List<Data> dane;
     private AbilitySlice slice;
+    ShapeElement bcg1, bcg2;
 
     public NazwaListProvider(List<Data> dane, AbilitySlice slice) {
         this.dane =  dane;
         this.slice = slice;
+        bcg1 = new ShapeElement(slice.getContext(), DataHolder.getInstance().getOpcjeData().getNormalTytId());
+        bcg2 = new ShapeElement(slice.getContext(), DataHolder.getInstance().getOpcjeData().getListTytId());
     }
 
     public class NazwaHolder{
@@ -31,7 +34,6 @@ public class NazwaListProvider extends BaseItemProvider {
             directionalLayout =  (DirectionalLayout) component.findComponentById(ResourceTable.Id_tytul);
             directionalLayout2 =  (DirectionalLayout) component.findComponentById(ResourceTable.Id_tytul_tlo);
             directionalLayout.setMinHeight(100);
-            text.setTextSize((int) (30*DataHolder.getInstance().getOpcjeData().getTextSize()));
             text.setMultipleLine(true);
         }
     }
@@ -44,6 +46,13 @@ public class NazwaListProvider extends BaseItemProvider {
     public Object getItem(int i) {
         if(dane !=null && i >=0 && i < dane.size()) return dane.get(i);
         return null;
+    }
+
+    @Override
+    public void notifyDataChanged() {
+        bcg1 = new ShapeElement(slice.getContext(), DataHolder.getInstance().getOpcjeData().getNormalTytId());
+        bcg2 = new ShapeElement(slice.getContext(), DataHolder.getInstance().getOpcjeData().getListTytId());
+        super.notifyDataChanged();
     }
 
     @Override
@@ -68,12 +77,12 @@ public class NazwaListProvider extends BaseItemProvider {
         }
         ShapeElement shapeElement;
         if(d.getTyp().equals("Norm")){
-            shapeElement = new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getNormalTytId());
+            holder.directionalLayout2.setBackground(bcg1);
         }
         else{
-            shapeElement = new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getListTytId());
+            holder.directionalLayout2.setBackground(bcg2);
         }
-        holder.directionalLayout2.setBackground(shapeElement);
+
         if(d.getAlarm()){
             holder.text1.setVisibility(Component.VISIBLE);
         }
@@ -114,6 +123,7 @@ public class NazwaListProvider extends BaseItemProvider {
                 }
             }
         });
+        holder.text.setTextSize((int) (30*DataHolder.getInstance().getOpcjeData().getTextSize()));
         holder.text.setText(d.getNazwa());
         return cpt;
     }

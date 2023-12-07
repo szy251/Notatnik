@@ -18,6 +18,7 @@ public class DeleteListProvider extends BaseItemProvider {
     private AbilitySlice slice;
     private List<Boolean> usun;
     private RgbColor dochecka;
+    ShapeElement bcg1, bcg2;
 
 
     public DeleteListProvider(List<Data> dane, AbilitySlice slice) {
@@ -28,6 +29,8 @@ public class DeleteListProvider extends BaseItemProvider {
             usun.add(false);
         }
         dochecka = Arrays.stream(new ShapeElement(slice.getContext(), DataHolder.getInstance().getOpcjeData().getPrzycTloId()).getRgbColors()).findFirst().get();
+        bcg1 = new ShapeElement(slice.getContext(), DataHolder.getInstance().getOpcjeData().getNormalTytId());
+        bcg2 = new ShapeElement(slice.getContext(), DataHolder.getInstance().getOpcjeData().getListTytId());
 
     }
     public class DeleteHolder{
@@ -43,8 +46,6 @@ public class DeleteListProvider extends BaseItemProvider {
             text.setMultipleLine(true);
             directionalLayout.setMinHeight(90);
             checkbox.setBackground(Kolor.check_background(dochecka));
-
-
         }
     }
 
@@ -68,36 +69,35 @@ public class DeleteListProvider extends BaseItemProvider {
     public Component getComponent(int i, Component component, ComponentContainer componentContainer) {
         final Component cpt;
         Data d =  dane.get(i);
+        boolean dousun = usun.get(i);
         DeleteHolder holder;
         if(component ==  null)
         {
             cpt = LayoutScatter.getInstance(slice).parse(ResourceTable.Layout_tytul_usun,null,false);
             holder = new DeleteHolder(cpt);
-            ShapeElement shapeElementtlo;
-            if(d.getTyp().equals("Norm")){
-                shapeElementtlo = new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getNormalTytId());
-            }
-            else{
-                shapeElementtlo = new ShapeElement(cpt.getContext(), DataHolder.getInstance().getOpcjeData().getListTytId());
-            }
-            holder.directionalLayout2.setBackground(shapeElementtlo);
-            holder.checkbox.setCheckedStateChangedListener((cos, state)->{
-                usun.set(i,state);
-                if(state){
-                    DataHolder.getInstance().addUsuwane(d);
-                }
-                else{
-                    DataHolder.getInstance().removeUsuwane(d);
-                }
-            });
             cpt.setTag(holder);
         }
         else {
             cpt = component;
             holder = (DeleteHolder) cpt.getTag();
         }
+        holder.checkbox.setCheckedStateChangedListener((cos, state)->{
+            usun.set(i,state);
+            if(state){
+                DataHolder.getInstance().addUsuwane(d);
+            }
+            else{
+                DataHolder.getInstance().removeUsuwane(d);
+            }
+        });
+        if(d.getTyp().equals("Norm")){
+            holder.directionalLayout2.setBackground(bcg1);
+        }
+        else{
+            holder.directionalLayout2.setBackground(bcg2);
+        }
 
-        holder.checkbox.setChecked(usun.get(i));
+        holder.checkbox.setChecked(dousun);
         holder.text.setText(d.getNazwa());
         return cpt;
     }

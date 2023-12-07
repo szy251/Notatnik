@@ -2,6 +2,7 @@ package com.example.notatnik.providers;
 
 import com.example.notatnik.ResourceTable;
 import com.example.notatnik.data.DataHolder;
+import com.example.notatnik.utils.Kolor;
 import ohos.aafwk.ability.AbilitySlice;
 import ohos.agp.colors.RgbColor;
 import ohos.agp.components.*;
@@ -32,11 +33,13 @@ public class DniListProvider extends BaseItemProvider {
         Checkbox checkbox;
         DniHolder(Component component){
             text =  (Text) component.findComponentById(ResourceTable.Id_nazwa_usun);
+            text.setTextSize(35);
             directionalLayout =  (DirectionalLayout) component.findComponentById(ResourceTable.Id_tytul_usun_tlo);
             checkbox = (Checkbox)component.findComponentById(ResourceTable.Id_checkbox);
 
             ShapeElement shapeElement1 = new ShapeElement(component.getContext(),ResourceTable.Graphic_tytuly_gray);
             directionalLayout.setBackground(shapeElement1);
+            checkbox.setBackground(Kolor.check_background(dochecka));
         }
     }
 
@@ -64,19 +67,13 @@ public class DniListProvider extends BaseItemProvider {
     public Component getComponent(int i, Component component, ComponentContainer componentContainer) {
         final Component cpt;
         String d =  dane.get(i);
+        boolean today = dzien[i];
         DniHolder holder;
         if(component ==  null)
         {
             cpt = LayoutScatter.getInstance(slice).parse(ResourceTable.Layout_tytul_usun,null,false);
             holder = new DniHolder(cpt);
-            holder.text.setText(d);
             cpt.setTag(holder);
-            holder.checkbox.setCheckedStateChangedListener((cos, state)->{
-                dzien[i] = state;
-            });
-            if(dzien[i]){
-                holder.checkbox.setChecked(true);
-            }
 
         }
         else
@@ -84,7 +81,11 @@ public class DniListProvider extends BaseItemProvider {
             cpt = component;
             holder = (DniHolder) cpt.getTag();
         }
-
+        holder.text.setText(d);
+        holder.checkbox.setCheckedStateChangedListener((cos, state)->{
+            dzien[i] = state;
+        });
+        holder.checkbox.setChecked(today);
         return cpt;
     }
 }
