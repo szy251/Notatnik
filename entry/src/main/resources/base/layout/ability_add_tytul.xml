@@ -17,7 +17,6 @@
             ohos:width="466px"
             ohos:orientation="vertical"
             ohos:top_padding="150px"
-            ohos:layout_alignment="center"
             ohos:background_element="#FF000000">
             <TextField
                 ohos:height="match_content"

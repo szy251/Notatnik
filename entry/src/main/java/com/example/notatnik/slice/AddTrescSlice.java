@@ -36,10 +36,8 @@ public class AddTrescSlice extends AbilitySlice {
         textField.setHint("Add content");
         textField.setTextSize((int)(40*DataHolder.getInstance().getOpcjeData().getTextSize()));
         //textField.setHeight(250);
-        textField.setFocusable(Component.ACCESSIBILITY_ADAPTABLE);
-        textField.setTouchFocusable(true);
-        scrollView.setTouchFocusable(true);
         scrollView.setFocusable(Component.ACCESSIBILITY_ENABLE);
+        scrollView.setTouchFocusable(true);
         scrollView.requestFocus();
         textField.setText(DataHolder.getInstance().getTresc());
         DataHolder.getInstance().addObecne(getAbility());
